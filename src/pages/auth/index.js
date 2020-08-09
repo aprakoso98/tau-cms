@@ -15,7 +15,7 @@ const Auth = ({ children }) => {
 				</button>
 				<button onClick={() => dispatch(actionsWeb({ loggedIn: false }))} className="c-light">Keluar</button>
 			</div>
-			<div id="container" className="flex flex-col p-5 flex-1">{children}</div>
+			<div id="container" className="flex flex-col flex-1">{children}</div>
 		</div>
 	</div>
 }

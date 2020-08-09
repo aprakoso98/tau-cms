@@ -6,6 +6,7 @@ const middlewares = [];
 // if (__DEV__) {
 middlewares.push(createLogger());
 // }
+
 middlewares.push(promise)
 
 export default middlewares;
