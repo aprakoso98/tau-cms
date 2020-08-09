@@ -1,0 +1,13 @@
+#side-menu {
+	.side-menu {
+		overflow-y: auto;
+		.view-link {
+			&:hover {
+				@extend .c-link;
+			}
+		}
+		.sub-menu {
+			// transition: 1s;
+		}
+	}
+}

@@ -1,0 +1,8 @@
+sambutan
+fasilitas
+prodi
+jurusan
+staff
+advisors
+berita
+galery

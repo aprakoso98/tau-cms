@@ -1,0 +1,19 @@
+$fontList: "SFCartoonistHandSC-Italic.ttf", "SFProDisplay-BlackItalic.ttf", "SFProDisplay-BoldItalic.ttf", "SFProDisplay-HeavyItalic.ttf", "SFProDisplay-LightItalic.ttf", "SFProDisplay-MediumItalic.ttf", "SFProDisplay-RegularItalic.ttf", "SFProDisplay-Ultralight.ttf", "SFProText-Bold.ttf", "SFProText-Heavy.ttf", "SFProText-Light.ttf", "SFProText-Medium.ttf", "SFProText-Regular.ttf", "SFProText-SemiBold.ttf", "SFProText-SemiBoldItalic.ttf";
+
+@each $font in $fontList {
+  $family: split-str($font, "-");
+  $family: nth($family, 2);
+  $family: split-str($family, ".");
+  $family: nth($family, 1);
+  // $family: str-replace($family, 'SemiBold', 'SemiBold');
+  @font-face {
+    font-family: #{$family};
+    src: url('../fonts/#{$font}') format('truetype');
+  }
+  .#{$family} {
+    font-family: #{$family};
+  }
+  .\!#{$family} {
+    font-family: #{$family} !important;
+  }
+}

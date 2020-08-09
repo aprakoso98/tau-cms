@@ -1,0 +1,105 @@
+{
+  "sideMenu": [
+    {
+      "name": "Dashboard",
+      "path": "/dashboard"
+    },
+    {
+      "name": "Artikel",
+      "path": "/article",
+      "icon":"ion-android-note",
+      "subMenu": [
+        {
+          "name": "Posting Artikel",
+          "path": "/post",
+          "icon":"ion-ios7-plus"
+        },
+        {
+          "name": "Daftar Artikel",
+          "path": "/list",
+          "icon":"ion-ios7-checkmark"
+        }
+      ]
+    },
+    {
+      "name": "Kustomisasi",
+      "path": "/manage",
+      "icon":"ion-edit",
+      "subMenu": [
+        {
+          "name":"Fasilitas",
+          "path":"/fasilitas",
+          "icon":"ion-speakerphone"
+        },
+        {
+          "name": "Sambutan",
+          "path": "/sambutan"
+        },
+        {
+          "name": "Halaman Tentang TAU",
+          "path": "/tentang",
+          "subMenu": [
+            {
+              "name": "Sejarah",
+              "path": "/sejarah"
+            },
+            {
+              "name": "Visi & Misi",
+              "path": "/visi"
+            },
+            {
+              "name": "Struktur Organisasi",
+              "path": "/struktur"
+            },
+            {
+              "name": "Sertifikasi Akreditas",
+              "path": "/sertifikasi"
+            }
+          ]
+        },
+        {
+          "name": "Halaman Akademik",
+          "path": "/akademik",
+          "subMenu":[
+            {
+              "name":"Program Sarjana (S1)",
+              "path":"/s1"
+            },
+            {
+              "name":"Program International",
+              "path":"/international"
+            },
+            {
+              "name":"Staff Pengajar",
+              "path":"/staff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Halaman Pendaftaran Beasiswa",
+      "path": "/beasiswa",
+      "icon":"ion-university"
+    },
+    {
+      "name": "Halaman Informasi & Berita",
+      "path": "/info",
+      "icon": "fa fa-info",
+      "subMenu": [
+        {
+          "name": "Kemahasiswaan",
+          "path": "/mahasiswa"
+        },
+        {
+          "name": "Tracer Studi",
+          "path": "/tracer"
+        },
+        {
+          "name": "Career",
+          "path": "/career"
+        }
+      ]
+    }
+  ]
+}

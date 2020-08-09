@@ -1,0 +1,87 @@
+.img-full {
+  width: 100%;
+  height: 100%;
+}
+
+$pos: top right bottom left;
+$list: font-size margin padding border width height;
+
+$alignment: space-between space-around space-evenly center flex-start flex-end;
+$flexBox: align-self align-content align-items justify-content text-align;
+
+@for $i from 0 to 101 {
+	.brd-#{$i} {
+		border-radius: #{$i * .25}rem;
+	}
+	@each $a in $pos {
+		@each $b in $pos {
+			.b#{str-slice($a, 1, 1)}#{str-slice($b, 1, 1)}rd-#{$i} {
+				border-#{$a}-#{$b}-radius: #{$i * .25}rem;
+			}
+		}
+	}
+}
+
+@each $f in $flexBox {
+	$ff: split-str($f, "-");
+	$fff1: str-slice(nth($ff, 1), 1, 1);
+	$fff2: str-slice(nth($ff, 2), 1, 1);
+	.#{$fff1}#{$fff2} {
+		@if $f == text-align {
+			@each $var in center left right {
+				&-#{str-slice($var, 1, 1)} {
+					#{$f}: #{$var};
+				}
+			}
+		} @else {
+			@each $a in $alignment {
+				$aa: split-str($a, "-");
+				$aaa1: str-slice(nth($aa, 1), 1, 1);
+				$aaa2: if(length($aa) > 1, str-slice(nth($aa, 2), 1, 1), "");
+				&-#{$aaa1}#{$aaa2} {
+					#{$f}: #{$a};
+				}
+			}
+		}
+	}
+}
+
+@mixin isBorder($prop, $size) {
+	@if str-index($prop, border) {
+		@for $i from 1 through length($color) {
+			$c: nth($color, $i);
+			$cc: nth($colorText, $i);
+			&-#{$cc} {
+				#{$prop}: $size solid $c;
+			}
+		}
+	}
+}
+.h-full {
+	height: 100%;
+}
+@each $l in $list {
+	$ll: str-slice($l, 1, 1);
+	@for $i from 0 to 101 {
+		$val: if($l == border, $i * .1, $i * .25);
+		$isBorder: if($l == border, solid $border, "");
+		.#{$ll} {
+			&-#{$i} {
+				#{$l}: #{$val}rem #{$isBorder};
+				@include isBorder($l, #{$val}rem);
+			}
+			@if index(font-size width height, $l) {
+			} @else {
+				@each $p in $pos {
+					$pp: str-slice($p, 1, 1);
+					&#{$pp} {
+						&-#{$i} {
+							#{$l}-#{$p}: #{$val}rem #{$isBorder};
+							@include isBorder(#{$l}-#{$p}, #{$val}rem);
+						}
+					}
+				}
+			}
+		}
+	}
+}

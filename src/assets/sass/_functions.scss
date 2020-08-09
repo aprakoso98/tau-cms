@@ -1,0 +1,33 @@
+@function split-str($string, $separator) {
+  $index: str-index($string,  $separator);
+  @if $index { 
+    $str-1: str-slice($string, 1, $index - 1);
+    $str-2: str-slice($string, $index + 1);
+    @return $str-1 $str-2;
+  } @else {
+    @return $string;
+  }
+}
+
+@mixin arrow($direction, $color, $size){
+  display: block;
+  height: 0;
+  width: 0;
+  @if $direction == 'top' {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  } @else if $direction == 'right' {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  } @else if $direction == 'bottom' {
+    border-top: $size solid $color;
+    border-right: $size solid transparent;
+    border-left: $size solid transparent;
+  } @else if $direction == 'left' {
+    border-top: $size solid transparent;
+    border-right: $size solid $color;
+    border-bottom: $size solid transparent;
+  }
+}
