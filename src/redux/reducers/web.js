@@ -1,6 +1,7 @@
 const initState = {
 	loggedIn: false,
-	minimizedDrawer: false
+	minimizedDrawer: false,
+	title: 'CMS'
 }
 
 const reducerWeb = (state = initState, actions) => {

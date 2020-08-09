@@ -2,22 +2,25 @@ import React from 'react';
 import SideMenu from './SideMenu';
 import actionsWeb from 'src/redux/actions/web';
 import { useDispatch, useSelector } from 'react-redux';
+import { Container, View, ScrollView } from 'src/components/Container';
+import { ButtonOpacity } from 'src/components/Button';
 
 const Auth = ({ children }) => {
 	const dispatch = useDispatch()
 	const Web = useSelector(state => state.Web)
-	return <div className="flex h-full">
+	return <Container direction="row" className="h-full">
 		<SideMenu />
-		<div className="flex flex-1 flex-col">
-			<div className="flex bc-blue jc-sb p-5">
-				<button onClick={() => dispatch(actionsWeb({ minimizedDrawer: !Web.minimizedDrawer }))}>
+		<View flex>
+			<View justify="sb" className="bc-blue ai-c" direction="row">
+				<ButtonOpacity onClick={() => dispatch(actionsWeb({ minimizedDrawer: !Web.minimizedDrawer }))} flex={false} className="p-5">
 					<i className="fa fa-bars c-light f-7" />
-				</button>
-				<button onClick={() => dispatch(actionsWeb({ loggedIn: false }))} className="c-light">Keluar</button>
-			</div>
-			<div id="container" className="flex flex-col flex-1">{children}</div>
-		</div>
-	</div>
+				</ButtonOpacity>
+				<View className="c-light">{Web.title}</View>
+				<ButtonOpacity onClick={() => dispatch(actionsWeb({ loggedIn: false }))} flex={false} className="c-light p-5">Keluar</ButtonOpacity>
+			</View>
+			<ScrollView className="bc-light" viewClass="p-5">{children}</ScrollView>
+		</View>
+	</Container>
 }
 
 export default Auth
