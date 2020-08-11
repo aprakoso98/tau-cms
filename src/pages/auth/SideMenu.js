@@ -6,8 +6,7 @@ import { Container, View, ScrollView } from 'src/components/Container';
 import { ButtonOpacity } from 'src/components/Button';
 
 
-const SideMenu = props => {
-	console.log(props)
+const SideMenu = () => {
 	const dispatch = useDispatch()
 	const { Web, UI: { data: { sideMenu } } } = useSelector(state => state)
 	const [subMenuOpen, setSubMenuOpen] = useState({})

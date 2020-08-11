@@ -1,4 +1,5 @@
 $dark: #252525;
+$darkTransparent: rgba(0,0,0,.5);
 $text: $dark;
 $light: #ffffff;
 $grey: #dfdfdf;
@@ -9,8 +10,8 @@ $link: #324591;
 $blue: #144391;
 $placeholder: #7F7F7F;
 
-$color: $dark $text $light $grey $greySoft $greyHard $border $link $blue $placeholder;
-$colorText: dark text light grey grey-soft grey-hard border link blue placeholder;
+$color: $dark $darkTransparent $text $light $grey $greySoft $greyHard $border $link $blue $placeholder;
+$colorText: dark dark-tr text light grey grey-soft grey-hard border link blue placeholder;
 
 $textareaMinHeight: 7.3;
 $fontSize: 1;

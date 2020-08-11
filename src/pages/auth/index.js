@@ -18,7 +18,7 @@ const Auth = ({ children }) => {
 				<View className="c-light">{Web.title}</View>
 				<ButtonOpacity onClick={() => dispatch(actionsWeb({ loggedIn: false }))} flex={false} className="c-light p-5">Keluar</ButtonOpacity>
 			</View>
-			<ScrollView className="bc-light" viewClass="p-5">{children}</ScrollView>
+			<View flex className="bc-light p-5">{children}</View>
 		</View>
 	</Container>
 }

@@ -12,6 +12,11 @@ const setTitle = (title = 'CMS') => {
 	dispatch(actionsWeb({ title }))
 }
 
+const setScrollViewClass = classs => {
+	const dispatch = store.dispatch
+	dispatch(actionsWeb({ viewClass: classs }))
+}
+
 export default actionsWeb
 
-export { setTitle }
+export { setTitle, setScrollViewClass }

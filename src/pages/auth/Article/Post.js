@@ -3,7 +3,7 @@ import stateObject from 'src/utils/state';
 import toBase64 from 'src/utils/toBase64';
 import FileUpload from 'src/components/FileUpload';
 import { View } from 'src/components/Container';
-import { setTitle } from 'src/redux/actions/web';
+import { setTitle, setScrollViewClass } from 'src/redux/actions/web';
 import { Input, Textarea } from 'src/components/Input';
 import Button from 'src/components/Button';
 import { postArticle } from 'src/utils/api';
@@ -24,6 +24,7 @@ const PostArticle = () => {
 
 	useEffect(() => {
 		setTitle('Buat Artikel')
+		setScrollViewClass('')
 	}, [])
 
 	return <>
@@ -40,15 +41,15 @@ const PostArticle = () => {
 					setState({ foto, name })
 				}}
 			/>
-			<Input className="mb-0 as-fe" placeholder="Judul Artikel" id="judul" onChange={onChange} value={state.judul} />
+			<Input className="flex-1 mb-0 as-fe" placeholder="Judul Artikel" id="judul" onChange={onChange} value={state.judul} />
 		</View>
-		<View direction="row">
-			<Input placeholder="Kustom Url" className="mr-3" id="url" onChange={onChange} value={state.url} />
-			<Input placeholder="Pembuat" id="pembuat" onChange={onChange} value={state.pembuat} />
+		<View direction="row" className="mb-3">
+			<Input placeholder="Kustom Url" className="flex-1 mr-3" id="url" onChange={onChange} value={state.url} />
+			<Input placeholder="Pembuat" id="pembuat" className="flex-1" onChange={onChange} value={state.pembuat} />
 		</View>
-		<Textarea placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={state.deskripsi} />
-		<Textarea placeholder="Isi Konten" id="artikel" onChange={onChange} value={state.artikel} />
-		<Button className="as-fe" onClick={post}>Submit</Button>
+		<Textarea className="mb-3" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={state.deskripsi} />
+		<Textarea className="mb-3" placeholder="Isi Konten" id="artikel" onChange={onChange} value={state.artikel} />
+		<Button className="as-fe" onClick={post}>Terbitkan Artikel</Button>
 	</>
 }
 

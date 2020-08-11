@@ -45,6 +45,10 @@ button:focus, input:focus, textarea:focus {
   overflow: hidden;
 }
 
+textarea {
+  min-height: #{$textareaMinHeight}rem;
+}
+
 #root {
   overflow: hidden;
   @import "SideMenu";

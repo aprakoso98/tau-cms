@@ -4,8 +4,10 @@ const FileUpload = ({ labelClass, className, isImage, imgClass, src, children, .
 	const id = Math.randomInt(100000, 999999).toString()
 	return <div className={className}>
 		<label className={labelClass} htmlFor={id}>
-			{!isImage && children}
-			{isImage && <img className={imgClass} alt="" src={src} />}
+			{
+				children ? children :
+					isImage && <img className={imgClass} alt="" src={src} />
+			}
 		</label>
 		<input style={{ display: 'none' }} id={id} type="file" {...props} />
 	</div>
