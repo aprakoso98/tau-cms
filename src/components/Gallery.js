@@ -12,7 +12,7 @@ const Gallery = ({
 	const generateData = data => {
 		let index = -1
 		data = data.reduce((arr, a, i) => {
-			if (i % numColumns == 0) {
+			if (i % numColumns === 0) {
 				index++
 				arr.push([a])
 			} else {
@@ -46,7 +46,6 @@ const Gallery = ({
 			})}
 		</View>
 	}
-	console.log(generateData(data))
 	return <View style={style}>
 		{generateData(data).rMap(render)}
 	</View>

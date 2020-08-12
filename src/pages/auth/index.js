@@ -2,7 +2,7 @@ import React from 'react';
 import SideMenu from './SideMenu';
 import actionsWeb from 'src/redux/actions/web';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, View, ScrollView } from 'src/components/Container';
+import { Container, View } from 'src/components/Container';
 import { ButtonOpacity } from 'src/components/Button';
 
 const Auth = ({ children }) => {

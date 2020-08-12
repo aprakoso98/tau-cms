@@ -7,11 +7,12 @@ import { useHistory } from "react-router-dom";
 const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  useEffect(() => {
+  const effect = () => {
     if (history.location.pathname === '/')
       history.push('/login')
     dispatch(actionsWeb({ loggedIn: Boolean(localStorage.getItem('loggedIn')) }))
-  }, [])
+  }
+  useEffect(effect, [])
   return <Routes />
 }
 

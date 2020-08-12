@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import { getArticle } from 'src/utils/api';
-import { View, ScrollView } from 'src/components/Container';
-import { setTitle, setScrollViewClass } from 'src/redux/actions/web';
+import { View } from 'src/components/Container';
+import { setTitle } from 'src/redux/actions/web';
 import Button from 'src/components/Button';
 import Select from 'src/components/Select';
 import { useHistory } from 'react-router-dom';
@@ -36,10 +35,12 @@ const ListArticle = () => {
 		setArticles({ total: articles.total, data: generatePagingData(news, articles.total, p) })
 	}
 
-	useEffect(() => {
+	const effect = () => {
 		getList()
 		setTitle('Daftar Artikel')
-	}, [])
+	}
+
+	useEffect(effect, [])
 
 	const getBodyHeight = () => {
 		var [p, t, b] = ['#article-list', ' #top', ' #bot']
