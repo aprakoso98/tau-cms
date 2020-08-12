@@ -1,16 +1,25 @@
 import React from 'react';
+import fileToBase64 from 'src/utils/toBase64';
 
-const FileUpload = ({ labelClass, className, isImage, imgClass, src, children, ...props }) => {
-	const id = Math.randomInt(100000, 999999).toString()
-	return <div className={className}>
-		<label className={labelClass} htmlFor={id}>
+const FileUpload = ({ toBase64, className, isImage, imgClass, src, onChange = () => { }, children, ...props }) => {
+	const id = Math.randomInt(1000000, 9999999).toString()
+	const id2 = Math.randomInt(1000000, 9999999).toString()
+	return <>
+		<label className={className} htmlFor={id + id2}>
 			{
 				children ? children :
 					isImage && <img className={imgClass} alt="" src={src} />
 			}
 		</label>
-		<input style={{ display: 'none' }} id={id} type="file" {...props} />
-	</div>
+		<input style={{ display: 'none' }} onChange={async e => {
+			if (toBase64) {
+				const { name, image } = await fileToBase64(e.target.files)
+				onChange({ name, image })
+			} else {
+				onChange(e)
+			}
+		}} id={id + id2} type="file" {...props} />
+	</>
 }
 
 export default FileUpload

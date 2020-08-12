@@ -36,6 +36,10 @@
           "path": "/sambutan"
         },
         {
+          "name": "Galeri Kegiatan",
+          "path": "/galeri-kegiatan"
+        },
+        {
           "name": "Halaman Tentang TAU",
           "path": "/tentang",
           "subMenu": [
@@ -59,7 +63,7 @@
         },
         {
           "name": "Halaman Akademik",
-          "path": "/akademik",
+          "path": "",
           "subMenu":[
             {
               "name":"Program Sarjana (S1)",

@@ -7,25 +7,25 @@ import FileUpload from 'src/components/FileUpload';
 import toBase64 from 'src/utils/toBase64';
 import Button from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getFacilities, insertFacilities, getManage, updateManage, IMG_PATH } from 'src/utils/api';
+import { getGaleri, insertGaleri, getManage, updateManage, IMG_PATH } from 'src/utils/api';
 
-const Fasilitas = () => {
+const GaleriKegiatan = () => {
 	const [imgUpload, setImgUpload] = useState([])
 	const [visible, setVisible] = useState(false)
 	const [fasilitas, setFasilitas] = useState([])
 	const [deskripsi, setDeskripsi] = useState()
-
+	window.imgUpload = imgUpload
 	const updateDeskripsi = async () => {
 		await updateManage({
-			part: 'fasilitas',
+			part: 'galeri',
 			image: null,
 			content: deskripsi
 		})
 	}
 
 	const getFasilitas = async () => {
-		const { data, status } = await getFacilities()
-		const { data: d, status: s } = await getManage({ part: 'fasilitas' })
+		const { data, status } = await getGaleri()
+		const { data: d, status: s } = await getManage({ part: 'galeri' })
 		if (s) {
 			setDeskripsi(d.content)
 		}
@@ -35,7 +35,7 @@ const Fasilitas = () => {
 	}
 
 	const uploadFasilitas = async () => {
-		const { data: msg } = await insertFacilities({ data: imgUpload })
+		const { data: msg } = await insertGaleri({ data: imgUpload })
 		alert(msg)
 		setVisible(false)
 		setImgUpload([])
@@ -44,7 +44,7 @@ const Fasilitas = () => {
 
 	useEffect(() => {
 		getFasilitas()
-		setTitle('Fasilitas')
+		setTitle('Galeri & Pengajar')
 	}, [])
 
 	return <>
@@ -52,26 +52,46 @@ const Fasilitas = () => {
 			<View flex className="brd-5 p-5 bc-light">
 				<View justify="sb" direction="row">
 					<FileUpload
-						isImage
+						accept="image/*, video/*"
 						imgClass="w-10 h-10"
 						onChange={async e => {
-							const { image: foto } = await toBase64(e.target.files)
-							setImgUpload([...imgUpload, { foto }])
+							const { image: media } = await toBase64(e.target.files)
+							setImgUpload([...imgUpload, { media, nama: '', deskripsi: '', isVideo: media.includes('video') }])
 						}}><i className="fa fa-plus f-10" /></FileUpload>
-					<Button onClick={uploadFasilitas}>Upload Fasilitas</Button>
+					<Button onClick={uploadFasilitas}>Upload Galeri</Button>
 				</View>
 				<ScrollView className="pt-5">
 					{
-						imgUpload.rMap(({ foto, nama }, i) => <View className="ai-fe mb-5" direction="row">
+						imgUpload.rMap(({ media, nama, deskripsi }, i) => <View className="ai-fe mb-5" direction="row">
 							<div className="w-1/3">
-								<img alt="" className="b-1 h-35 w-auto" src={foto} />
+								{media && media.includes('video') ?
+									<video className="b-1 h-35 w-auto" controls>
+										<source src={media} />
+									</video> :
+									<img alt="" className="b-1 h-35 w-auto" src={media} />
+								}
 							</div>
 							<View className="ml-3" flex>
-								<Input className="flex-1" value={nama} onChange={e => {
+								<View direction="row">
+									<Input className="flex-1" value={nama} onChange={e => {
+										let imgs = imgUpload.slice()
+										imgs[i].nama = e.target.value
+										setImgUpload(imgs)
+									}} placeholder="Nama Kegiatan" />
+									{/* <Button onClick={() => {
+										let imgs = imgUpload.slice()
+										imgs[i].is_link = !imgs[i].is_link
+										setImgUpload(imgs)
+									}} direction={is_link ? 'row' : 'row-reverse'} className="w-1/4 ai-c">
+										<View className={`brd-10 p-5 ${is_link ? 'bc-blue' : 'bc-link'}`} />
+										{is_link ? 'Link' : 'Bukan link'}
+									</Button> */}
+								</View>
+								<Textarea className="flex-1 mt-3" value={deskripsi} onChange={e => {
 									let imgs = imgUpload.slice()
-									imgs[i].nama = e.target.value
+									imgs[i].deskripsi = e.target.value
 									setImgUpload(imgs)
-								}} placeholder="Nama fasilitas" />
+								}} placeholder="Deskripsi" />
 							</View>
 						</View>)
 					}
@@ -87,15 +107,19 @@ const Fasilitas = () => {
 				<Button className="p-5 as-fe ai-c flex-wrap" onClick={() => {
 					setImgUpload([])
 					setVisible(true)
-				}}>Tambah<br />Fasilitas</Button>
+				}}>Tambah<br />Galeri</Button>
 			</View>
 			<ScrollView>
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { nama, foto } }) => <View className="p-2">
-						<img alt="" className="flex flex-1" src={IMG_PATH + foto} />
-						{nama}
+					renderItem={({ item: { nama, deskripsi, media, is_video } }) => <View className="p-2">
+						{
+							is_video === '1' ? <video className="b-1 h-35 w-auto" controls>
+								<source src={IMG_PATH + media} />
+							</video> : <img alt="" className="flex flex-1" src={IMG_PATH + media} />
+						}
+						{nama} - {deskripsi}
 					</View>}
 				/>
 			</ScrollView>
@@ -103,4 +127,4 @@ const Fasilitas = () => {
 	</>
 }
 
-export default Fasilitas
+export default GaleriKegiatan

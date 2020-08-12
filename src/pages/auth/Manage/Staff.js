@@ -7,9 +7,9 @@ import FileUpload from 'src/components/FileUpload';
 import toBase64 from 'src/utils/toBase64';
 import Button from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getFacilities, insertFacilities, getManage, updateManage, IMG_PATH } from 'src/utils/api';
+import { getStaff, insertStaff, getManage, updateManage, IMG_PATH } from 'src/utils/api';
 
-const Fasilitas = () => {
+const Staff = () => {
 	const [imgUpload, setImgUpload] = useState([])
 	const [visible, setVisible] = useState(false)
 	const [fasilitas, setFasilitas] = useState([])
@@ -17,15 +17,15 @@ const Fasilitas = () => {
 
 	const updateDeskripsi = async () => {
 		await updateManage({
-			part: 'fasilitas',
+			part: 'staff',
 			image: null,
 			content: deskripsi
 		})
 	}
 
 	const getFasilitas = async () => {
-		const { data, status } = await getFacilities()
-		const { data: d, status: s } = await getManage({ part: 'fasilitas' })
+		const { data, status } = await getStaff()
+		const { data: d, status: s } = await getManage({ part: 'staff' })
 		if (s) {
 			setDeskripsi(d.content)
 		}
@@ -35,7 +35,7 @@ const Fasilitas = () => {
 	}
 
 	const uploadFasilitas = async () => {
-		const { data: msg } = await insertFacilities({ data: imgUpload })
+		const { data: msg } = await insertStaff({ data: imgUpload })
 		alert(msg)
 		setVisible(false)
 		setImgUpload([])
@@ -44,7 +44,7 @@ const Fasilitas = () => {
 
 	useEffect(() => {
 		getFasilitas()
-		setTitle('Fasilitas')
+		setTitle('Staff & Pengajar')
 	}, [])
 
 	return <>
@@ -58,11 +58,11 @@ const Fasilitas = () => {
 							const { image: foto } = await toBase64(e.target.files)
 							setImgUpload([...imgUpload, { foto }])
 						}}><i className="fa fa-plus f-10" /></FileUpload>
-					<Button onClick={uploadFasilitas}>Upload Fasilitas</Button>
+					<Button onClick={uploadFasilitas}>Upload Staff</Button>
 				</View>
 				<ScrollView className="pt-5">
 					{
-						imgUpload.rMap(({ foto, nama }, i) => <View className="ai-fe mb-5" direction="row">
+						imgUpload.rMap(({ foto, nama, jabatan }, i) => <View className="ai-fe mb-5" direction="row">
 							<div className="w-1/3">
 								<img alt="" className="b-1 h-35 w-auto" src={foto} />
 							</div>
@@ -71,7 +71,12 @@ const Fasilitas = () => {
 									let imgs = imgUpload.slice()
 									imgs[i].nama = e.target.value
 									setImgUpload(imgs)
-								}} placeholder="Nama fasilitas" />
+								}} placeholder="Nama Staff" />
+								<Input className="flex-1 mt-3" value={jabatan} onChange={e => {
+									let imgs = imgUpload.slice()
+									imgs[i].jabatan = e.target.value
+									setImgUpload(imgs)
+								}} placeholder="Jabatan" />
 							</View>
 						</View>)
 					}
@@ -87,15 +92,15 @@ const Fasilitas = () => {
 				<Button className="p-5 as-fe ai-c flex-wrap" onClick={() => {
 					setImgUpload([])
 					setVisible(true)
-				}}>Tambah<br />Fasilitas</Button>
+				}}>Tambah<br />Staff</Button>
 			</View>
 			<ScrollView>
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { nama, foto } }) => <View className="p-2">
+					renderItem={({ item: { nama, jabatan, foto } }) => <View className="p-2">
 						<img alt="" className="flex flex-1" src={IMG_PATH + foto} />
-						{nama}
+						{nama} - {jabatan}
 					</View>}
 				/>
 			</ScrollView>
@@ -103,4 +108,4 @@ const Fasilitas = () => {
 	</>
 }
 
-export default Fasilitas
+export default Staff

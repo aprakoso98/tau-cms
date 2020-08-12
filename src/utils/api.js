@@ -10,6 +10,11 @@ export const getManage = async params => {
 	return data
 }
 
+export const updateManage = async params => {
+	const { data } = await axios.post(API, { action: 'UpdateManage', ...params })
+	return data
+}
+
 export const getArticle = async params => {
 	const { data } = await axios.post(API, { action: 'GetArticle', ...params })
 	return data
@@ -27,5 +32,25 @@ export const getFacilities = async params => {
 
 export const insertFacilities = async params => {
 	const { data } = await axios.post(API, { action: 'InsertFasilitas', ...params })
+	return data
+}
+
+export const getStaff = async params => {
+	const { data } = await axios.post(API, { action: 'GetStaff', ...params })
+	return data
+}
+
+export const insertStaff = async params => {
+	const { data } = await axios.post(API, { action: 'InsertStaff', ...params })
+	return data
+}
+
+export const getGaleri = async params => {
+	const { data } = await axios.post(API, { action: 'GetGaleri', ...params })
+	return data
+}
+
+export const insertGaleri = async params => {
+	const { data } = await axios.post(API, { action: 'InsertGaleri', ...params })
 	return data
 }
