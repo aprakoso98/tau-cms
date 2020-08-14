@@ -51,6 +51,19 @@ Number.prototype.format = function (n, x) {
   var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
   return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.');
 }
+String.prototype.checkImageValid = function () {
+  var url = this
+  return new Promise(function (resolve) {
+    var img = new Image()
+    img.onerror = function () {
+      resolve(false)
+    }
+    img.onload = function () {
+      resolve(true)
+    }
+    img.src = url
+  })
+}
 String.prototype.validURL = function () {
   var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name

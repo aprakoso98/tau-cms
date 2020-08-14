@@ -29,7 +29,8 @@ const SideMenu = () => {
 
 	const renderSideMenu = (arr, id = "", prevPath = "") => {
 		return arr.rMap(
-			({ name, path, icon, subMenu }, i) => {
+			(obj, i) => {
+				const { name, path, icon, subMenu } = obj
 				const viewId = (id + name + "-").replace(/\s/g, '')
 				const viewPath = prevPath + path
 				const props = { name, viewPath, icon }
@@ -44,7 +45,7 @@ const SideMenu = () => {
 						</View>
 					</> :
 					<>
-						<Link className={`flex-1 pb-5 ${Web.minimizedDrawer ? 'jc-c' : 'jc-sb'} bc-grey`} key={i} to={viewPath}>
+						<Link className={`flex-1 pb-5 ${Web.minimizedDrawer ? 'jc-c' : 'jc-sb'} bc-grey`} key={i} to={{ pathname: viewPath, state: obj }}>
 							<MenuView {...props} />
 						</Link>
 					</>

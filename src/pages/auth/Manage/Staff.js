@@ -99,7 +99,7 @@ const Staff = () => {
 					numColumns={4}
 					data={fasilitas}
 					renderItem={({ item: { nama, jabatan, foto } }) => <View className="p-2">
-						<img alt="" className="flex flex-1" src={IMG_PATH + foto} />
+						<img alt="" className="h-auto w-full" src={IMG_PATH + foto} />
 						{nama} - {jabatan}
 					</View>}
 				/>

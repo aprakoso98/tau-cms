@@ -115,9 +115,9 @@ const GaleriKegiatan = () => {
 					data={fasilitas}
 					renderItem={({ item: { nama, deskripsi, media, is_video } }) => <View className="p-2">
 						{
-							is_video === '1' ? <video className="b-1 h-35 w-auto" controls>
+							is_video === '1' ? <video className="b-1 h-auto w-full" controls>
 								<source src={IMG_PATH + media} />
-							</video> : <img alt="" className="flex flex-1" src={IMG_PATH + media} />
+							</video> : <img alt="" className="h-auto w-full" src={IMG_PATH + media} />
 						}
 						{nama} - {deskripsi}
 					</View>}

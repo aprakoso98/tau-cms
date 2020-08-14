@@ -1,9 +1,6 @@
 {
   "sideMenu": [
-    {
-      "name": "Dashboard",
-      "path": "/dashboard"
-    },
+    
     {
       "name": "Artikel",
       "path": "/article",
@@ -27,13 +24,15 @@
       "icon":"ion-edit",
       "subMenu": [
         {
+          "name": "Sambutan",
+          "path": "/sambutan",
+          "title": "Sambutan Rektor TAU",
+          "withImage": true
+        },
+        {
           "name":"Fasilitas",
           "path":"/fasilitas",
           "icon":"ion-speakerphone"
-        },
-        {
-          "name": "Sambutan",
-          "path": "/sambutan"
         },
         {
           "name": "Galeri Kegiatan",
@@ -41,23 +40,27 @@
         },
         {
           "name": "Halaman Tentang TAU",
-          "path": "/tentang",
+          "path": "",
           "subMenu": [
             {
               "name": "Sejarah",
-              "path": "/sejarah"
+              "path": "/sejarah",
+              "title": "Sejarah TAU"
             },
             {
               "name": "Visi & Misi",
-              "path": "/visi"
+              "path": "/visi",
+              "title": "Visi & Misi TAU"
             },
             {
               "name": "Struktur Organisasi",
-              "path": "/struktur"
+              "path": "/struktur",
+              "title": "Struktur Organisasi TAU"
             },
             {
               "name": "Sertifikasi Akreditas",
-              "path": "/sertifikasi"
+              "path": "/sertifikasi",
+              "title": "Sertifikasi Akreditas TAU"
             }
           ]
         },

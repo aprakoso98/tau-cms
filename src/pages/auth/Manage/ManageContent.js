@@ -6,39 +6,47 @@ import Button from 'src/components/Button';
 import { getManage, updateManage, IMG_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 
-const Sambutan = () => {
-	const [state, _] = useState({})
+const ManageContent = ({ location: { state: param }, match: { params } }) => {
+	const [state, _] = useState({ image: '' })
 	const setState = v => _({ ...state, ...v })
 	const updateData = async () => {
-		// const { image, content } = state
-		let { data } = await updateManage(state)
-		alert(data)
+		const data = { ...state }
+		if (param.withImage) {
+			const validImg = await data.image.checkImageValid()
+			if (!validImg) {
+				data.imageNotChange = true
+			}
+		} else {
+			data.imageNotChange = true
+		}
+		const { data: resp } = await updateManage(data)
+		alert(resp)
 	}
 	const getData = async () => {
-		let { data, status } = await getManage({ part: 'sambutan' })
-		data.image = data.image === 'null' ? null : data.image
+		let { data, status } = await getManage({ part: params.path })
+		if (param.withImage) data.image = data.image === 'null' ? null : data.image
 		if (status) {
 			setState(data)
 		}
 	}
-	const effect = () => {
+	useEffect(() => {
 		getData()
-		setTitle('Sambutan Rektor TAU')
-	}
-	useEffect(effect, [])
+		setTitle(param.title)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [param])
 	return <View>
 		<View flex direction="row" className="mb-3">
-			<FileUpload
+			{param.withImage && <FileUpload
 				isImage
 				toBase64
 				imgClass="b-1 w-auto h-full"
 				accept="image/*"
 				className="h-35 mr-3"
-				src={IMG_PATH + state.image}
+				src={state.image.length > 50 ? state.image : IMG_PATH + state.image}
 				onChange={({ image }) => setState({ image })}
-			/>
+			/>}
 			<Textarea
-				placeholder="Sambutan Rektor TAU"
+				placeholder={param.title}
 				value={state.content}
 				className="flex-1"
 				onChange={e => setState({ content: e.target.value })}
@@ -48,4 +56,4 @@ const Sambutan = () => {
 	</View>
 }
 
-export default Sambutan
+export default ManageContent
