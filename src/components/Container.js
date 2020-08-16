@@ -33,7 +33,7 @@ const ScrollView = forwardRef((...args) => {
 
 const View = forwardRef((...args) => {
 	const [{ justify = "fs", direction = 'col', className = '', flex, ...props }, ref] = args
-	return <div ref={ref} {...props} className={`${className} jc-${justify} ${flex ? 'flex-1' : ''} flex flex-${direction}`} />
+	return <div ref={ref} {...props} className={`jc-${justify} ${flex ? 'flex-1' : ''} flex flex-${direction} ${className}`} />
 });
 
 export { Container, ScrollView, View }

@@ -12,6 +12,11 @@
           "icon":"ion-ios7-plus"
         },
         {
+          "name": "Daftar Gambar",
+          "path": "/gambar",
+          "icon": "ion-image"
+        },
+        {
           "name": "Daftar Artikel",
           "path": "/list",
           "icon":"ion-ios7-checkmark"
@@ -70,11 +75,13 @@
           "subMenu":[
             {
               "name":"Program Sarjana (S1)",
-              "path":"/s1"
+              "path":"/s1",
+              "title":"Program Sarjana (S1)"
             },
             {
               "name":"Program International",
-              "path":"/international"
+              "path":"/international",
+              "title":"Program International"
             },
             {
               "name":"Staff Pengajar",

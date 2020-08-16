@@ -41,12 +41,31 @@ button:focus, input:focus, textarea:focus {
   }
 }
 
-.o-h {
-  overflow: hidden;
+.o {
+  &-h {
+    overflow: hidden;
+  }
+  &-wrap {
+    overflow-wrap: anywhere;
+  }
 }
 
 textarea {
   min-height: #{$textareaMinHeight}rem;
+}
+
+.jodit {
+  @extend .mb-3;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 1px !important;
+  .jodit-workplace {
+    flex: 1;
+    display: flex;
+    @extend .mt-2;
+    @extend .mb-2;
+  }
 }
 
 #root {

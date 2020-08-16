@@ -13,8 +13,13 @@ const FileUpload = ({ toBase64, className, isImage, imgClass, src, onChange = ()
 		</label>
 		<input style={{ display: 'none' }} onChange={async e => {
 			if (toBase64) {
-				const { name, image } = await fileToBase64(e.target.files)
-				onChange({ name, image })
+				const files = await fileToBase64(e.target.files)
+				if (Array.isArray(files)) {
+					onChange(files)
+				} else {
+					const { name, image } = files
+					onChange({ name, image })
+				}
 			} else {
 				onChange(e)
 			}

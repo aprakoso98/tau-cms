@@ -1,13 +1,13 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'src/components/Container';
+import { View, ScrollView } from 'src/components/Container';
 const Gallery = ({
 	data,
 	renderItem,
 	numColumns,
 	style,
 	rowStyle,
-	orderBottom = false
+	scrollable
 }) => {
 	const generateData = data => {
 		let index = -1
@@ -46,6 +46,10 @@ const Gallery = ({
 			})}
 		</View>
 	}
+	if (scrollable)
+		return <ScrollView>
+			{generateData(data).rMap(render)}
+		</ScrollView>
 	return <View style={style}>
 		{generateData(data).rMap(render)}
 	</View>

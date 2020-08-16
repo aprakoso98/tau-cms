@@ -5,7 +5,7 @@ const Input = forwardRef(({
 	value = "",
 	...props
 }, ref) => {
-	return <input ref={ref} {...props} value={value} type="text" className={`bc-grey p-5 brd-3 ${className}`} />
+	return <input ref={ref} {...props} value={value} type="text" className={`bc-grey p-3 pr-5 pl-5 brd-3 ${className}`} />
 })
 
 const Textarea = forwardRef(({
@@ -13,7 +13,7 @@ const Textarea = forwardRef(({
 	value = "",
 	...props
 }, ref) => {
-	return <textarea ref={ref} {...props} value={value} className={`bc-grey p-5 brd-3 ${className}`} />
+	return <textarea ref={ref} {...props} value={value} className={`bc-grey p-3 pr-5 pl-5 brd-3 ${className}`} />
 })
 
 export { Input, Textarea }

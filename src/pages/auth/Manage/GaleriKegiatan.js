@@ -44,7 +44,7 @@ const GaleriKegiatan = () => {
 
 	useEffect(() => {
 		getFasilitas()
-		setTitle('Galeri & Pengajar')
+		setTitle('Galeri & Kegiatan')
 	}, [])
 
 	return <>

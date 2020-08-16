@@ -5,6 +5,7 @@ import { setTitle } from 'src/redux/actions/web';
 import Button from 'src/components/Button';
 import Select from 'src/components/Select';
 import { useHistory } from 'react-router-dom';
+import htmlParser from 'react-html-parser'
 
 const ListArticle = () => {
 	const history = useHistory()
@@ -23,6 +24,8 @@ const ListArticle = () => {
 		const end = (page * listPerPage) - 1
 		return data.filter((a, i) => i >= start && i <= end)
 	}
+	window.parser = htmlParser
+	window.gh = dataPage()
 	const reRender = data => {
 		const sisa = data.total % data.listPerPage
 		data.totalPage = (data.total - sisa) / data.listPerPage + (sisa > 0 ? 1 : 0)
@@ -64,21 +67,26 @@ const ListArticle = () => {
 		<table className="mt-5 mb-5 text-left w-full">
 			<thead className="flex w-full">
 				<tr className="flex w-full">
-					<th className="w-1/12 p-5">ID</th>
-					<th className="w-3/12 p-5">Judul</th>
-					<th className="w-3/12 p-5">Deskripsi</th>
-					<th className="w-full p-5">Konten</th>
+					<th className="w-4/12 p-5 o-wrap">Tanggal</th>
+					<th className="w-3/12 p-5 o-wrap">Judul</th>
+					<th className="w-4/12 p-5 o-wrap">Deskripsi</th>
+					<th className="w-full p-5 o-wrap">Konten</th>
 				</tr>
 			</thead>
 			<tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style={{ height: getBodyHeight() }}>
-				{dataPage().rMap(article =>
-					<tr className="flex w-full">
-						<td className="w-1/12 p-5">{article.id}</td>
-						<td className="w-3/12 p-5">{article.judul}</td>
-						<td className="w-3/12 p-5">{article.deskripsi}</td>
-						<td className="w-full p-5">{article.artikel}</td>
-					</tr>
-				)}
+				{
+					dataPage().rMap(article => {
+						let text = document.createElement('div')
+						text.innerHTML = article.artikel
+						text = text.innerText
+						return <tr className="flex w-full">
+							<td className="w-4/12 p-5 o-wrap">{article.tgl}</td>
+							<td className="w-3/12 p-5 o-wrap">{article.judul}</td>
+							<td className="w-4/12 p-5 o-wrap">{article.deskripsi}</td>
+							<td className="w-full p-5 o-wrap">{text.length > 50 ? `${text.slice(0, 50)}...` : text}</td>
+						</tr>
+					})
+				}
 			</tbody>
 		</table>
 		{/* </ScrollView> */}

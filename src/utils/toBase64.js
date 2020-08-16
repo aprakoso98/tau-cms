@@ -5,9 +5,14 @@ const toBase64 = files => {
 		promises.push(
 			new Promise((res, rej) => {
 				const reader = new FileReader();
+				const split = file.name.split('.')
+				const format = split[split.length - 1]
+				split.splice(split.length - 1, 1)
+				const name = split.join('')
 				reader.readAsDataURL(file);
 				reader.onload = () => res({
-					name: file.name,
+					name,
+					format,
 					image: reader.result
 				});
 				reader.onerror = error => rej(error);

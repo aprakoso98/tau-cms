@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'src/components/Container';
-import { Textarea } from 'src/components/Input';
 import FileUpload from 'src/components/FileUpload';
 import Button from 'src/components/Button';
 import { getManage, updateManage, IMG_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
+import JoditEditor from 'jodit-react';
 
 const ManageContent = ({ location: { state: param }, match: { params } }) => {
 	const [state, _] = useState({ image: '' })
@@ -34,22 +34,22 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 		setTitle(param.title)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [param])
-	return <View>
-		<View flex direction="row" className="mb-3">
+	return <View flex>
+		<View flex className="mb-3">
 			{param.withImage && <FileUpload
 				isImage
 				toBase64
 				imgClass="b-1 w-auto h-full"
 				accept="image/*"
-				className="h-35 mr-3"
+				className="h-35 mr-3 mb-3"
 				src={state.image.length > 50 ? state.image : IMG_PATH + state.image}
 				onChange={({ image }) => setState({ image })}
 			/>}
-			<Textarea
-				placeholder={param.title}
+			<JoditEditor
 				value={state.content}
-				className="flex-1"
-				onChange={e => setState({ content: e.target.value })}
+				config={{ spellcheck: true }}
+				tabIndex={1}
+				onBlur={e => setState({ content: e.target.innerHTML })}
 			/>
 		</View>
 		<Button className="as-fe" onClick={updateData}>Update data</Button>

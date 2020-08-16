@@ -4,6 +4,7 @@ const BASE_URL = window.BASE_URL
 // const BASE_URL = "http://192.168.43.48/tau-api"
 const API = BASE_URL + "/api.php"
 export const IMG_PATH = BASE_URL + "/images/"
+export const IMG_ARTICLE = BASE_URL + "/images/article"
 
 export const getManage = async params => {
 	const { data } = await axios.post(API, { action: 'GetManage', ...params })
@@ -52,5 +53,20 @@ export const getGaleri = async params => {
 
 export const insertGaleri = async params => {
 	const { data } = await axios.post(API, { action: 'InsertGaleri', ...params })
+	return data
+}
+
+export const insertS1 = async params => {
+	const { data } = await axios.post(API, { action: 'InsertS1', ...params })
+	return data
+}
+
+export const getS1 = async params => {
+	const { data } = await axios.post(API, { action: 'GetS1', ...params })
+	return data
+}
+
+export const getS1Kategori = async params => {
+	const { data } = await axios.post(API, { action: 'GetS1Kategori', ...params })
 	return data
 }
