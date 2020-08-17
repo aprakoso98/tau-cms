@@ -3,7 +3,9 @@ const initState = {
 	minimizedDrawer: false,
 	title: 'CMS',
 	viewClass: '',
-	article: {}
+	article: {
+		artikel: ''
+	}
 }
 
 const reducerWeb = (state = initState, actions) => {

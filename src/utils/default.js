@@ -47,6 +47,14 @@ Array.prototype.loopCallback = function (callback, reverse, index) {
     }
   }
 }
+String.prototype.copyToClipboard = function() {
+  const el = document.createElement('textarea');
+  el.value = this;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
 Number.prototype.format = function (n, x) {
   var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
   return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.');
@@ -165,7 +173,7 @@ String.prototype.getParamFromUrl = function () {
     var structure = prop.split('[');
     if (structure.length > 1) {
       var levels = [];
-      structure.forEach(function (item, i) {
+      structure.forEach(function (item) {
         var key = item.replace(/[?[\]\\ ]/g, '');
         levels.push(key);
       });

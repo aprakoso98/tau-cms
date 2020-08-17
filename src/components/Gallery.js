@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView } from 'src/components/Container';
 const Gallery = ({
+	className = "",
 	data,
 	renderItem,
 	numColumns,
@@ -47,10 +48,10 @@ const Gallery = ({
 		</View>
 	}
 	if (scrollable)
-		return <ScrollView>
+		return <ScrollView className={className}>
 			{generateData(data).rMap(render)}
 		</ScrollView>
-	return <View style={style}>
+	return <View style={style} className={className}>
 		{generateData(data).rMap(render)}
 	</View>
 }

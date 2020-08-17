@@ -5,7 +5,7 @@ import { View } from 'src/components/Container';
 import actionsWeb, { setTitle } from 'src/redux/actions/web';
 import { Input } from 'src/components/Input';
 import Button from 'src/components/Button';
-import { postArticle } from 'src/utils/api';
+import { postArticle, IMG_ARTICLE } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -21,7 +21,9 @@ const PostArticle = () => {
 	}
 
 	const post = async () => {
-		const { data, status } = await postArticle(article)
+		const regex = new RegExp(IMG_ARTICLE, "g")
+		const artikel = article.artikel.replace(regex, "$IMG_PATH")
+		const { data, status } = await postArticle({ ...article, artikel })
 		if (status) {
 			dispatch(actionsWeb({ article: {} }))
 		}
