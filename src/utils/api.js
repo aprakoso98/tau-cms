@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const BASE_URL = "https://api-cms.kadetech.tech"
-// const BASE_URL = "http://127.0.0.1/tau-api"
+// const BASE_URL = "https://api-cms.kadetech.tech"
+const BASE_URL = "http://192.168.43.48/tau-api"
 
 const API = BASE_URL + "/api.php"
 export const IMG_PATH = BASE_URL + "/images/"
@@ -57,18 +57,18 @@ export const insertGaleri = async params => {
 	return data
 }
 
-export const insertS1 = async params => {
-	const { data } = await axios.post(API, { action: 'InsertS1', ...params })
+export const insertProgramStudi = async params => {
+	const { data } = await axios.post(API, { action: 'InsertProgramStudi', ...params })
 	return data
 }
 
-export const getS1 = async params => {
-	const { data } = await axios.post(API, { action: 'GetS1', ...params })
+export const getProgramStudi = async params => {
+	const { data } = await axios.post(API, { action: 'GetProgramStudi', ...params })
 	return data
 }
 
-export const getS1Kategori = async params => {
-	const { data } = await axios.post(API, { action: 'GetS1Kategori', ...params })
+export const getProgramStudiKategori = async params => {
+	const { data } = await axios.post(API, { action: 'GetProgramStudiKategori', ...params })
 	return data
 }
 

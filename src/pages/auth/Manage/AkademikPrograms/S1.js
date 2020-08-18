@@ -4,7 +4,7 @@ import { View, ScrollView } from 'src/components/Container';
 import { Input, Textarea } from 'src/components/Input';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { setTitle } from 'src/redux/actions/web';
-import { insertS1, getManage, getS1Kategori, getS1 } from 'src/utils/api';
+import { insertProgramStudi, getManage, getProgramStudiKategori, getProgramStudi } from 'src/utils/api';
 
 const S1 = ({ location, match: { params } }) => {
 	const [state, _] = useState({
@@ -14,20 +14,20 @@ const S1 = ({ location, match: { params } }) => {
 	const setState = value => _({ ...state, ...value })
 	const getData = async () => {
 		const { data: manage } = await getManage({ part: params.path })
-		const { data: category } = await getS1Kategori()
-		const { data: programs } = await getS1()
+		const { data: category } = await getProgramStudiKategori()
+		const { data: programs } = await getProgramStudi()
 		const data = { ...state, ...manage, programs, category, imageNotChange: true }
 		setState(data)
 	}
 	const updateData = async () => {
 		const data = state.programs.filter(p => !p.id)
-		const { data: resp, status } = await insertS1({ data })
+		const { data: resp, status } = await insertProgramStudi({ data })
 		if (status) {
 			getData()
 		}
 		alert(resp)
 	}
-	
+
 	useEffect(() => {
 		getData()
 		setTitle(location.state.title)
