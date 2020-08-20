@@ -23,7 +23,7 @@ const FileUpload = ({ toBase64, className, isImage, imgClass, src, onChange = ()
 			} else {
 				onChange(e)
 			}
-		}} id={id + id2} type="file" {...props} />
+		}}  {...props} id={id + id2} {...isImage ? { accept: 'image/*' } : {}} type="file" />
 	</>
 }
 

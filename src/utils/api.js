@@ -1,7 +1,6 @@
 import axios from "axios"
 
-// const BASE_URL = "https://api-cms.kadetech.tech"
-const BASE_URL = "http://192.168.43.48/tau-api"
+const { BASE_URL } = require('src/env.json')
 
 const API = BASE_URL + "/api.php"
 export const IMG_PATH = BASE_URL + "/images/"
@@ -81,3 +80,29 @@ export const getGambar = async params => {
 	const { data } = await axios.post(API, { action: 'GetGambar', ...params })
 	return data
 }
+
+export const getS1 = async params => {
+	const { data } = await axios.post(API, { action: 'GetS1', ...params })
+	return data
+}
+
+export const getS1Kategori = async params => {
+	const { data } = await axios.post(API, { action: 'GetS1Kategori', ...params })
+	return data
+}
+
+export const insertS1Kategori = async params => {
+	const { data } = await axios.post(API, { action: 'InsertS1Kategori', ...params })
+	return data
+}
+
+export const insertS1 = async params => {
+	const { data } = await axios.post(API, { action: 'InsertS1', ...params })
+	return data
+}
+
+export const updateS1 = async params => {
+	const { data } = await axios.post(API, { action: 'UpdateS1', ...params })
+	return data
+}
+

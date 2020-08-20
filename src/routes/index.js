@@ -5,7 +5,7 @@ import Login from 'src/pages/unauth/Login';
 
 const Routes = () => {
 	return <Switch>
-		<Route path="/login" component={Login} />
+		<Route path="/login" exact component={Login} />
 		<RouteConfig path="/:path" authed={localStorage.getItem('loggedIn') === 'true'} component={AuthRoute} />
 	</Switch>
 }
