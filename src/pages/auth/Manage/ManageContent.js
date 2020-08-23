@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'src/components/Container';
 import FileUpload from 'src/components/FileUpload';
 import Button from 'src/components/Button';
-import { getManage, updateManage, IMG_PATH } from 'src/utils/api';
+import { getManage, updateManage, FILE_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 import JoditEditor from 'jodit-react';
 
@@ -42,8 +42,8 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 				imgClass="b-1 w-auto h-full"
 				accept="image/*"
 				className="h-35 mr-3 mb-3"
-				src={state.image.length > 50 ? state.image : IMG_PATH + state.image}
-				onChange={({ image }) => setState({ image })}
+				src={state.image.length > 50 ? state.image : FILE_PATH + state.image}
+				onChange={({ file: image }) => setState({ image })}
 			/>}
 			<JoditEditor
 				value={state.content}

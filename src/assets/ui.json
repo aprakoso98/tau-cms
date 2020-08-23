@@ -1,33 +1,37 @@
 {
   "sideMenu": [
-    
+    {
+      "name": "Daftar File",
+      "path": "/files",
+      "icon": "ion-document"
+    },
     {
       "name": "Artikel",
       "path": "/article",
-      "icon":"ion-android-note",
+      "icon": "ion-android-note",
       "subMenu": [
         {
           "name": "Posting Artikel",
           "path": "/post",
-          "icon":"ion-ios7-plus"
-        },
-        {
-          "name": "Daftar Gambar",
-          "path": "/gambar",
-          "icon": "ion-image"
+          "icon": "ion-ios7-plus"
         },
         {
           "name": "Daftar Artikel",
           "path": "/list",
-          "icon":"ion-ios7-checkmark"
+          "icon": "ion-ios7-checkmark"
         }
       ]
     },
     {
       "name": "Kustomisasi",
       "path": "/manage",
-      "icon":"ion-edit",
+      "icon": "ion-edit",
       "subMenu": [
+        {
+          "name": "Banner",
+          "path": "/banner",
+          "title": "Banner"
+        },
         {
           "name": "Sambutan",
           "path": "/sambutan",
@@ -35,9 +39,9 @@
           "withImage": true
         },
         {
-          "name":"Fasilitas",
-          "path":"/fasilitas",
-          "icon":"ion-speakerphone"
+          "name": "Fasilitas",
+          "path": "/fasilitas",
+          "icon": "ion-speakerphone"
         },
         {
           "name": "Galeri Kegiatan",
@@ -72,20 +76,30 @@
         {
           "name": "Halaman Akademik",
           "path": "",
-          "subMenu":[
+          "subMenu": [
             {
-              "name":"Program Sarjana (S1)",
-              "path":"/s1",
-              "title":"Program Sarjana (S1)"
+              "name": "Program Sarjana (S1)",
+              "path": "/s1",
+              "title": "Program Sarjana (S1)"
             },
             {
-              "name":"Program International",
-              "path":"/international",
-              "title":"Program International"
+              "name": "Program International",
+              "path": "/international",
+              "title": "Program International",
+              "subMenu": [
+                {
+                  "name": "Fast Track To Australian University",
+                  "path": "/inter-australian"
+                },
+                {
+                  "name": "International Bussiness Program",
+                  "path": "/inter-business"
+                }
+              ]
             },
             {
-              "name":"Staff Pengajar",
-              "path":"/staff"
+              "name": "Staff Pengajar",
+              "path": "/staff"
             }
           ]
         }
@@ -93,17 +107,17 @@
     },
     {
       "name": "Halaman Pendaftaran Beasiswa",
-      "path": "/beasiswa",
-      "icon":"ion-university"
+      "path": "/set/beasiswa",
+      "icon": "ion-university"
     },
     {
       "name": "Halaman Informasi & Berita",
-      "path": "/info",
+      "path": "/set",
       "icon": "fa fa-info",
       "subMenu": [
         {
           "name": "Kemahasiswaan",
-          "path": "/mahasiswa"
+          "path": "/kemahasiswaan"
         },
         {
           "name": "Tracer Studi",
@@ -114,6 +128,10 @@
           "path": "/career"
         }
       ]
+    },
+    {
+      "name": "TAU Training Center",
+      "path": "/set/training"
     }
   ]
 }

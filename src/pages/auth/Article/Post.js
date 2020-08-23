@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import toBase64 from 'src/utils/toBase64';
 import FileUpload from 'src/components/FileUpload';
 import { View } from 'src/components/Container';
 import actionsWeb, { setTitle } from 'src/redux/actions/web';
 import { Input } from 'src/components/Input';
 import Button from 'src/components/Button';
-import { postArticle, IMG_ARTICLE } from 'src/utils/api';
+import { postArticle, FILE_PATH } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import { useSelector, useDispatch } from 'react-redux';
+
+const imgThumb = require('src/assets/images/article-thumb.png')
 
 const PostArticle = () => {
 	let article = {}
@@ -21,18 +22,21 @@ const PostArticle = () => {
 	}
 
 	const post = async () => {
-		const regex = new RegExp(IMG_ARTICLE, "g")
-		const artikel = article.artikel.replace(regex, "$IMG_PATH")
-		const { data, status } = await postArticle({ ...article, artikel })
-		if (status) {
-			dispatch(actionsWeb({ article: {} }))
+		const artikel = article.artikel.replacePath()
+		if (imgThumb === article.foto) {
+			alert("Silahkan upload gambar")
+		} else {
+			const { data, status } = await postArticle({ ...article, artikel })
+			if (status) {
+				dispatch(actionsWeb({ article: {} }))
+			}
+			alert(data)
 		}
-		alert(data)
 	}
 
 	useEffect(() => {
 		setTitle('Buat Artikel')
-		setArticle({ foto: article.foto || require('src/assets/images/article-thumb.png') })
+		setArticle({ foto: article.foto || imgThumb })
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	const editor = useRef(null)
@@ -40,12 +44,12 @@ const PostArticle = () => {
 		<View direction="row" className="mb-3">
 			<FileUpload
 				isImage
+				toBase64
 				className="flex b-1-dark mr-3"
 				imgClass="h-30 w-auto"
 				src={article.foto}
 				accept="image/*"
-				onChange={async e => {
-					const { name, image: foto } = await toBase64(e.target.files)
+				onChange={({ name, file: foto }) => {
 					setArticle({ foto, name })
 				}}
 			/>

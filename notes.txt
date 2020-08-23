@@ -1,3 +1,0 @@
-post article if not upload image
-url set null if not edit
-url pattern with no spaces

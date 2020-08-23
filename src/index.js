@@ -1,4 +1,5 @@
 import 'src/utils/default'
+import 'src/utils/paths'
 import 'src/assets/sass/index.scss'
 import React from 'react';
 import ReactDOM from 'react-dom';

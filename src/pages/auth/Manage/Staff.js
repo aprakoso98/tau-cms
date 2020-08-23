@@ -4,10 +4,9 @@ import { setTitle } from 'src/redux/actions/web';
 import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
-import toBase64 from 'src/utils/toBase64';
 import Button from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getStaff, insertStaff, getManage, updateManage, IMG_PATH } from 'src/utils/api';
+import { getStaff, insertStaff, getManage, updateManage, FILE_PATH } from 'src/utils/api';
 
 const Staff = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -53,9 +52,9 @@ const Staff = () => {
 				<View justify="sb" direction="row">
 					<FileUpload
 						isImage
+						toBase64
 						imgClass="w-10 h-10"
-						onChange={async e => {
-							const { image: foto } = await toBase64(e.target.files)
+						onChange={({ file: foto }) => {
 							setImgUpload([...imgUpload, { foto }])
 						}}><i className="fa fa-plus f-10" /></FileUpload>
 					<Button onClick={uploadFasilitas}>Upload Staff</Button>
@@ -99,7 +98,7 @@ const Staff = () => {
 					numColumns={4}
 					data={fasilitas}
 					renderItem={({ item: { nama, jabatan, foto } }) => <View className="p-2">
-						<img alt="" className="h-auto w-full" src={IMG_PATH + foto} />
+						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
 						{nama} - {jabatan}
 					</View>}
 				/>

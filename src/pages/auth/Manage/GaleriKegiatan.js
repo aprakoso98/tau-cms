@@ -4,10 +4,9 @@ import { setTitle } from 'src/redux/actions/web';
 import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
-import toBase64 from 'src/utils/toBase64';
 import Button from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getGaleri, insertGaleri, getManage, updateManage, IMG_PATH } from 'src/utils/api';
+import { getGaleri, insertGaleri, getManage, updateManage, FILE_PATH } from 'src/utils/api';
 
 const GaleriKegiatan = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -52,10 +51,10 @@ const GaleriKegiatan = () => {
 			<View flex className="brd-5 p-5 bc-light">
 				<View justify="sb" direction="row">
 					<FileUpload
+						toBase64
 						accept="image/*, video/*"
 						imgClass="w-10 h-10"
-						onChange={async e => {
-							const { image: media } = await toBase64(e.target.files)
+						onChange={({ file: media }) => {
 							setImgUpload([...imgUpload, { media, nama: '', deskripsi: '', isVideo: media.includes('video') }])
 						}}><i className="fa fa-plus f-10" /></FileUpload>
 					<Button onClick={uploadFasilitas}>Upload Galeri</Button>
@@ -116,8 +115,8 @@ const GaleriKegiatan = () => {
 					renderItem={({ item: { nama, deskripsi, media, is_video } }) => <View className="p-2">
 						{
 							is_video === '1' ? <video className="b-1 h-auto w-full" controls>
-								<source src={IMG_PATH + media} />
-							</video> : <img alt="" className="h-auto w-full" src={IMG_PATH + media} />
+								<source src={FILE_PATH + media} />
+							</video> : <img alt="" className="h-auto w-full" src={FILE_PATH + media} />
 						}
 						{nama} - {deskripsi}
 					</View>}

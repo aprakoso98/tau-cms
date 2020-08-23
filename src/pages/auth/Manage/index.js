@@ -5,20 +5,27 @@ import Staff from 'src/pages/auth/Manage/Staff';
 import GaleriKegiatan from 'src/pages/auth/Manage/GaleriKegiatan';
 import S1 from 'src/pages/auth/Manage/AkademikPrograms/S1';
 import International from 'src/pages/auth/Manage/AkademikPrograms/International';
+import Banner from 'src/pages/auth/Manage/Banner';
+import { Switch, Route } from 'react-router-dom';
+import SetCms from 'src/pages/auth/SetCms';
 
-const Manage = (props) => {
+const Manage = props => {
 	const { match: { params } } = props
 	switch (params.path) {
 		case 'fasilitas':
-			return <Fasilitas />
+			return <Fasilitas {...props} />
 		case 'staff':
-			return <Staff />
+			return <Staff {...props} />
 		case 's1':
 			return <S1 {...props} />
 		case 'international':
-			return <International {...props} />
+			return <Switch>
+				<Route path="/manage/international/:path" component={SetCms} />
+			</Switch>
 		case 'galeri-kegiatan':
 			return <GaleriKegiatan />
+		case 'banner':
+			return <Banner />
 		default:
 			return <ManageContent {...props} />
 	}

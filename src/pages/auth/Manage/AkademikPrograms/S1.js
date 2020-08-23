@@ -4,7 +4,7 @@ import { View, ScrollView } from 'src/components/Container';
 import { Input, Textarea } from 'src/components/Input';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { setTitle } from 'src/redux/actions/web';
-import { getS1Kategori, getS1, getManage, IMG_PATH, insertS1, updateS1, updateManage } from 'src/utils/api';
+import { getS1Kategori, getS1, getManage, FILE_PATH, insertS1, updateS1, updateManage } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import FileUpload from 'src/components/FileUpload';
 
@@ -22,8 +22,7 @@ const S1 = ({ location, match: { params } }) => {
 			return { ...cat, data }
 		})
 		const programs = await Promise.all(promises)
-		setState({ ...manage, programs })
-		console.log({ ...manage, programs })
+		setState({ ...manage, programs, modalVisible: false })
 	}
 
 	useEffect(() => {
@@ -42,14 +41,18 @@ const S1 = ({ location, match: { params } }) => {
 		let { newProdi } = state
 		if (newProdi.foto_prodi) {
 			let resp
+			const regex = new RegExp(FILE_PATH, "g")
 			newProdi.id_program = state.programs[state.selectedCategory].id
+			newProdi.visi_prodi = newProdi.visi_prodi.replace(regex, "$FILE_PATH")
+			newProdi.misi_prodi = newProdi.misi_prodi.replace(regex, "$FILE_PATH")
+			newProdi.kurikulum_prodi = newProdi.kurikulum_prodi.replace(regex, "$FILE_PATH")
+			newProdi.kompetensi_prodi = newProdi.kompetensi_prodi.replace(regex, "$FILE_PATH")
 			if (state.isNewProgram) {
 				resp = await insertS1(newProdi)
 			} else {
 				resp = await updateS1(newProdi)
 			}
 			const { data } = resp
-			setState({ modalVisible: false })
 			alert(data)
 			getData()
 		} else {
@@ -61,7 +64,7 @@ const S1 = ({ location, match: { params } }) => {
 		if (img && img.length > 50)
 			return img
 		else if (img && img.length < 50)
-			return IMG_PATH + img
+			return FILE_PATH + img
 		return require('src/assets/images/1-1.jpg')
 	}
 	return <>
@@ -72,7 +75,7 @@ const S1 = ({ location, match: { params } }) => {
 					<FileUpload
 						isImage
 						toBase64
-						onChange={img => onChangeNewProdi('foto_prodi', img.image)}
+						onChange={img => onChangeNewProdi('foto_prodi', img.file)}
 						imgClass="w-30 brd-3 o-h mr-3"
 						src={srcModal()}
 					/>
@@ -128,12 +131,18 @@ const S1 = ({ location, match: { params } }) => {
 						</View>
 						{opened && programs.rMap(program => {
 							return <View direction="row" className="ai-c mb-3">
-								<img alt="" className="mr-3 brd-5 o-h w-30" src={IMG_PATH + program.foto_prodi} />
+								<img alt="" className="mr-3 brd-5 o-h w-30" src={FILE_PATH + program.foto_prodi} />
 								<View flex>
 									<div>{program.nama_prodi}</div>
 									<div>{program.deskripsi_prodi}</div>
 								</View>
-								<Button onClick={() => setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })}>Edit</Button>
+								<Button onClick={() => {
+									program.visi_prodi = program.visi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+									program.misi_prodi = program.misi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+									program.kurikulum_prodi = program.kurikulum_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+									program.kompetensi_prodi = program.kompetensi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+									setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })
+								}}>Edit</Button>
 							</View>
 						})}
 					</View>

@@ -17,8 +17,7 @@ const FileUpload = ({ toBase64, className, isImage, imgClass, src, onChange = ()
 				if (Array.isArray(files)) {
 					onChange(files)
 				} else {
-					const { name, image } = files
-					onChange({ name, image })
+					onChange(files)
 				}
 			} else {
 				onChange(e)

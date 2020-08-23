@@ -13,7 +13,7 @@ const toBase64 = files => {
 				reader.onload = () => res({
 					name,
 					format,
-					image: reader.result
+					file: reader.result,
 				});
 				reader.onerror = error => rej(error);
 			})
