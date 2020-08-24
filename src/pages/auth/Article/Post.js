@@ -1,45 +1,62 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import FileUpload from 'src/components/FileUpload';
 import { View } from 'src/components/Container';
 import actionsWeb, { setTitle } from 'src/redux/actions/web';
 import { Input } from 'src/components/Input';
 import Button from 'src/components/Button';
-import { postArticle, FILE_PATH } from 'src/utils/api';
+import { postArticle, editArticle, FILE_PATH, getArticle } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
+let winArticle
 const imgThumb = require('src/assets/images/article-thumb.png')
-
-const PostArticle = () => {
-	let article = {}
-	article = useSelector(state => state.Web.article)
+const PostArticle = ({ location: { state: urlEdit } = {} }) => {
+	const Web = useSelector(state => state.Web)
+	const history = useHistory()
 	const dispatch = useDispatch()
-	const setArticle = v => dispatch(actionsWeb({ article: { ...article, ...v } }))
-
-	const onChange = e => {
-		let { id, value } = e.target
-		setArticle({ [id]: value })
-	}
-
+	const [article, setState] = useState({})
+	const setArticle = v => setState({ ...article, ...v })
+	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {
-		const artikel = article.artikel.replacePath()
-		if (imgThumb === article.foto) {
-			alert("Silahkan upload gambar")
+		let { foto, url = "", artikel = "" } = article
+		artikel = artikel.replacePath()
+		if (!foto) {
+			alert("Please upload image")
+		} else if (url === "") {
+			alert("Please change custom url")
 		} else {
-			const { data, status } = await postArticle({ ...article, artikel })
-			if (status) {
-				dispatch(actionsWeb({ article: {} }))
+			const params = { ...article, artikel, url }
+			if (urlEdit) {
+				const { data, status } = await editArticle(params)
+				alert(data)
+				if (status) history.push('/article/list')
+			} else {
+				const { data, status } = await postArticle(params)
+				alert(data)
+				if (status) setState({})
 			}
-			alert(data)
 		}
 	}
-
-	useEffect(() => {
-		setTitle('Buat Artikel')
-		setArticle({ foto: article.foto || imgThumb })
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-	const editor = useRef(null)
+	const getDataEdit = async () => {
+		const { data: { artikel = "", ...data } } = await getArticle({ url: urlEdit })
+		console.log({ ...data, artikel: artikel.replacePath(true) })
+		setArticle({ ...data, artikel: artikel.replacePath(true) })
+	}
+	const effect = () => {
+		if (urlEdit) {
+			getDataEdit()
+			setTitle('Edit Artikel')
+		} else {
+			setState(Web.article)
+			setTitle('Tambah Artikel')
+			return () => {
+				dispatch(actionsWeb({ article: winArticle }))
+			}
+		}
+	}
+	useEffect(effect, [urlEdit])
+	winArticle = article
 	return <>
 		<View direction="row" className="mb-3">
 			<FileUpload
@@ -47,28 +64,30 @@ const PostArticle = () => {
 				toBase64
 				className="flex b-1-dark mr-3"
 				imgClass="h-30 w-auto"
-				src={article.foto}
+				src={!article.foto ? imgThumb : article.foto.length > 50 ? article.foto : FILE_PATH + article.foto}
 				accept="image/*"
-				onChange={({ name, file: foto }) => {
-					setArticle({ foto, name })
-				}}
+				onChange={({ file: foto }) => setArticle({ foto })}
 			/>
 			<Input className="flex-1 mb-0 as-fe" placeholder="Judul Artikel" id="judul" onChange={onChange} value={article.judul} />
 		</View>
 		<View direction="row" className="mb-3">
-			<Input placeholder="Kustom Url" className="flex-1 mr-3" id="url" onChange={onChange} value={article.url} />
+			<Input placeholder="Kustom Url" onBlur={() => {
+				if (article.url) {
+					const url = article.url.replace(/\W/g, "-")
+					setArticle({ url })
+				}
+			}} className="flex-1 mr-3" id="url" onChange={onChange} value={article.url} />
 			<Input placeholder="Pembuat" id="pembuat" className="flex-1" onChange={onChange} value={article.pembuat} />
 		</View>
 		<Input className="mb-3" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={article.deskripsi} />
 		<JoditEditor
-			value={article.artikel}
+			value={article.artikel || ""}
 			config={{ spellcheck: true }}
 			tabIndex={1}
-			ref={editor}
 			onBlur={e => setArticle({ artikel: e.target.innerHTML })}
 		/>
-		<Button className="as-fe" onClick={post}>Terbitkan Artikel</Button>
+		<Button className="as-fe" onClick={post}>{!urlEdit ? 'Terbitkan Artikel' : 'Edit Artikel'}</Button>
 	</>
-}
 
+}
 export default PostArticle

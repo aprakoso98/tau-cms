@@ -25,6 +25,16 @@ export const postArticle = async params => {
 	return data
 }
 
+export const editArticle = async params => {
+	const { data } = await axios.post(API, { action: 'EditArticle', ...params })
+	return data
+}
+
+export const removeArticle = async params => {
+	const { data } = await axios.post(API, { action: 'RemoveArticle', ...params })
+	return data
+}
+
 export const getFacilities = async params => {
 	const { data } = await axios.post(API, { action: 'GetFasilitas', ...params })
 	return data

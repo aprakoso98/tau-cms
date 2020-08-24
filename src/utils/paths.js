@@ -1,11 +1,10 @@
 import { FILE_PATH } from './api';
 
+// eslint-disable-next-line no-extend-native
 String.prototype.replacePath = function (toPath) {
-	const path = '$FILE_PATH'
 	if (toPath) {
-		const regex = new RegExp(path, 'g')
-		return this.replace(regex, FILE_PATH)
+		return this.replace(/\$FILE_PATH/g, FILE_PATH)
 	}
 	const regex = new RegExp(FILE_PATH, 'g')
-	return this.replace(regex, path)
+	return this.replace(regex, '$FILE_PATH')
 }
