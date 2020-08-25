@@ -38,7 +38,7 @@ const SideMenu = () => {
 					<>
 						<ButtonOpacity key={i} justify={Web.minimizedDrawer ? 'c' : 'sb'} className="bc-grey ai-c pb-5" onClick={() => openSubMenu(viewId)}>
 							<MenuView {...props} />
-							{!Web.minimizedDrawer && <i className={`pr-2 fa fa-chevron-${subMenuOpen[viewId] ? 'up' : 'right'}`} />}
+							{!Web.minimizedDrawer && <i className={`pr-2 ion-ios-arrow-${subMenuOpen[viewId] ? 'up' : 'right'}`} />}
 						</ButtonOpacity>
 						<View key={`${i}${i}`} className={`${!Web.minimizedDrawer && 'pl-5'} pt-0 bc-grey sub-menu`} style={{ height: subMenuOpen[viewId] ? 'auto' : 0 }}>
 							{renderSideMenu(subMenu, viewId, viewPath)}

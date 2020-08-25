@@ -3,79 +3,88 @@
     {
       "name": "Daftar File",
       "path": "/files",
-      "icon": "ion-document"
+      "icon": "ion-ios-folder-outline"
     },
     {
       "name": "Artikel",
       "path": "/article",
-      "icon": "ion-android-note",
+      "icon": "ion-paperclip",
       "subMenu": [
         {
           "name": "Posting Artikel",
           "path": "/post",
-          "icon": "ion-ios7-plus"
+          "icon": "ion-ios-plus-outline"
         },
         {
           "name": "Daftar Artikel",
           "path": "/list",
-          "icon": "ion-ios7-checkmark"
+          "icon": "ion-ios-copy-outline"
         }
       ]
     },
     {
       "name": "Kustomisasi",
       "path": "/manage",
-      "icon": "ion-edit",
+      "icon": "ion-ios-cog-outline",
       "subMenu": [
         {
           "name": "Banner",
           "path": "/banner",
-          "title": "Banner"
+          "title": "Banner",
+          "icon":"ion-ios-flag-outline"
         },
         {
           "name": "Sambutan",
           "path": "/sambutan",
           "title": "Sambutan Rektor TAU",
+          "icon":"ion-ios-chatboxes-outline",
           "withImage": true
         },
         {
           "name": "Fasilitas",
           "path": "/fasilitas",
-          "icon": "ion-speakerphone"
+          "icon": "ion-ios-star-outline"
         },
         {
           "name": "Galeri Kegiatan",
-          "path": "/galeri-kegiatan"
+          "path": "/galeri-kegiatan",
+          "icon":"ion-ios-camera-outline"
         },
         {
           "name": "Halaman Tentang TAU",
           "path": "",
+          "icon":"ion-ios-information-outline",
           "subMenu": [
             {
               "name": "Sejarah",
               "path": "/sejarah",
-              "title": "Sejarah TAU"
+              "title": "Sejarah TAU",
+              "icon":"ion-ios-timer-outline"
             },
             {
               "name": "Visi & Misi",
               "path": "/visi",
-              "title": "Visi & Misi TAU"
+              "title": "Visi & Misi TAU",
+              "icon":"ion-ios-lightbulb-outline"
             },
             {
               "name": "Struktur Organisasi",
               "path": "/struktur",
-              "title": "Struktur Organisasi TAU"
+              "title": "Struktur Organisasi TAU",
+              "icon":"ion-ios-people-outline"
             },
             {
               "name": "Sertifikasi Akreditas",
               "path": "/sertifikasi",
-              "title": "Sertifikasi Akreditas TAU"
+              "title": "Sertifikasi Akreditas TAU",
+              "icon":"ion-social-buffer-outline"
             }
           ]
         },
         {
           "name": "Halaman Akademik",
           "path": "",
+          "icon": "ion-ios-bookmarks-outline",
           "subMenu": [
             {
               "name": "Program Sarjana (S1)",
@@ -99,7 +108,8 @@
             },
             {
               "name": "Staff Pengajar",
-              "path": "/staff"
+              "path": "/staff",
+              "icon": "ion-ios-people-outline"
             }
           ]
         }
@@ -108,12 +118,12 @@
     {
       "name": "Halaman Pendaftaran Beasiswa",
       "path": "/set/beasiswa",
-      "icon": "ion-university"
+      "icon": "fa fa-institution"
     },
     {
       "name": "Halaman Informasi & Berita",
       "path": "/set",
-      "icon": "fa fa-info",
+      "icon": "fa fa-newspaper-o",
       "subMenu": [
         {
           "name": "Kemahasiswaan",

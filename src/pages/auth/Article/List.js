@@ -114,13 +114,13 @@ const ListArticle = () => {
 		</table>
 		{/* </ScrollView> */}
 		<View id="bot" className="as-fe" direction="row">
-			<Button className="w-15 h-15 brd-20 ai-c" disabled={page === 1} onClick={() => setState({ page: page - 1 })}>
+			<Button className="w-15 h-15 brd-20 ai-c" disabled={page <= 1} onClick={() => setState({ page: page - 1 })}>
 				<i className="f-5 fa fa-chevron-left" />
 			</Button>
 			{Array.generateEmpty(totalPage).rMap((a, i) =>
 				<Button className="f-5 ml-3 w-15 h-15 ai-c brd-20 p-0" disabled={i + 1 === page} onClick={() => setState({ page: i + 1 })}>{i + 1}</Button>
 			)}
-			<Button className="ml-3 w-15 h-15 brd-20 ai-c" disabled={page === totalPage} onClick={() => setState({ page: page + 1 })}>
+			<Button className="ml-3 w-15 h-15 brd-20 ai-c" disabled={page >= totalPage} onClick={() => setState({ page: page + 1 })}>
 				<i className="f-5 fa fa-chevron-right" />
 			</Button>
 		</View>

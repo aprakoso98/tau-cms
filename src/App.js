@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import Routes from "./routes";
 import { useDispatch } from "react-redux";
@@ -8,9 +9,9 @@ const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const effect = () => {
-    if (history.location.pathname === '/')
-      history.push('/login')
-    dispatch(actionsWeb({ loggedIn: Boolean(localStorage.getItem('loggedIn')) }))
+    // if (history.location.pathname === '/')
+    //   history.push('/login')
+    // dispatch(actionsWeb({ loggedIn: Boolean(localStorage.getItem('loggedIn')) }))
   }
   useEffect(effect, [])
   return <Routes />
