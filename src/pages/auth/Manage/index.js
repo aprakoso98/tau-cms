@@ -7,10 +7,13 @@ import S1 from 'src/pages/auth/Manage/S1';
 import Banner from 'src/pages/auth/Manage/Banner';
 import { Switch, Route } from 'react-router-dom';
 import SetCms from 'src/pages/auth/SetCms';
+import Advisors from 'src/pages/auth/Manage/Advisors';
 
 const Manage = props => {
 	const { match: { params } } = props
 	switch (params.path) {
+		case 'advisors':
+			return <Advisors {...props} />
 		case 'fasilitas':
 			return <Fasilitas {...props} />
 		case 'staff':

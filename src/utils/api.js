@@ -135,3 +135,17 @@ export const setArticleSet = async params => {
 	return data
 }
 
+export const getAdvisors = async params => {
+	const { data } = await axios.post(API, { action: 'GetAdvisors', ...params })
+	return data
+}
+
+export const insertAdvisors = async params => {
+	const { data } = await axios.post(API, { action: 'InsertAdvisors', ...params })
+	return data
+}
+
+export const hideAdvisors = async params => {
+	const { data } = await axios.post(API, { action: 'HideAdvisors', ...params })
+	return data
+}
