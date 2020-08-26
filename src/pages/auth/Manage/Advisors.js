@@ -93,9 +93,9 @@ const Advisors = () => {
 						<div className="flex jc-sb">
 							<div>{nama_advisors}</div>
 							<ButtonOpacity onClick={async () => {
-								await hideAdvisors({ id, hide: !(hide == 1) })
+								await hideAdvisors({ id, hide: !(hide === '1') })
 								getData()
-							}}><i className={`f-7 ion-eye${hide == 1 ? '-disabled' : ''}`} /></ButtonOpacity>
+							}}><i className={`f-7 ion-eye${hide === '1' ? '-disabled' : ''}`} /></ButtonOpacity>
 						</div>
 					</View>}
 				/>
