@@ -78,7 +78,7 @@ const ListArticle = () => {
 				render={({ item }) => <View className="pb-3">{item}</View>}
 				data={[10, 15, 20, 25, 30, 50, 100]}
 			/>
-			<Input placeholder="Cari artikel" value={search} onChange={onChangeSearch} className="ml-5 flex flex-1" />
+			<Input placeholder="Cari artikel" value={search} isTypingOn={false} onChange={onChangeSearch} className="ml-5 flex flex-1" />
 			<Button className="ml-5 ai-c" flex="" onClick={() => history.push('/article/post')}>Post artikel baru</Button>
 		</View>
 		{/* <ScrollView className="pt-5 pb-5"> */}
