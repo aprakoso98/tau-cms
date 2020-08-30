@@ -6,10 +6,13 @@ import { ButtonOpacity } from 'src/components/Button';
 import FileUpload from 'src/components/FileUpload';
 
 const Banner = props => {
-	const [banner, setBanner] = useState([])
+	const [bannerMobile, setBannerMobile] = useState([])
+	const [bannerWeb, setBannerWeb] = useState([])
 	const getData = async () => {
-		const { data } = await getBanner()
-		setBanner(data)
+		const { data: bannerMobile } = await getBanner({ isMobile: true })
+		const { data: bannerWeb } = await getBanner({ isMobile: false })
+		setBannerWeb(bannerWeb)
+		setBannerMobile(bannerMobile)
 	}
 	const uploadFile = async params => {
 		const { data: resp } = await updateBanner(params)
@@ -21,26 +24,34 @@ const Banner = props => {
 		getData()
 	}, [])
 	return <>
-		<FileUpload
-			toBase64
-			multiple
-			onChange={files => {
-				const data = Array.isArray(files) ? files : [files]
-				uploadFile({ data })
-			}}
-		><i className="ion-plus-circled f-10" /></FileUpload>
-		<Gallery
-			scrollable
-			data={banner}
-			numColumns={4}
-			renderItem={({ item: { isForBanner, id, image } }) => <div className="o-h h-30 w-1/4 p-1 relative">
-				{isForBanner === '0' && <div style={{ zIndex: 99, right: 0, top: 0 }} className="flex absolute bc-dark p-1 pr-3 pl-3">
-					<ButtonOpacity onClick={() => uploadFile({ id })} className="mr-2"><i className="ion-checkmark-round c-light" /></ButtonOpacity>
-					<ButtonOpacity onClick={() => uploadFile({ id, delete: true })}><i className="ion-trash-a c-light" /></ButtonOpacity>
-				</div>}
-				<img className="w-auto h-auto" alt="" src={FILE_PATH + image} />
-			</div>}
-		/>
+		{[bannerWeb, bannerMobile].rMap(banner => {
+			const isMobile = banner === bannerMobile ? true : false
+			return <>
+				<div className="flex ai-c jc-sb">
+					<div>{isMobile ? 'Banner Mobile' : 'Banner Web'}</div>
+					<FileUpload
+						toBase64
+						multiple
+						onChange={files => {
+							const data = Array.isArray(files) ? files : [files]
+							uploadFile({ data, isMobile })
+						}}
+					><i className="ion-plus-circled f-10" /></FileUpload>
+				</div>
+				<Gallery
+					scrollable
+					data={banner}
+					numColumns={4}
+					renderItem={({ item: { isForBanner, id, image } }) => <div className="o-h h-30 w-1/4 p-1 relative">
+						{isForBanner === '0' && <div style={{ zIndex: 99, right: 0, top: 0 }} className="flex absolute bc-dark p-1 pr-3 pl-3">
+							<ButtonOpacity onClick={() => uploadFile({ id, isMobile })} className="mr-2"><i className="ion-checkmark-round c-light" /></ButtonOpacity>
+							<ButtonOpacity onClick={() => uploadFile({ id, delete: true })}><i className="ion-trash-a c-light" /></ButtonOpacity>
+						</div>}
+						<img className="w-auto h-auto" alt="" src={FILE_PATH + image} />
+					</div>}
+				/>
+			</>
+		})}
 	</>
 }
 
