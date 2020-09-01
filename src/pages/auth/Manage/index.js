@@ -8,6 +8,7 @@ import Banner from 'src/pages/auth/Manage/Banner';
 import { Switch, Route } from 'react-router-dom';
 import SetCms from 'src/pages/auth/SetCms';
 import Advisors from 'src/pages/auth/Manage/Advisors';
+import Kontak from 'src/pages/auth/Manage/Kontak';
 
 const Manage = props => {
 	const { match: { params } } = props
@@ -28,6 +29,8 @@ const Manage = props => {
 			return <GaleriKegiatan />
 		case 'banner':
 			return <Banner />
+		case 'kontak':
+			return <Kontak />
 		default:
 			return <ManageContent {...props} />
 	}

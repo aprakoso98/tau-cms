@@ -118,6 +118,11 @@
               "icon": "ion-ios-people-outline"
             }
           ]
+        }, 
+        {
+          "name": "Kontak",
+          "path": "/kontak",
+          "icon": "ion-ios-telephone-outline" 
         }
       ]
     },
