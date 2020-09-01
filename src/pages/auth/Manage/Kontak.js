@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { getManage, updateManage } from "src/utils/api"
 import Gallery from "src/components/Gallery"
 import { Input } from "src/components/Input"
+import { setTitle } from "src/redux/actions/web"
 
 const Kontak = () => {
 	const [parts, setParts] = useState([])
@@ -16,6 +17,7 @@ const Kontak = () => {
 	}
 	const effect = () => {
 		getData()
+		setTitle('Kontak Kami')
 	}
 	useEffect(effect, [])
 	return <Gallery
