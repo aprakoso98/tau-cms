@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://cms.kadetech.tech",
+  "main": "node_modules/jodit/build/jodit.min.js",
   "dependencies": {
     "@bbob/core": "^2.5.8",
     "@bbob/html": "^2.5.8",

@@ -5,10 +5,13 @@ import Button from 'src/components/Button';
 import { getManage, updateManage, FILE_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 import JoditEditor from 'jodit-react';
+import { joditConfig } from 'src/utils/state';
+
+let winState = {}
 
 const ManageContent = ({ location: { state: param }, match: { params } }) => {
 	const [state, _] = useState({ image: '' })
-	const setState = v => _({ ...state, ...v })
+	const setState = v => _({ ...winState, ...v })
 	const updateData = async () => {
 		const data = { ...state }
 		if (param.withImage) {
@@ -34,6 +37,7 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 		setTitle(param.title)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [param])
+	winState = state
 	return <View flex>
 		<View flex className="mb-3">
 			{param.withImage && <FileUpload
@@ -47,7 +51,7 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 			/>}
 			<JoditEditor
 				value={state.content}
-				config={{ spellcheck: true }}
+				config={joditConfig}
 				tabIndex={1}
 				onBlur={e => setState({ content: e.target.innerHTML })}
 			/>

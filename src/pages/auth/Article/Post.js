@@ -10,15 +10,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import bbobHTML from '@bbob/html'
 import presetHtml from '@bbob/preset-html5'
+import { joditConfig } from 'src/utils/state';
 
-let winArticle
+let winArticle = {}
+
 const imgThumb = require('src/assets/images/article-thumb.png')
 const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	const Web = useSelector(state => state.Web)
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const [article, setState] = useState({})
-	const setArticle = v => setState({ ...article, ...v })
+	const setArticle = v => setState({ ...winArticle, ...v })
 	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {
 		let { foto, url = "", artikel = "" } = article
@@ -84,9 +86,11 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 		<Input className="mb-3" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={article.deskripsi} />
 		<JoditEditor
 			value={article.artikel || ""}
-			config={{ spellcheck: true }}
+			config={joditConfig}
 			tabIndex={1}
-			onBlur={e => setArticle({ artikel: e.target.innerHTML })}
+			onBlur={e => {
+				setArticle({ artikel: e.target.innerHTML })
+			}}
 		/>
 		<Button className="as-fe" onClick={post}>{!urlEdit ? 'Terbitkan Artikel' : 'Edit Artikel'}</Button>
 	</>

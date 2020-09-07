@@ -7,13 +7,21 @@ import { setTitle } from 'src/redux/actions/web';
 import { getS1Kategori, getS1, getManage, FILE_PATH, insertS1, updateS1, updateManage } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import FileUpload from 'src/components/FileUpload';
+import { joditConfig } from 'src/utils/state';
+
+let winState = {}
 
 const S1 = ({ location, match: { params } }) => {
+	const [view, setView] = useState('visi_prodi')
 	const [state, _] = useState({
 		programs: [],
 		newProdi: {}
 	})
-	const setState = value => _({ ...state, ...value })
+	const editorConfig = {
+		...joditConfig,
+		editorCssClass: view
+	}
+	const setState = value => _({ ...winState, ...value })
 	const getData = async () => {
 		const { data: manage } = await getManage({ part: params.path })
 		const { data: category } = await getS1Kategori()
@@ -30,7 +38,6 @@ const S1 = ({ location, match: { params } }) => {
 		setTitle(location.state.title)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location])
-	const [view, setView] = useState('visi_prodi')
 	const article = ["visi_prodi", "misi_prodi", "kurikulum_prodi", "kompetensi_prodi"]
 	const onChangeNewProdi = (id, value) => {
 		const newProdi = { ...state.newProdi }
@@ -67,6 +74,7 @@ const S1 = ({ location, match: { params } }) => {
 			return FILE_PATH + img
 		return require('src/assets/images/1-1.jpg')
 	}
+	winState = state
 	return <>
 		<Modal backDropClick={() => setState({ modalVisible: false })} className="p-10 pr-20 pl-20 w-full h-full" visible={state.modalVisible}>
 			<div className="bc-light p-5 flex brd-5 flex-1 flex-col">
@@ -92,7 +100,7 @@ const S1 = ({ location, match: { params } }) => {
 				</div>
 				<JoditEditor
 					value={state.newProdi[view] || ''}
-					config={{ spellcheck: true, editorCssClass: view }}
+					config={editorConfig}
 					tabIndex={1}
 					onBlur={e => onChangeNewProdi(view, e.target.innerHTML)}
 				/>
