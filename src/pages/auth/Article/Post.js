@@ -8,6 +8,8 @@ import { postArticle, editArticle, FILE_PATH, getArticle } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import bbobHTML from '@bbob/html'
+import presetHtml from '@bbob/preset-html5'
 
 let winArticle
 const imgThumb = require('src/assets/images/article-thumb.png')
@@ -39,9 +41,9 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 		}
 	}
 	const getDataEdit = async () => {
-		const { data: { artikel = "", ...data } } = await getArticle({ url: urlEdit })
-		console.log({ ...data, artikel: artikel.replacePath(true) })
-		setArticle({ ...data, artikel: artikel.replacePath(true) })
+		let { data: { artikel = "", ...data } } = await getArticle({ url: urlEdit })
+		artikel = bbobHTML(artikel.replacePath(true), presetHtml())
+		setArticle({ ...data, artikel })
 	}
 	const effect = () => {
 		if (urlEdit) {

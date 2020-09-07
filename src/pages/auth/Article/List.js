@@ -22,7 +22,7 @@ const ListArticle = () => {
 	const setState = value => _({ ...state, ...value })
 	const onChangeSearch = e => {
 		const value = e.target.value
-		const data = dataArticle.filter(a => a.judul.includes(value))
+		const data = dataArticle.filter(({ tgl, judul, url }) => `${tgl}${judul}${url}`.toLowerCase().includes(value.toLowerCase()))
 		reRender({ ...state, total: data.length, data })
 		setSearch(value)
 	}
@@ -71,6 +71,22 @@ const ListArticle = () => {
 		setTitle('Daftar Artikel')
 	}
 	useEffect(effect, [])
+
+	const Pagination = () => {
+		const max = 3
+		const pagination = Array.generateEmpty(totalPage).filter((_, i) => {
+			// eslint-disable-next-line no-mixed-operators
+			return i === 0 || i + 1 === totalPage || i >= page - max && i <= page + max - 2
+		})
+		return pagination.rMap((i) => {
+			const curr = i + 1 === page
+			return <Button
+				className="f-5 ml-3 w-15 h-15 ai-c brd-20 p-0"
+				disabled={curr}
+				onClick={() => setState({ page: i + 1 })}>{i + 1}</Button>
+		})
+	}
+
 	return <View id="article-list" flex justify="sb">
 		<View id="top" direction="row">
 			<Select value={listPerPage + " Data per halaman"}
@@ -88,21 +104,17 @@ const ListArticle = () => {
 					<th className="w-4/12 p-5 o-wrap">Tanggal</th>
 					<th className="w-3/12 p-5 o-wrap">Judul</th>
 					<th className="w-4/12 p-5 o-wrap">URL</th>
-					<th className="w-full p-5 o-wrap">Konten</th>
-					{/* <th className="w-2/12 p-5 o-wrap"></th> */}
+					<th className="w-full p-5 o-wrap">Deskripsi</th>
 				</tr>
 			</thead>
 			<tbody className="bg-grey-light flex flex-col items-center overflow-y-scroll w-full" style={{ height: getBodyHeight() }}>
 				{
 					dataPage().rMap(article => {
-						let text = document.createElement('div')
-						text.innerHTML = article.artikel
-						text = text.innerText
 						return <tr className="flex w-full">
 							<td className="w-4/12 p-5 o-wrap">{article.tgl}</td>
 							<td className="w-3/12 p-5 o-wrap">{article.judul}</td>
 							<td className="w-4/12 p-5 o-wrap">{article.url}</td>
-							<td className="w-full p-5 o-wrap">{text.length > 50 ? `${text.slice(0, 50)}...` : text}</td>
+							<td className="w-full p-5 o-wrap">{article.deskripsi}</td>
 							<td className="w-2/12 p-5 o-wrap flex">
 								<Link className="p-2" to={{ pathname: '/article/edit', state: article.url }}><i className="ion-edit" /></Link>
 								<ButtonOpacity onClick={() => deleteArticle(article.id, article.judul)} className="p-2"><i className="c-link ion-trash-a" /></ButtonOpacity>
@@ -117,9 +129,7 @@ const ListArticle = () => {
 			<Button className="w-15 h-15 brd-20 ai-c" disabled={page <= 1} onClick={() => setState({ page: page - 1 })}>
 				<i className="f-5 fa fa-chevron-left" />
 			</Button>
-			{Array.generateEmpty(totalPage).rMap((a, i) =>
-				<Button className="f-5 ml-3 w-15 h-15 ai-c brd-20 p-0" disabled={i + 1 === page} onClick={() => setState({ page: i + 1 })}>{i + 1}</Button>
-			)}
+			<Pagination />
 			<Button className="ml-3 w-15 h-15 brd-20 ai-c" disabled={page >= totalPage} onClick={() => setState({ page: page + 1 })}>
 				<i className="f-5 fa fa-chevron-right" />
 			</Button>

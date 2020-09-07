@@ -1150,6 +1150,64 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bbob/core@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-2.5.8.tgz#9614e0ed4965c998608fb7528eda84e581a590d8"
+  integrity sha512-B1uDrmJMUctUNaa7fa7EYh+C8D7slThcHJz3l+cwdpkC0uHIrAytunHLvf16Q8F8/8AiRyiSSAvHZCcb369GdA==
+  dependencies:
+    "@bbob/parser" "^2.5.8"
+
+"@bbob/html@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-2.5.8.tgz#969ee4fe9c0990abfb20db36e7e7a0591c4fd715"
+  integrity sha512-mDJ7I+3+SWpPWfYQM5qiIkNcSmNpJhhvxbutzPQwoo8c737e+0T41FHS4u4HO43TDA/y3+/HG0flghAc+qfQzA==
+  dependencies:
+    "@bbob/core" "^2.5.8"
+    "@bbob/plugin-helper" "^2.5.8"
+
+"@bbob/parser@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/parser/-/parser-2.5.8.tgz#42705fab36574c78a9872fc732e49d05ff7fb0ac"
+  integrity sha512-B51LwSZF+Qh7XvnLFl5+HdzDvtfJ56jspuLiCa7nLOUDdnmOEF09a4rjXN2mI5YLmGnJWN0rDV032C4w3Uo3oA==
+  dependencies:
+    "@bbob/plugin-helper" "^2.5.8"
+
+"@bbob/plugin-helper@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/plugin-helper/-/plugin-helper-2.5.8.tgz#e1379db26ea3ee37ed8e149c0b55040d3dd7624f"
+  integrity sha512-mAjQGPkiIsF99ECZLTiEuTpqNedfmQr2gtKvUJFyR98oibirJIRi9Puw1WMqXOW1ZomjXYFl26LrtHEgCwHxbA==
+
+"@bbob/preset-html5@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-2.5.8.tgz#2aeb6512b27f6f324e88658a6f19d64a93a66c95"
+  integrity sha512-dgyKFzjlOmp3Xv2nMJC5q7yfUqdqED9kGmuzuwuClSjH5pcb9y/3cLl6RmyOzjVzEZ5O8IlnOVGkdr2Nak4g7A==
+  dependencies:
+    "@bbob/plugin-helper" "^2.5.8"
+    "@bbob/preset" "^2.5.8"
+
+"@bbob/preset-react@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-react/-/preset-react-2.5.8.tgz#6bce23b397368fa8f3ca492dfdcc226aded2dda4"
+  integrity sha512-dA7X4ajVlIOIFhYmvDsIW+0qfTvz2jXtubFiH+pvZgCifbA7Yr0A9BjXoURtOMJSRwKxDGXNfGngCdZtnlyu3A==
+  dependencies:
+    "@bbob/preset-html5" "^2.5.8"
+
+"@bbob/preset@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-2.5.8.tgz#5e29fa9c0a5caad02fd5a5f4ffc6a4e1c1c9c5bb"
+  integrity sha512-ZJAdYnYQNCm/NNeM/nSs3R5Im/cFYK2y8rRMDiaH/xlAQIH+HW51RrIELbusyAArGWvt8qbljBzHU9c7hbKGjw==
+  dependencies:
+    "@bbob/plugin-helper" "^2.5.8"
+
+"@bbob/react@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/@bbob/react/-/react-2.5.8.tgz#abd46fb6dba8a0c1a3717ee94fa585b3c67567ff"
+  integrity sha512-8PLBpfKc3L4d3eE1oWouGQDAaWC5eGYuBdbMtO7kPudKTI/RhYDSExHzX5Loa4r0Q/CxoyyBZbMsCSQJD9qRKw==
+  dependencies:
+    "@bbob/core" "^2.5.8"
+    "@bbob/html" "^2.5.8"
+    "@bbob/plugin-helper" "^2.5.8"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
