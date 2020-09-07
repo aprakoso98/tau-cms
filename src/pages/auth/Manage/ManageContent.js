@@ -39,13 +39,13 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 	}, [param])
 	winState = state
 	return <View flex>
-		<View flex className="mb-3">
+		<View flex className="mb-1">
 			{param.withImage && <FileUpload
 				isImage
 				toBase64
 				imgClass="b-1 w-auto h-full"
 				accept="image/*"
-				className="h-35 mr-3 mb-3"
+				className="h-35 mr-3 mb-1"
 				src={state.image.length > 50 ? state.image : FILE_PATH + state.image}
 				onChange={({ file: image }) => setState({ image })}
 			/>}

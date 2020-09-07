@@ -18,7 +18,7 @@ const Input = forwardRef(({
 		ref={ref}
 		type="text"
 		defaultValue={value}
-		className={`bc-grey p-3 pr-5 pl-5 brd-3 ${className}`}
+		className={`bc-light b-1 p-2 pr-5 pl-5 brd-1 ${className}`}
 		onChange={setValue}
 	/>
 })
@@ -39,7 +39,7 @@ const Textarea = forwardRef(({
 		{...props}
 		ref={ref}
 		defaultValue={value}
-		className={`bc-grey p-3 pr-5 pl-5 brd-3 ${className}`}
+		className={`bc-light p-2 pr-5 pl-5 b-1 brd-1 ${className}`}
 		onChange={setValue}
 	/>
 })

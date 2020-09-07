@@ -11,14 +11,16 @@ const Auth = ({ children }) => {
 	return <Container direction="row" className="h-full">
 		<SideMenu />
 		<View flex>
-			<View justify="sb" className="bc-blue ai-c" direction="row">
-				<ButtonOpacity onClick={() => dispatch(actionsWeb({ minimizedDrawer: !Web.minimizedDrawer }))} flex={false} className="p-5">
-					<i className="fa fa-bars c-light f-7" />
+			<View justify="sb" className="bc-grey-soft ai-c" direction="row">
+				<ButtonOpacity onClick={() => dispatch(actionsWeb({ minimizedDrawer: !Web.minimizedDrawer }))} flex={false} className="p-3">
+					<i className="fa fa-bars c-text f-7" />
 				</ButtonOpacity>
-				<View className="c-light">{Web.title}</View>
-				<ButtonOpacity onClick={() => dispatch(actionsWeb({ loggedIn: false }))} flex={false} className="c-light p-5">Keluar</ButtonOpacity>
+				<View className="c-text">{Web.title}</View>
+				<ButtonOpacity onClick={() => dispatch(actionsWeb({ loggedIn: false }))} flex={false} className="c-text p-3">Keluar</ButtonOpacity>
 			</View>
-			<View flex className="bc-light p-5">{children}</View>
+			<View flex className="bc-grey-soft p-3" style={{ paddingTop: 0 }}>
+				<div className="flex flex-col h-full bc-light brd-1 p-3">{children}</div>
+			</View>
 		</View>
 	</Container>
 }

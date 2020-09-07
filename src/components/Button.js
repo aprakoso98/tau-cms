@@ -7,7 +7,7 @@ const ButtonOpacity = forwardRef((...args) => {
 
 const Button = forwardRef((...args) => {
 	const [{ className = '', replaceClass, justify = "c", ...props }, ref] = args
-	return <ButtonOpacity ref={ref} {...props} justify={justify} className={`${!replaceClass && 'brd-5 p-3 bc-grey'} ${className}`} />
+	return <ButtonOpacity ref={ref} {...props} justify={justify} className={`${!replaceClass && 'brd-1 p-1 pr-3 pl-3 bc-blue c-light'} ${className}`} />
 });
 
 export default Button

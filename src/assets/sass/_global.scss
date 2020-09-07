@@ -23,17 +23,23 @@ $flexBox: align-self align-content align-items justify-content text-align;
 }
 
 table {
+	th, td {
+		border: .5px solid $grey;
+	}
 	thead {
 		th {
 			@extend .ta-c;
-			@extend .bc-blue;
-			@extend .c-light;
+			@extend .c-text;
+			@extend .\!Bold;
+			@extend .f-5;
 		}
 	}
 	tbody{
 		tr {
 			&:nth-child(odd) {
 				@extend .bc-grey-soft;
+			}
+			td {
 			}
 		}
 	}

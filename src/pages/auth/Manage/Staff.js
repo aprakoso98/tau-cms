@@ -48,7 +48,7 @@ const Staff = () => {
 
 	return <>
 		<Modal backDropClick={() => setVisible(false)} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
-			<View flex className="brd-5 p-5 bc-light">
+			<View flex className="brd-1 p-5 bc-light">
 				<View justify="sb" direction="row">
 					<FileUpload
 						isImage

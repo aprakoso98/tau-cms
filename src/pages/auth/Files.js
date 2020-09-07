@@ -7,8 +7,8 @@ import Button, { ButtonOpacity } from 'src/components/Button';
 import { getFiles, updateFile, FILE_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 
-const imageType = ["png", "jpg"]
-const videoType = ["mp4"]
+const imageType = ["png", "jpg", "jpeg", "gif"]
+const videoType = ["mp4", "mkv"]
 
 const Files = () => {
 	const [search, setSearch] = useState('')
@@ -30,7 +30,7 @@ const Files = () => {
 		let data = files.filter(a => a.changed || !a.id)
 		data = [...data, ...deletedFiles]
 		const { data: resp } = await updateFile({ data })
-		alert(resp)
+		alert(resp.msg)
 		getData()
 	}
 	const getData = async () => {
@@ -46,7 +46,7 @@ const Files = () => {
 		if (toast) setTimeout(() => setToast(false), 2000)
 	}, [toast])
 	return <View flex>
-		{toast && <div style={{ zIndex: 99, bottom: 0, right: 0 }} className="bc-dark c-light p-1 pl-3 pr-3 m-2 brd-2 absolute">Copied</div>}
+		{toast && <div style={{ zIndex: 99, bottom: 0, right: 0 }} className="bc-dark c-light p-1 pl-3 pr-3 m-2 brd-1 absolute">Copied</div>}
 		<View direction="row">
 			<FileUpload
 				toBase64
@@ -60,7 +60,7 @@ const Files = () => {
 			<Input onChange={e => setSearch(e.target.value)} value={search} className="mr-3 ml-3 as-c flex-1" placeholder="Cari File..." />
 		</View>
 		<Gallery
-			className="mt-3 mb-3"
+			className="mt-3 mb-1"
 			scrollable
 			data={files.filter(a => a.name.toLowerCase().includes(search.toLowerCase()))}
 			numColumns={4}

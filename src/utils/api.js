@@ -2,7 +2,7 @@ import axios from "axios"
 
 const { BASE_URL } = require('src/env.json')
 
-const API = BASE_URL + "/api.php"
+export const API = BASE_URL + "/api.php"
 export const FILE_PATH = BASE_URL + "/files/"
 
 export const getManage = async params => {

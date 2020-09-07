@@ -81,7 +81,7 @@ const ListArticle = () => {
 		return pagination.rMap((i) => {
 			const curr = i + 1 === page
 			return <Button
-				className="f-5 ml-3 w-15 h-15 ai-c brd-20 p-0"
+				className="f-4 ml-3 w-10 h-10 ai-c brd-20 p-0"
 				disabled={curr}
 				onClick={() => setState({ page: i + 1 })}>{i + 1}</Button>
 		})
@@ -92,7 +92,7 @@ const ListArticle = () => {
 			<Select value={listPerPage + " Data per halaman"}
 				onSelect={({ item }) => reRender({ ...state, listPerPage: item })}
 				render={({ item }) => <View className="pb-3">{item}</View>}
-				data={[10, 15, 20, 25, 30, 50, 100]}
+				data={[10, 10, 20, 25, 30, 50, 100]}
 			/>
 			<Input placeholder="Cari artikel" value={search} isTypingOn={false} onChange={onChangeSearch} className="ml-5 flex flex-1" />
 			<Button className="ml-5 ai-c" flex="" onClick={() => history.push('/article/post')}>Post artikel baru</Button>
@@ -100,24 +100,27 @@ const ListArticle = () => {
 		{/* <ScrollView className="pt-5 pb-5"> */}
 		<table className="mt-5 mb-5 text-left w-full">
 			<thead className="flex w-full">
-				<tr className="flex w-full">
-					<th className="w-4/12 p-5 o-wrap">Tanggal</th>
-					<th className="w-3/12 p-5 o-wrap">Judul</th>
-					<th className="w-4/12 p-5 o-wrap">URL</th>
-					<th className="w-full p-5 o-wrap">Deskripsi</th>
+				<tr style={{ overflowY: 'scroll' }} className="flex w-full">
+					<th className="w-4/12 p-3 o-wrap">Tanggal</th>
+					<th className="w-3/12 p-3 o-wrap">Judul</th>
+					<th className="w-4/12 p-3 o-wrap">URL</th>
+					<th className="w-full p-3 o-wrap">Deskripsi</th>
+					<th className="w-2/12 p-3 o-wrap" />
 				</tr>
 			</thead>
 			<tbody className="bg-grey-light flex flex-col items-center overflow-y-scroll w-full" style={{ height: getBodyHeight() }}>
 				{
 					dataPage().rMap(article => {
 						return <tr className="flex w-full">
-							<td className="w-4/12 p-5 o-wrap">{article.tgl}</td>
-							<td className="w-3/12 p-5 o-wrap">{article.judul}</td>
-							<td className="w-4/12 p-5 o-wrap">{article.url}</td>
-							<td className="w-full p-5 o-wrap">{article.deskripsi}</td>
-							<td className="w-2/12 p-5 o-wrap flex">
-								<Link className="p-2" to={{ pathname: '/article/edit', state: article.url }}><i className="ion-edit" /></Link>
-								<ButtonOpacity onClick={() => deleteArticle(article.id, article.judul)} className="p-2"><i className="c-link ion-trash-a" /></ButtonOpacity>
+							<td className="w-4/12 p-3 o-wrap">{article.tgl}</td>
+							<td className="w-3/12 p-3 o-wrap">{article.judul}</td>
+							<td className="w-4/12 p-3 o-wrap">{article.url}</td>
+							<td className="w-full p-3 o-wrap">{article.deskripsi}</td>
+							<td className="w-2/12 p-3 o-wrap">
+								<div className="flex">
+									<Link className="p-2" to={{ pathname: '/article/edit', state: article.url }}><i className="ion-edit" /></Link>
+									<ButtonOpacity onClick={() => deleteArticle(article.id, article.judul)} className="p-2"><i className="c-link ion-trash-a" /></ButtonOpacity>
+								</div>
 							</td>
 						</tr>
 					})
@@ -126,12 +129,12 @@ const ListArticle = () => {
 		</table>
 		{/* </ScrollView> */}
 		<View id="bot" className="as-fe" direction="row">
-			<Button className="w-15 h-15 brd-20 ai-c" disabled={page <= 1} onClick={() => setState({ page: page - 1 })}>
-				<i className="f-5 fa fa-chevron-left" />
+			<Button className="w-10 h-10 brd-20 ai-c" disabled={page <= 1} onClick={() => setState({ page: page - 1 })}>
+				<i className="f-4 fa fa-chevron-left" />
 			</Button>
 			<Pagination />
-			<Button className="ml-3 w-15 h-15 brd-20 ai-c" disabled={page >= totalPage} onClick={() => setState({ page: page + 1 })}>
-				<i className="f-5 fa fa-chevron-right" />
+			<Button className="ml-3 w-10 h-10 brd-20 ai-c" disabled={page >= totalPage} onClick={() => setState({ page: page + 1 })}>
+				<i className="f-4 fa fa-chevron-right" />
 			</Button>
 		</View>
 	</View>

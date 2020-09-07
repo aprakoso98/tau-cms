@@ -37,7 +37,7 @@
           "name": "Board of Advisors",
           "path": "/advisors",
           "title": "Board of Advisors",
-          "icon":"ion-ios-flag-outline"
+          "icon":"fa fa-tripadvisor"
         },
         {
           "name": "Sambutan",
@@ -95,20 +95,24 @@
             {
               "name": "Program Sarjana (S1)",
               "path": "/s1",
-              "title": "Program Sarjana (S1)"
+              "title": "Program Sarjana (S1)",
+              "icon": "fa fa-graduation-cap"
             },
             {
               "name": "Program International",
               "path": "/international",
               "title": "Program International",
+              "icon": "fa fa-plane",
               "subMenu": [
                 {
                   "name": "Fast Track To Australian University",
-                  "path": "/inter-australian"
+                  "path": "/inter-australian",
+                  "icon": "fa fa-industry"
                 },
                 {
                   "name": "International Bussiness Program",
-                  "path": "/inter-business"
+                  "path": "/inter-business",
+                  "icon": "fa fa-building"
                 }
               ]
             },
@@ -129,7 +133,7 @@
     {
       "name": "Halaman Pendaftaran Beasiswa",
       "path": "/set/beasiswa",
-      "icon": "fa fa-institution"
+      "icon": "fa fa-wpforms"
     },
     {
       "name": "Halaman Informasi & Berita",
@@ -138,21 +142,25 @@
       "subMenu": [
         {
           "name": "Kemahasiswaan",
-          "path": "/kemahasiswaan"
+          "path": "/kemahasiswaan",
+          "icon": "fa fa-address-card-o"
         },
         {
           "name": "Tracer Studi",
-          "path": "/tracer"
+          "path": "/tracer",
+          "icon": "fa fa-binoculars"
         },
         {
           "name": "Career",
-          "path": "/career"
+          "path": "/career",
+          "icon": "fa fa-bookmark"
         }
       ]
     },
     {
       "name": "TAU Training Center",
-      "path": "/set/training"
+      "path": "/set/training",
+      "icon": "ion-speakerphone"
     }
   ]
 }

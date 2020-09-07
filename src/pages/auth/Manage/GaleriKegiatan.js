@@ -48,7 +48,7 @@ const GaleriKegiatan = () => {
 
 	return <>
 		<Modal backDropClick={() => setVisible(false)} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
-			<View flex className="brd-5 p-5 bc-light">
+			<View flex className="brd-1 p-5 bc-light">
 				<View justify="sb" direction="row">
 					<FileUpload
 						toBase64
@@ -77,14 +77,6 @@ const GaleriKegiatan = () => {
 										imgs[i].nama = e.target.value
 										setImgUpload(imgs)
 									}} placeholder="Nama Kegiatan" />
-									{/* <Button onClick={() => {
-										let imgs = imgUpload.slice()
-										imgs[i].is_link = !imgs[i].is_link
-										setImgUpload(imgs)
-									}} direction={is_link ? 'row' : 'row-reverse'} className="w-1/4 ai-c">
-										<View className={`brd-10 p-5 ${is_link ? 'bc-blue' : 'bc-link'}`} />
-										{is_link ? 'Link' : 'Bukan link'}
-									</Button> */}
 								</View>
 								<Textarea className="flex-1 mt-3" value={deskripsi} onChange={e => {
 									let imgs = imgUpload.slice()

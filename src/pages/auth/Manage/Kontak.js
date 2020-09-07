@@ -25,7 +25,7 @@ const Kontak = () => {
 		data={parts}
 		renderItem={({ item: part }) => {
 			const placeholder = part.part.replace(/([a-z])([A-Z])/g, '$1 $2').ucwords()
-			return <div className="flex flex-1 ai-c mb-3">
+			return <div className="flex flex-1 ai-c mb-1">
 				<div className="w-2/5">{placeholder}</div>
 				<Input className="w-full" placeholder={placeholder} onBlur={onBlur} id={part.part} value={part.content} />
 			</div>

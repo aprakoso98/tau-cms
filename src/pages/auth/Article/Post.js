@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import bbobHTML from '@bbob/html'
 import presetHtml from '@bbob/preset-html5'
-import { joditConfig } from 'src/utils/state';
+import { joditConfig, uploadImages } from 'src/utils/state';
 
 let winArticle = {}
 
@@ -24,6 +24,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {
 		let { foto, url = "", artikel = "" } = article
+		artikel = await uploadImages(artikel)
 		artikel = artikel.replacePath()
 		if (!foto) {
 			alert("Please upload image")
@@ -62,7 +63,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	useEffect(effect, [urlEdit])
 	winArticle = article
 	return <>
-		<View direction="row" className="mb-3">
+		<View direction="row" className="mb-1">
 			<FileUpload
 				isImage
 				toBase64
@@ -74,7 +75,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			/>
 			<Input className="flex-1 mb-0 as-fe" placeholder="Judul Artikel" id="judul" onChange={onChange} value={article.judul} />
 		</View>
-		<View direction="row" className="mb-3">
+		<View direction="row" className="mb-1">
 			<Input placeholder="Kustom Url" onBlur={() => {
 				if (article.url) {
 					const url = article.url.replace(/\W/g, "-")
@@ -83,7 +84,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			}} className="flex-1 mr-3" id="url" onChange={onChange} value={article.url} />
 			<Input placeholder="Pembuat" id="pembuat" className="flex-1" onChange={onChange} value={article.pembuat} />
 		</View>
-		<Input className="mb-3" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={article.deskripsi} />
+		<Input className="mb-1" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={article.deskripsi} />
 		<JoditEditor
 			value={article.artikel || ""}
 			config={joditConfig}

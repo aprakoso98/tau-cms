@@ -36,16 +36,16 @@ const SideMenu = () => {
 				const props = { name, viewPath, icon }
 				return subMenu ?
 					<>
-						<ButtonOpacity key={i} justify={Web.minimizedDrawer ? 'c' : 'sb'} className="bc-grey ai-c pb-5" onClick={() => openSubMenu(viewId)}>
+						<ButtonOpacity key={i} justify={Web.minimizedDrawer ? 'c' : 'sb'} className="bc-light ai-c pb-5" onClick={() => openSubMenu(viewId)}>
 							<MenuView {...props} />
 							{!Web.minimizedDrawer && <i className={`pr-2 ion-ios-arrow-${subMenuOpen[viewId] ? 'up' : 'right'}`} />}
 						</ButtonOpacity>
-						<View key={`${i}${i}`} className={`${!Web.minimizedDrawer && 'pl-5'} pt-0 bc-grey sub-menu`} style={{ height: subMenuOpen[viewId] ? 'auto' : 0 }}>
+						<View key={`${i}${i}`} className={`${!Web.minimizedDrawer && 'pl-5'} pt-0 bc-light sub-menu`} style={{ height: subMenuOpen[viewId] ? 'auto' : 0 }}>
 							{renderSideMenu(subMenu, viewId, viewPath)}
 						</View>
 					</> :
 					<>
-						<Link className={`flex-1 pb-5 ${Web.minimizedDrawer ? 'jc-c' : 'jc-sb'} bc-grey`} key={i} to={{ pathname: viewPath, state: obj }}>
+						<Link className={`flex-1 pb-5 ${Web.minimizedDrawer ? 'jc-c' : 'jc-sb'} bc-light`} key={i} to={{ pathname: viewPath, state: obj }}>
 							<MenuView {...props} />
 						</Link>
 					</>
@@ -57,19 +57,18 @@ const SideMenu = () => {
 		dispatch(actionUi())
 	}, [dispatch])
 
-	return <Container style={{ ...Web.minimizedDrawer && { width: 'auto' } }} className='bc-grey w-1/4'>
-		<View direction="row" className="bc-dark p-5">
-			<View className="w-20 h-20 brd-10 bc-light as-c" />
-			{!Web.minimizedDrawer && <View className="pl-3">
-				<View className="c-light">Hi,</View>
-				<View className="bb-2-light c-light">Administrator</View>
-				<View className="c-light f-3">Ganti Kata sandi</View>
-			</View>}
+	return <Container style={{ ...Web.minimizedDrawer && { width: 'auto' } }} className='bc-light w-1/4'>
+		<View direction="row" className="p-5">
+			<img className="h-full w-auto" alt="" src={Web.minimizedDrawer ? require('src/assets/images/favicon.png') : require('src/assets/images/logo-tau.png')} />
 		</View>
-		<ScrollView bottom={<View flex className="bc-grey" />} className="side-menu p-3">
+		{!Web.minimizedDrawer && <div className="p-5 pt-1">
+			<img className="h-auto w-15" alt="" src={require('src/assets/images/Laki-laki.svg')} />
+			<div className="pt-3">Superadmin</div>
+		</div>}
+		<ScrollView bottom={<View flex className="bc-light" />} className="side-menu p-3">
 			{sideMenu && renderSideMenu(sideMenu)}
 		</ScrollView>
-	</Container>
+	</Container >
 }
 
 export default SideMenu

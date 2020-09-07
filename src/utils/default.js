@@ -47,7 +47,7 @@ Array.prototype.loopCallback = function (callback, reverse, index) {
     }
   }
 }
-String.prototype.copyToClipboard = function() {
+String.prototype.copyToClipboard = function () {
   const el = document.createElement('textarea');
   el.value = this;
   document.body.appendChild(el);
