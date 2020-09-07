@@ -41,6 +41,15 @@ button:focus, input:focus, textarea:focus {
   }
 }
 
+.jodit-wysiwyg {
+  b, strong {
+    font-family: Bold;
+  }
+  ol, ul {
+    margin-left: #{$fontSize * 1.5}rem;
+  }
+}
+
 .o {
   &-h {
     overflow: hidden;
