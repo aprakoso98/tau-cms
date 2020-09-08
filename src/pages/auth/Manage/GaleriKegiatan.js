@@ -4,9 +4,9 @@ import { setTitle } from 'src/redux/actions/web';
 import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
-import Button from 'src/components/Button';
+import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getGaleri, insertGaleri, getManage, updateManage, FILE_PATH } from 'src/utils/api';
+import { getGaleri, insertGaleri, getManage, updateManage, FILE_PATH, removeData } from 'src/utils/api';
 
 const GaleriKegiatan = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -30,6 +30,14 @@ const GaleriKegiatan = () => {
 		}
 		if (status) {
 			setFasilitas(data)
+		}
+	}
+
+	const deleteData = async id => {
+		const con = window.confirm('Hapus galeri?')
+		if (con) {
+			const { status } = await removeData({ table: 'tb_galeri', id })
+			if (status) getFasilitas()
 		}
 	}
 
@@ -104,7 +112,10 @@ const GaleriKegiatan = () => {
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { nama, deskripsi, media, is_video } }) => <View className="p-2">
+					renderItem={({ item: { id, nama, deskripsi, media, is_video } }) => <View className="p-2 relative">
+						<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
+							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
+						</div>
 						{
 							is_video === '1' ? <video className="b-1 h-auto w-full" controls>
 								<source src={FILE_PATH + media} />

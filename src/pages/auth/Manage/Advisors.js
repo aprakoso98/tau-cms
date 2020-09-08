@@ -6,7 +6,7 @@ import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input } from 'src/components/Input';
-import { FILE_PATH, getAdvisors, insertAdvisors, hideAdvisors } from 'src/utils/api';
+import { FILE_PATH, getAdvisors, insertAdvisors, hideAdvisors, removeData } from 'src/utils/api';
 
 const Advisors = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -17,6 +17,14 @@ const Advisors = () => {
 		const { data, status } = await getAdvisors()
 		if (status) {
 			setAdvisors(data)
+		}
+	}
+
+	const deleteData = async id => {
+		const con = window.confirm('Hapus advisor?')
+		if (con) {
+			const { status } = await removeData({ table: 'tb_advisors', id })
+			if (status) getData()
 		}
 	}
 
@@ -88,14 +96,15 @@ const Advisors = () => {
 				<Gallery
 					numColumns={4}
 					data={advisors}
-					renderItem={({ item: { id, nama_advisors, foto_advisors, hide } }) => <View className="p-2">
+					renderItem={({ item: { id, nama_advisors, foto_advisors, hide } }) => <View className="relative m-2">
 						<img alt="" className="h-auto w-full" src={FILE_PATH + foto_advisors} />
-						<div className="flex jc-sb">
-							<div>{nama_advisors}</div>
+						<div>{nama_advisors}</div>
+						<div style={{ zIndex: 2, top: 0, right: 0 }} className="flex bc-dark p-2 absolute">
+							<ButtonOpacity onClick={() => deleteData(id)}><i className="mr-2 c-light f-5 ion-trash-a" /></ButtonOpacity>
 							<ButtonOpacity onClick={async () => {
 								await hideAdvisors({ id, hide: !(hide === '1') })
 								getData()
-							}}><i className={`f-7 ion-eye${hide === '1' ? '-disabled' : ''}`} /></ButtonOpacity>
+							}}><i className={`f-5 c-light ion-eye${hide === '1' ? '-disabled' : ''}`} /></ButtonOpacity>
 						</div>
 					</View>}
 				/>

@@ -4,9 +4,9 @@ import { setTitle } from 'src/redux/actions/web';
 import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
-import Button from 'src/components/Button';
+import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getStaff, insertStaff, getManage, updateManage, FILE_PATH } from 'src/utils/api';
+import { getStaff, insertStaff, getManage, updateManage, FILE_PATH, removeData } from 'src/utils/api';
 
 const Staff = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -20,6 +20,14 @@ const Staff = () => {
 			image: null,
 			content: deskripsi
 		})
+	}
+
+	const deleteData = async id => {
+		const con = window.confirm('Hapus staff?')
+		if (con) {
+			const { status } = await removeData({ table: 'tb_staff', id })
+			if (status) getFasilitas()
+		}
 	}
 
 	const getFasilitas = async () => {
@@ -97,7 +105,10 @@ const Staff = () => {
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { nama, jabatan, foto } }) => <View className="p-2">
+					renderItem={({ item: { id, nama, jabatan, foto } }) => <View className="p-2 relative">
+						<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
+							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
+						</div>
 						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
 						{nama} - {jabatan}
 					</View>}

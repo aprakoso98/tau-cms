@@ -4,9 +4,9 @@ import { setTitle } from 'src/redux/actions/web';
 import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
-import Button from 'src/components/Button';
+import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { getFacilities, insertFacilities, getManage, updateManage, FILE_PATH } from 'src/utils/api';
+import { removeData, getFacilities, insertFacilities, getManage, updateManage, FILE_PATH } from 'src/utils/api';
 
 const Fasilitas = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -45,6 +45,14 @@ const Fasilitas = () => {
 		getFasilitas()
 		setTitle('Fasilitas')
 	}, [])
+
+	const deleteData = async id => {
+		const con = window.confirm('Hapus fasilitas?')
+		if (con) {
+			const { status } = await removeData({ table: 'tb_fasilitas', id })
+			if (status) getFasilitas()
+		}
+	}
 
 	return <>
 		<Modal backDropClick={() => setVisible(false)} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
@@ -92,7 +100,10 @@ const Fasilitas = () => {
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { nama, foto } }) => <View className="p-2">
+					renderItem={({ item: { id, nama, foto } }) => <View className="p-2 relative">
+						<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
+							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
+						</div>
 						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
 						{nama}
 					</View>}

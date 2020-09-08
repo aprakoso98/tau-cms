@@ -45,6 +45,11 @@ export const insertFacilities = async params => {
 	return data
 }
 
+export const removeData = async params => {
+	const { data } = await axios.post(API, { action: 'RemoveData', ...params })
+	return data
+}
+
 export const getStaff = async params => {
 	const { data } = await axios.post(API, { action: 'GetStaff', ...params })
 	return data
