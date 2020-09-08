@@ -3,56 +3,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import actionUi from 'src/redux/actions/ui';
 import { Link } from 'react-router-dom';
 import { Container, View, ScrollView } from 'src/components/Container';
-import { ButtonOpacity } from 'src/components/Button';
+import HtmlParser from 'react-html-parser';
 
 
 const SideMenu = () => {
 	const dispatch = useDispatch()
 	const { Web, UI: { data: { sideMenu } } } = useSelector(state => state)
-	const [subMenuOpen, setSubMenuOpen] = useState({})
-
-	const openSubMenu = (id) => {
-		let menu = { ...subMenuOpen }
-		let parent = id.split('-').filter(a => a !== "").map(a => a + "-")
-		parent.forEach((a, i) => {
-			parent[i] = (parent[i - 1] || "") + parent[i]
-			menu[parent[i]] = true
+	const [stateMenu, __] = useState({})
+	const setStateMenu = v => __({ ...stateMenu, ...v })
+	let ioio = 0
+	const renderSideMenu = (arr = [], prevPath = "") => {
+		ioio += 5
+		const { minimizedDrawer } = Web
+		return arr.rMap(obj => {
+			const { name, path, icon, subMenu } = obj
+			const key = name + path + icon
+			const pathname = prevPath + path
+			let view = `<i class="ta-c w-10 ${icon || 'fa fa-home'} ${minimizedDrawer ? 'f-7' : 'f-5'}"></i>${!minimizedDrawer ? `<div>${name}</div>` : ''}`
+			view = HtmlParser(view)
+			return <div style={{ cursor: 'pointer' }}>
+				{subMenu ?
+					<div className={`flex p-2 ${minimizedDrawer ? 'jc-c' : 'jc-sb'} ai-c`} onClick={() => setStateMenu({ [key]: !stateMenu[key] })}>
+						<div title={name} className={`flex ai-c ${minimizedDrawer && 'as-c'}`}>{view}</div>
+						{!minimizedDrawer && <i className={`pr-2 ion-ios-arrow-${stateMenu[key] ? 'up' : 'right'}`} />}
+					</div> :
+					<Link to={{ pathname, state: obj }} title={name} className={`${window.location.href.includes(pathname) ? 'c-link' : 'c-dark'} p-2 flex ai-c ${minimizedDrawer && 'jc-c'}`}>{view}</Link>
+				}
+				{stateMenu[key] && subMenu && <div style={{ marginLeft: minimizedDrawer ? 0 : ioio + 10 }}>{renderSideMenu(subMenu, pathname)}</div>}
+			</div>
 		})
-		setSubMenuOpen({ ...menu, [id]: !subMenuOpen[id] })
 	}
-
-	const MenuView = ({ name, viewPath, icon }) => <View justify={Web.minimizedDrawer && 'c'} direction="row"
-		className={`view-link ai-c ta-l ${window.location.href.includes(viewPath) ? 'c-link' : 'c-dark'}`}>
-		<i className={`ta-c w-13 ${icon || 'fa fa-home'} ${Web.minimizedDrawer ? 'f-10' : 'f-7'}`} />
-		{!Web.minimizedDrawer && name}
-	</View>
-
-	const renderSideMenu = (arr, id = "", prevPath = "") => {
-		return arr.rMap(
-			(obj, i) => {
-				const { name, path, icon, subMenu } = obj
-				const viewId = (id + name + "-").replace(/\s/g, '')
-				const viewPath = prevPath + path
-				const props = { name, viewPath, icon }
-				return subMenu ?
-					<>
-						<ButtonOpacity key={i} justify={Web.minimizedDrawer ? 'c' : 'sb'} className="bc-light ai-c pb-5" onClick={() => openSubMenu(viewId)}>
-							<MenuView {...props} />
-							{!Web.minimizedDrawer && <i className={`pr-2 ion-ios-arrow-${subMenuOpen[viewId] ? 'up' : 'right'}`} />}
-						</ButtonOpacity>
-						<View key={`${i}${i}`} className={`${!Web.minimizedDrawer && 'pl-5'} pt-0 bc-light sub-menu`} style={{ height: subMenuOpen[viewId] ? 'auto' : 0 }}>
-							{renderSideMenu(subMenu, viewId, viewPath)}
-						</View>
-					</> :
-					<>
-						<Link className={`flex-1 pb-5 ${Web.minimizedDrawer ? 'jc-c' : 'jc-sb'} bc-light`} key={i} to={{ pathname: viewPath, state: obj }}>
-							<MenuView {...props} />
-						</Link>
-					</>
-			}
-		)
-	}
-
 	useEffect(() => {
 		dispatch(actionUi())
 	}, [dispatch])
@@ -65,7 +45,7 @@ const SideMenu = () => {
 			<img className="h-auto w-15" alt="" src={require('src/assets/images/Laki-laki.svg')} />
 			<div className="pt-3">Superadmin</div>
 		</div>}
-		<ScrollView bottom={<View flex className="bc-light" />} className="side-menu p-3">
+		<ScrollView className="side-menu p-3">
 			{sideMenu && renderSideMenu(sideMenu)}
 		</ScrollView>
 	</Container >
