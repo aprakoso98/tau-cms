@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import React, { useEffect, useState } from 'react';
 import { getArticle, removeArticle } from 'src/utils/api';
 import { View } from 'src/components/Container';
@@ -39,11 +40,21 @@ const ListArticle = () => {
 		setState(data)
 	}
 	const getData = async () => {
-		const { data, status } = await getArticle()
-		if (status) {
-			reRender({ ...state, ...data })
-			const dataArt = data.data.slice()
-			setDataArticle(dataArt)
+		let from = 0, dataArticle = []
+		var { data: { data, total, limit }, status } = await getArticle()
+		dataArticle = data
+		if (status && data) {
+			const sisa = total % limit
+			const loop = (total - sisa) / limit + (sisa > 0 ? 1 : 0)
+			for (let i = 1; i < loop; i++) {
+				from = i * limit
+				var { status, data: { data } } = await getArticle({ from, limit })
+				if (status && data) {
+					dataArticle = [...dataArticle, ...data]
+				}
+			}
+			reRender({ ...state, total, data: dataArticle })
+			setDataArticle(dataArticle)
 		}
 	}
 	const getBodyHeight = () => {

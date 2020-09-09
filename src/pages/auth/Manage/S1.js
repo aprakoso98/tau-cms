@@ -116,7 +116,7 @@ const S1 = ({ location, match: { params } }) => {
 				placeholder={location.state.title}
 				value={state.content}
 				className="flex-1"
-				onBlur={async () => await updateManage({ part: params.path, content: state.content, image: null })}
+				onBlur={async (e) => await updateManage({ part: params.path, content: e.target.value, image: null })}
 				onChange={e => setState({ content: e.target.value })}
 			/>
 		</View>

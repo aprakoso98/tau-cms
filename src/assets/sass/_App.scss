@@ -45,8 +45,23 @@ button:focus, input:focus, textarea:focus {
   b, strong {
     font-family: Bold;
   }
-  ol, ul {
-    margin-left: #{$fontSize * 1.5}rem;
+  $list: ul ol;
+  @each $var in $list {
+    #{$var} {
+      margin-left: #{$fontSize * 1.5}rem;
+      &:not([style*="list-style-type"]) {
+        margin-left: 0;
+        counter-reset: number;
+        li {
+          display: flex;
+          counter-increment: number;
+          &:before {
+            content: if($var == ol, counter(number)".", "-");
+            margin-right: .5rem;
+          }
+        }
+      }
+    }
   }
 }
 

@@ -8,7 +8,8 @@ export default stateObject
 
 export const uploadImages = async string => {
 	const reg = new RegExp('data:image/([a-zA-Z]*);base64,([^"]*)', 'g')
-	const images = string.match(reg).map(file => {
+	const matchImages = string.match(reg) || []
+	const images = matchImages.map(file => {
 		const format = file.substring("data:image/".length, file.indexOf(";base64"))
 		const name = "".uuid()
 		return { format, name, file }
@@ -26,7 +27,7 @@ export const uploadImages = async string => {
 			o++
 			return images
 		}, [])
-		string.match(reg).forEach((img, i) => string = string.replace(img, `$FILE_PATH${files[i].file}`))
+		matchImages.forEach((img, i) => string = string.replace(img, `$FILE_PATH${files[i].file}`))
 		return string
 	}
 	return

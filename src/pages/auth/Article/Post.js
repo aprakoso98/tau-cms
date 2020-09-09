@@ -39,7 +39,10 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			} else {
 				const { data, status } = await postArticle(params)
 				alert(data)
-				if (status) setState({})
+				if (status) {
+					winArticle = {}
+					setState({})
+				}
 			}
 		}
 	}
