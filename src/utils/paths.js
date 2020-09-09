@@ -15,3 +15,5 @@ String.prototype.uuid = function () {
 		return v.toString(16)
 	})
 }
+
+export const substr = (txt = '', length) => txt.length > length ? `${txt.substr(0, length)}...` : txt
