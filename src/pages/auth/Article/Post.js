@@ -20,6 +20,9 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const [article, setState] = useState({})
+	const [render, setRender] = useState(true)
+	window.aa = winArticle
+	window.bb = article
 	const setArticle = v => setState({ ...winArticle, ...v })
 	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {
@@ -39,9 +42,12 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			} else {
 				const { data, status } = await postArticle(params)
 				alert(data)
+				console.log(params)
 				if (status) {
-					winArticle = {}
-					setState({})
+					setTimeout(() => setRender(true), 10)
+					setRender(false)
+					winArticle = { artikel: '' }
+					setState({ artikel: '' })
 				}
 			}
 		}
@@ -65,7 +71,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	}
 	useEffect(effect, [urlEdit])
 	winArticle = article
-	return <>
+	return render && <>
 		<View direction="row" className="mb-1">
 			<FileUpload
 				isImage
