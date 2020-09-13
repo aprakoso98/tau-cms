@@ -53,6 +53,7 @@ const ListArticle = () => {
 					dataArticle = [...dataArticle, ...data]
 				}
 			}
+			total = dataArticle.length
 			reRender({ ...state, total, data: dataArticle })
 			setDataArticle(dataArticle)
 		}

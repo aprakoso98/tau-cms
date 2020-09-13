@@ -13,7 +13,6 @@ const GaleriKegiatan = () => {
 	const [visible, setVisible] = useState(false)
 	const [fasilitas, setFasilitas] = useState([])
 	const [deskripsi, setDeskripsi] = useState()
-	window.imgUpload = imgUpload
 	const updateDeskripsi = async () => {
 		await updateManage({
 			part: 'galeri',
@@ -42,42 +41,59 @@ const GaleriKegiatan = () => {
 	}
 
 	const uploadFasilitas = async () => {
-		const { data: msg } = await insertGaleri({ data: imgUpload })
-		alert(msg)
-		setVisible(false)
-		setImgUpload([])
-		getFasilitas()
+		if (imgUpload.length > 0) {
+			const { data: msg } = await insertGaleri({ data: imgUpload })
+			alert(msg)
+			setVisible(false)
+			setImgUpload([])
+			getFasilitas()
+		}
 	}
 
+	const onChangeFile = ({ file: media }) => {
+		setImgUpload([...imgUpload, { media, nama: '', deskripsi: '', is_embed: 0, isVideo: media.includes('video') }])
+	}
+
+	const onClickEmbed = (prevUrl = "") => {
+		const url = window.prompt('Masukkan embed url :', prevUrl)
+		if (url) {
+			const valid = url.validURL()
+			if (valid) {
+				setImgUpload([...imgUpload, {
+					media: url,
+					nama: '',
+					deskripsi: '',
+					is_embed: 1
+				}])
+			} else {
+				window.alert('URL yang anda masukkan tidak benar!')
+				onClickEmbed(url)
+			}
+		}
+	}
 	useEffect(() => {
 		getFasilitas()
 		setTitle('Galeri & Kegiatan')
 	}, [])
 
 	return <>
-		<Modal backDropClick={() => setVisible(false)} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
+		<Modal backDropClick={() => {
+			if (imgUpload.length > 0) {
+				const q = window.confirm('Ingin membatalkan upload galeri?')
+				if (q) setVisible(false)
+			} else setVisible(false)
+		}} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
 			<View flex className="brd-1 p-5 bc-light">
-				<View justify="sb" direction="row">
-					<FileUpload
-						toBase64
-						accept="image/*, video/*"
-						imgClass="w-10 h-10"
-						onChange={({ file: media }) => {
-							setImgUpload([...imgUpload, { media, nama: '', deskripsi: '', isVideo: media.includes('video') }])
-						}}><i className="fa fa-plus f-10" /></FileUpload>
-					<Button onClick={uploadFasilitas}>Upload Galeri</Button>
-				</View>
-				<ScrollView className="pt-5">
+				<ScrollView>
 					{
-						imgUpload.rMap(({ media, nama, deskripsi }, i) => <View className="ai-fe mb-5" direction="row">
-							<div className="w-1/3">
-								{media && media.includes('video') ?
+						imgUpload.rMap(({ is_embed, media, nama, deskripsi }, i) => <View className="ai-fe mb-5" direction="row">
+							{media && is_embed ?
+								<iframe title="show-embed" src={media} /> : media.includes('video') ?
 									<video className="b-1 h-35 w-auto" controls>
 										<source src={media} />
 									</video> :
 									<img alt="" className="b-1 h-35 w-auto" src={media} />
-								}
-							</div>
+							}
 							<View className="ml-3" flex>
 								<View direction="row">
 									<Input className="flex-1" value={nama} onChange={e => {
@@ -94,7 +110,19 @@ const GaleriKegiatan = () => {
 							</View>
 						</View>)
 					}
+					<div className="flex">
+						<FileUpload
+							className="b-1 p-5 brd-1 as-fs mr-3"
+							toBase64
+							accept="image/*, video/*"
+							imgClass="w-10 h-10"
+							onChange={onChangeFile}><i className="fa fa-image f-10" /></FileUpload>
+						<ButtonOpacity onClick={() => onClickEmbed()} className="b-1 p-5 brd-1 as-fs">
+							<i className="fa fa-code f-10" />
+						</ButtonOpacity>
+					</div>
 				</ScrollView>
+				<Button className="as-fe" onClick={uploadFasilitas}>Upload Galeri</Button>
 			</View>
 		</Modal>
 		<View flex>
@@ -103,23 +131,25 @@ const GaleriKegiatan = () => {
 					<div className="mr-5">Deskripsi</div>
 					<Textarea value={deskripsi} onBlur={updateDeskripsi} className="flex-1" onChange={e => setDeskripsi(e.target.value)} />
 				</View>
-				<Button className="p-5 as-fe ai-c flex-wrap" onClick={() => {
+				<Button className="as-fe" onClick={() => {
 					setImgUpload([])
 					setVisible(true)
-				}}>Tambah<br />Galeri</Button>
+				}}>Tambah Galeri</Button>
 			</View>
 			<ScrollView>
 				<Gallery
 					numColumns={4}
 					data={fasilitas}
-					renderItem={({ item: { id, nama, deskripsi, media, is_video } }) => <View className="p-2 relative">
+					renderItem={({ item: { is_embed, id, nama, deskripsi, media, is_video } }) => <View className="p-2 relative">
 						<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
 							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
 						</div>
 						{
-							is_video === '1' ? <video className="b-1 h-auto w-full" controls>
-								<source src={FILE_PATH + media} />
-							</video> : <img alt="" className="h-auto w-full" src={FILE_PATH + media} />
+							is_embed === '1' ?
+								<iframe src={media} title="embed-show" /> :
+								is_video === '1' ? <video className="b-1 h-auto w-full" controls>
+									<source src={FILE_PATH + media} />
+								</video> : <img alt="" className="h-auto w-full" src={FILE_PATH + media} />
 						}
 						{nama} - {deskripsi}
 					</View>}

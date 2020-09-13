@@ -34,11 +34,13 @@ const Fasilitas = () => {
 	}
 
 	const uploadFasilitas = async () => {
-		const { data: msg } = await insertFacilities({ data: imgUpload })
-		alert(msg)
-		setVisible(false)
-		setImgUpload([])
-		getFasilitas()
+		if (imgUpload.length > 0) {
+			const { data: msg } = await insertFacilities({ data: imgUpload })
+			alert(msg)
+			setVisible(false)
+			setImgUpload([])
+			getFasilitas()
+		}
 	}
 
 	useEffect(() => {
@@ -55,24 +57,17 @@ const Fasilitas = () => {
 	}
 
 	return <>
-		<Modal backDropClick={() => setVisible(false)} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
+		<Modal backDropClick={() => {
+			if (imgUpload.length > 0) {
+				const q = window.confirm('Ingin membatalkan upload fasilitas?')
+				if (q) setVisible(false)
+			} else setVisible(false)
+		}} className="h-full pt-20 pb-20 mr-50 ml-50 p-5 jc-c" visible={visible}>
 			<View flex className="brd-1 p-5 bc-light">
-				<View justify="sb" direction="row">
-					<FileUpload
-						isImage
-						toBase64
-						imgClass="w-10 h-10"
-						onChange={({ file: foto }) => {
-							setImgUpload([...imgUpload, { foto }])
-						}}><i className="fa fa-plus f-10" /></FileUpload>
-					<Button onClick={uploadFasilitas}>Upload Fasilitas</Button>
-				</View>
-				<ScrollView className="pt-5">
+				<ScrollView>
 					{
 						imgUpload.rMap(({ foto, nama }, i) => <View className="ai-fe mb-5" direction="row">
-							<div className="w-1/3">
-								<img alt="" className="b-1 h-35 w-auto" src={foto} />
-							</div>
+							<img alt="" className="b-1 h-35 w-auto" src={foto} />
 							<View className="ml-3" flex>
 								<Input className="flex-1" value={nama} onChange={e => {
 									let imgs = imgUpload.slice()
@@ -82,8 +77,16 @@ const Fasilitas = () => {
 							</View>
 						</View>)
 					}
+					<FileUpload
+						className="b-1 p-5 brd-1 as-fs"
+						isImage
+						toBase64
+						imgClass="w-10 h-10"
+						onChange={({ file: foto }) => {
+							setImgUpload([...imgUpload, { foto }])
+						}}><i className="fa fa-plus f-10" /></FileUpload>
 				</ScrollView>
-			</View>
+				<Button className="as-fe" onClick={uploadFasilitas}>Upload Fasilitas</Button></View>
 		</Modal>
 		<View flex>
 			<View direction="row" className="mt-5 mb-5">
@@ -91,10 +94,10 @@ const Fasilitas = () => {
 					<div className="mr-5">Deskripsi</div>
 					<Textarea value={deskripsi} onBlur={updateDeskripsi} className="flex-1" onChange={e => setDeskripsi(e.target.value)} />
 				</View>
-				<Button className="p-5 as-fe ai-c flex-wrap" onClick={() => {
+				<Button className="as-fe" onClick={() => {
 					setImgUpload([])
 					setVisible(true)
-				}}>Tambah<br />Fasilitas</Button>
+				}}>Tambah Fasilitas</Button>
 			</View>
 			<ScrollView>
 				<Gallery

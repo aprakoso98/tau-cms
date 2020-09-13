@@ -4,14 +4,24 @@ import { getArticleSet, setArticleSet, getArticle } from 'src/utils/api';
 import { Input } from 'src/components/Input';
 import Button from 'src/components/Button';
 import { Link } from 'react-router-dom';
+import { ScrollView } from 'src/components/Container';
+import bbobHTML from '@bbob/html'
+import presetHtml from '@bbob/preset-html5'
+import htmlParser from 'react-html-parser';
 
 const Default = ({ match, location }) => {
 	const [url, setUrl] = useState('')
 	const [urlTo, setUrlTo] = useState('')
 	const [urlValid, setUrlValid] = useState(false)
+	const [preview, setPreview] = useState(null)
 	const isValidUrl = async url => {
 		const { status, data } = await getArticle({ url })
-		return new Promise(resolve => resolve(status && data))
+		const isValid = status && data
+		if (isValid) {
+			const artikel = bbobHTML(data.artikel.replacePath(true), presetHtml())
+			setPreview(htmlParser(artikel))
+		} else setPreview(null)
+		return new Promise(resolve => resolve(isValid))
 	}
 	const getData = async () => {
 		const { data } = await getArticleSet({ part: match.params.path })
@@ -37,21 +47,25 @@ const Default = ({ match, location }) => {
 		setTitle(location.state.name)
 	}
 	useEffect(effect, [location])
-	return <div className="flex flex-col">
-		<div className="flex">
-			<div className="as-c mr-3">URL</div>
-			<Input className="as-c flex flex-1" value={url} onChange={e => setUrl(e.target.value)} />
+	return <>
+		<div className="flex flex-col">
+			<div className="flex jc-sb ai-c">
+				<div>URL</div>
+				<Input className="mr-3 ml-3 flex flex-1" value={url} onChange={e => setUrl(e.target.value)} />
+				<Button onClick={updateUrl}>Update URL Target</Button>
+			</div>
+			<div className="mt-5 mb-3 flex ai-c jc-sb">
+				<div>Preview</div>
+				<Link onClick={e => {
+					if (!urlValid) {
+						alert('URL yang anda masukkan tidak ada di daftar artikel, harap ubah URL Anda atau tambahkan artikel dengan url tersebut.')
+						e.preventDefault()
+					}
+				}} to={{ pathname: '/article/edit', state: urlTo }}>Edit artikel</Link>
+			</div>
 		</div>
-		<div className="flex as-fe">
-			<Link onClick={e => {
-				if (!urlValid) {
-					alert('URL yang anda masukkan tidak ada di daftar artikel, harap ubah URL Anda atau tambahkan artikel dengan url tersebut.')
-					e.preventDefault()
-				}
-			}} className="as-c mt-3 mr-3" to={{ pathname: '/article/edit', state: urlTo }}>Edit data</Link>
-			<Button className="as-c mt-3" onClick={updateUrl}>Update URL Target</Button>
-		</div>
-	</div>
+		<ScrollView className="preview-article brd-1 b-1 p-3">{preview}</ScrollView>
+	</>
 }
 
 export default Default

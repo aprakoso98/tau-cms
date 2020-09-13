@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const { BASE_URL } = require('src/env.json')
-
+export { BASE_URL }
 export const API = BASE_URL + "/api.php"
 export const FILE_PATH = BASE_URL + "/files/"
 
@@ -107,6 +107,11 @@ export const getS1Kategori = async params => {
 
 export const insertS1Kategori = async params => {
 	const { data } = await axios.post(API, { action: 'InsertS1Kategori', ...params })
+	return data
+}
+
+export const deleteS1 = async params => {
+	const { data } = await axios.post(API, { action: 'DeleteS1', ...params })
 	return data
 }
 

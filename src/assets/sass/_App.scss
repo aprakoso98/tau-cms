@@ -29,19 +29,20 @@ button:focus, input:focus, textarea:focus {
 
 * {
   &:not(.fa) {
-    font-family: SemiBold; 
+    font-family: Regular; 
   }
   &:not(h1, h2, h3, h4, h5, h6) {
     font-size: #{$fontSize}rem;
   }
   body {
+    overflow: hidden;
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-.jodit-wysiwyg {
+.jodit-wysiwyg, .preview-article {
   b, strong {
     font-family: Bold;
   }

@@ -7,8 +7,8 @@ import Button, { ButtonOpacity } from 'src/components/Button';
 import { getFiles, updateFile, FILE_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 
-const imageType = ["png", "jpg", "jpeg", "gif"]
-const videoType = ["mp4", "mkv"]
+export const imageType = ["png", "jpg", "jpeg", "gif"]
+export const videoType = ["mp4", "mkv"]
 
 const Files = () => {
 	const [search, setSearch] = useState('')

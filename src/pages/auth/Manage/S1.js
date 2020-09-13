@@ -4,7 +4,7 @@ import { View, ScrollView } from 'src/components/Container';
 import { Input, Textarea } from 'src/components/Input';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { setTitle } from 'src/redux/actions/web';
-import { getS1Kategori, getS1, getManage, FILE_PATH, insertS1, updateS1, updateManage } from 'src/utils/api';
+import { getS1Kategori, getS1, getManage, FILE_PATH, insertS1, updateS1, updateManage, deleteS1 } from 'src/utils/api';
 import JoditEditor from 'jodit-react';
 import FileUpload from 'src/components/FileUpload';
 import { joditConfig } from 'src/utils/state';
@@ -139,7 +139,8 @@ const S1 = ({ location, match: { params } }) => {
 								setState({ newProdi: {}, modalVisible: true, isNewProgram: true, programs, selectedCategory: i })
 							}}>Tambah Program</Button>
 						</View>
-						{opened && programs.rMap(({ nama_prodi = '', ...program }, i) => {
+						{opened && programs.rMap((program, i) => {
+							const { nama_prodi = '', id, id_program } = program
 							return <View direction="row" className="bb-1 ai-c mb-1">
 								{/* <img alt="" className="mr-3 brd-1 o-h w-30" src={FILE_PATH + program.foto_prodi} /> */}
 								<div className="flex as-fs mr-3">{i + 1}.</div>
@@ -147,13 +148,22 @@ const S1 = ({ location, match: { params } }) => {
 									<div>{nama_prodi.ucwords()}</div>
 									<div>{substr(program.deskripsi_prodi, 250)}</div>
 								</View>
-								<Button onClick={() => {
-									program.visi_prodi = program.visi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
-									program.misi_prodi = program.misi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
-									program.kurikulum_prodi = program.kurikulum_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
-									program.kompetensi_prodi = program.kompetensi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
-									setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })
-								}}>Edit</Button>
+								<div className="flex">
+									<Button className="mr-2" onClick={() => {
+										program.visi_prodi = program.visi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+										program.misi_prodi = program.misi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+										program.kurikulum_prodi = program.kurikulum_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+										program.kompetensi_prodi = program.kompetensi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+										setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })
+									}}>Edit</Button>
+									<Button onClick={async () => {
+										const q = window.confirm(`Hapus pogram "${nama_prodi}"?`)
+										if (q) {
+											await deleteS1({ id, id_program })
+											getData()
+										}
+									}}>Hapus</Button>
+								</div>
 							</View>
 						})}
 					</View>
