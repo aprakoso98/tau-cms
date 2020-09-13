@@ -12,7 +12,7 @@ import { substr } from '../../../utils/paths';
 
 let winState = {}
 
-const S1 = ({ location, match: { params } }) => {
+const S1 = ({ location = { state: {} }, match: { params } }) => {
 	const [view, setView] = useState('visi_prodi')
 	const [state, _] = useState({
 		programs: [],
@@ -139,11 +139,11 @@ const S1 = ({ location, match: { params } }) => {
 								setState({ newProdi: {}, modalVisible: true, isNewProgram: true, programs, selectedCategory: i })
 							}}>Tambah Program</Button>
 						</View>
-						{opened && programs.rMap((program, i) => {
+						{opened && programs.rMap((program, index) => {
 							const { nama_prodi = '', id, id_program } = program
 							return <View direction="row" className="bb-1 ai-c mb-1">
 								{/* <img alt="" className="mr-3 brd-1 o-h w-30" src={FILE_PATH + program.foto_prodi} /> */}
-								<div className="flex as-fs mr-3">{i + 1}.</div>
+								<div className="flex as-fs mr-3">{index + 1}.</div>
 								<View flex>
 									<div>{nama_prodi.ucwords()}</div>
 									<div>{substr(program.deskripsi_prodi, 250)}</div>
@@ -154,6 +154,8 @@ const S1 = ({ location, match: { params } }) => {
 										program.misi_prodi = program.misi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
 										program.kurikulum_prodi = program.kurikulum_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
 										program.kompetensi_prodi = program.kompetensi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
+
+										console.log(i, index, state)
 										setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })
 									}}>Edit</Button>
 									<Button onClick={async () => {
