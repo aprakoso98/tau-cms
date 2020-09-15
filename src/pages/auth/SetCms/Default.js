@@ -10,6 +10,16 @@ import presetHtml from '@bbob/preset-html5'
 import htmlParser from 'react-html-parser';
 
 const Default = ({ match, location }) => {
+	const disabledPath = ['international-australian', 'international-business']
+	const disabled = {
+		readOnly: disabledPath.includes(match.params.path),
+		onClick: () => {
+			const isDisabled = disabledPath.includes(match.params.path)
+			if (isDisabled) {
+				alert('URL Path ini tidak bisa diganti!')
+			}
+		}
+	}
 	const [url, setUrl] = useState('')
 	const [urlTo, setUrlTo] = useState('')
 	const [urlValid, setUrlValid] = useState(false)
@@ -46,12 +56,12 @@ const Default = ({ match, location }) => {
 		getData()
 		setTitle(location.state.name)
 	}
-	useEffect(effect, [location])
+	useEffect(effect, [location, match])
 	return <>
 		<div className="flex flex-col">
 			<div className="flex jc-sb ai-c">
 				<div>URL</div>
-				<Input className="mr-3 ml-3 flex flex-1" value={url} onChange={e => setUrl(e.target.value)} />
+				<Input {...disabled} className="mr-3 ml-3 flex flex-1" value={url} onChange={e => setUrl(e.target.value)} />
 				<Button onClick={updateUrl}>Update URL Target</Button>
 			</div>
 			<div className="mt-5 mb-3 flex ai-c jc-sb">
