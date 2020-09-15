@@ -21,8 +21,6 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	const dispatch = useDispatch()
 	const [article, setState] = useState({})
 	const [render, setRender] = useState(true)
-	window.aa = winArticle
-	window.bb = article
 	const setArticle = v => setState({ ...winArticle, ...v })
 	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {

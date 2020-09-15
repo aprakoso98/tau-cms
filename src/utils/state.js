@@ -75,7 +75,7 @@ export const joditConfig = {
 					if (isImage) {
 						this.jodit.selection.insertImage(fullPath, "", "")
 					} else {
-						this.jodit.selection.insertHTML(`<label class="mr-1"><a target="_blank" href="${fullPath}">${name}.${format}</a></label>`)
+						this.jodit.selection.insertHTML(`<label class="mr-1"><a class="c-link" target="_blank" href="${fullPath}">${name}.${format}</a></label>`)
 					}
 				}
 				popupContent.parentNode.remove(popupContent)

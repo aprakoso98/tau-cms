@@ -13,7 +13,8 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 	const [state, _] = useState({ image: '' })
 	const setState = v => _({ ...winState, ...v })
 	const updateData = async () => {
-		const data = { ...state }
+		let data = { ...state }
+		data.content = data.content.replacePath()
 		if (param.withImage) {
 			const validImg = await data.image.checkImageValid()
 			if (!validImg) {
@@ -33,6 +34,7 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 		}
 	}
 	useEffect(() => {
+		console.log(param)
 		getData()
 		setTitle(param.title)
 		// eslint-disable-next-line react-hooks/exhaustive-deps

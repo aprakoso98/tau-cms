@@ -154,8 +154,6 @@ const S1 = ({ location = { state: {} }, match: { params } }) => {
 										program.misi_prodi = program.misi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
 										program.kurikulum_prodi = program.kurikulum_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
 										program.kompetensi_prodi = program.kompetensi_prodi.replace(/\$FILE_PATH/g, FILE_PATH)
-
-										console.log(i, index, state)
 										setState({ newProdi: program, isNewProgram: false, modalVisible: true, selectedCategory: i })
 									}}>Edit</Button>
 									<Button onClick={async () => {

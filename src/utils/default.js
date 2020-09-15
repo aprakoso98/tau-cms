@@ -101,7 +101,7 @@ String.prototype.lcfirst = function () {
   return this.charAt(0).toLowerCase() + this.slice(1);
 }
 String.prototype.ucwords = function () {
-  return this.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+  return this.replace(/\b[a-z]/g, function (letter) {
     return letter.toUpperCase();
   });
 }
