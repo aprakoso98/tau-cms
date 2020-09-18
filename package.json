@@ -2,7 +2,8 @@
   "name": "tau-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cms.kadetech.tech",
+  "homepage": "https://cms.tau.ac.id",
+  "/": "https://cms.kadetech.tech",
   "main": "node_modules/jodit/build/jodit.min.js",
   "dependencies": {
     "@bbob/core": "^2.5.8",
@@ -29,9 +30,10 @@
   },
   "scripts": {
     "env:prod": "node scripts/set-environment.js release",
+    "env:prodtau": "node scripts/set-environment.js release-tau",
     "env:dev": "node scripts/set-environment.js developement",
     "start": "yarn env:dev && react-scripts start",
-    "build": "yarn env:prod && set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "build": "yarn env:prodtau && set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

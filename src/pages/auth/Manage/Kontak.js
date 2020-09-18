@@ -13,7 +13,7 @@ const Kontak = () => {
 		}
 	}
 	const onBlur = async ({ target: { value, id } }) => {
-		await updateManage({ [id]: value })
+		await updateManage({ part: id, content: value })
 	}
 	const effect = () => {
 		getData()

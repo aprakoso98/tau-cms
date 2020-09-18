@@ -26,4 +26,4 @@ String.prototype.validURL = function () {
 	return !!pattern.test(this);
 }
 
-export const substr = (txt = '', length) => txt.length > length ? `${txt.substr(0, length)}...` : txt
+export const substr = (txt = '', length) => txt ? txt.length > length ? `${txt.substr(0, length)}...` : txt : ''

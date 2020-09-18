@@ -42,15 +42,21 @@ const ListArticle = () => {
 	const getData = async () => {
 		let from = 0, dataArticle = []
 		var { data: { data, total, limit }, status } = await getArticle()
-		dataArticle = data
+		if (status) {
+			if (Array.isArray(data)) {
+				dataArticle = data
+			}
+		}
 		if (status && data) {
 			const sisa = total % limit
 			const loop = (total - sisa) / limit + (sisa > 0 ? 1 : 0)
 			for (let i = 1; i < loop; i++) {
 				from = i * limit
 				var { status, data: { data } } = await getArticle({ from, limit })
-				if (status && data) {
-					dataArticle = [...dataArticle, ...data]
+				if (status) {
+					if (Array.isArray(data)) {
+						dataArticle = [...dataArticle, ...data]
+					}
 				}
 			}
 			total = dataArticle.length
