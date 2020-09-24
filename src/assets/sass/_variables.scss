@@ -14,7 +14,7 @@ $color: $dark $darkTransparent $text $light $grey $greySoft $greyHard $border $l
 $colorText: dark dark-tr text light grey grey-soft grey-hard border link blue placeholder;
 
 $textareaMinHeight: 7.3;
-$fontSize: 1;
+$fontSize: .9;
 $headings: $fontSize+(.25*6) $fontSize+(.25*5) $fontSize+(.25*4) $fontSize+(.25*3) $fontSize+(.25*2) $fontSize+(.25*1);
 
 @for $i from 1 through length($headings) {

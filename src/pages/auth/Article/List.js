@@ -113,7 +113,7 @@ const ListArticle = () => {
 				data={[10, 10, 20, 25, 30, 50, 100]}
 			/>
 			<Input placeholder="Cari artikel" value={search} isTypingOn={false} onChange={onChangeSearch} className="ml-5 flex flex-1" />
-			<Button className="ml-5 ai-c" flex="" onClick={() => history.push('/article/post')}>Post artikel baru</Button>
+			<Button className="as-c ml-5 ai-c" flex="" onClick={() => history.push('/article/post')}>Post artikel baru</Button>
 		</View>
 		{/* <ScrollView className="pt-5 pb-5"> */}
 		<table className="mt-5 mb-5 text-left w-full">

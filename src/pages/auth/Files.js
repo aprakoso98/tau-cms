@@ -81,7 +81,7 @@ const Files = () => {
 					{item.id && <ButtonOpacity onClick={() => {
 						(FILE_PATH + item.file).copyToClipboard()
 						setToast(true)
-					}} className="mr-2"><i className="c-light f-5 ion-ios7-copy-outline" /></ButtonOpacity>}
+					}} className="mr-2"><i className="c-light f-5 ion-ios-copy-outline" /></ButtonOpacity>}
 					<ButtonOpacity onClick={() => deleteFile(i)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
 				</div>
 			</View>}
