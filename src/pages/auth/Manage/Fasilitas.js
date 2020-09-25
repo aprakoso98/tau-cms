@@ -89,12 +89,12 @@ const Fasilitas = () => {
 				<Button className="as-fe" onClick={uploadFasilitas}>Upload Fasilitas</Button></View>
 		</Modal>
 		<View flex>
+			<div className="mr-5">Deskripsi</div>
 			<View direction="row" className="mt-5 mb-5">
 				<View flex className="mr-3">
-					<div className="mr-5">Deskripsi</div>
 					<Textarea value={deskripsi} onBlur={updateDeskripsi} className="flex-1" onChange={e => setDeskripsi(e.target.value)} />
 				</View>
-				<Button className="as-fe" onClick={() => {
+				<Button className="as-fs" onClick={() => {
 					setImgUpload([])
 					setVisible(true)
 				}}>Tambah Fasilitas</Button>

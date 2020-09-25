@@ -41,7 +41,7 @@ const SideMenu = () => {
 		<View direction="row" className="p-5">
 			<img className="h-full w-auto" alt="" src={Web.minimizedDrawer ? require('src/assets/images/favicon.png') : require('src/assets/images/logo-tau.png')} />
 		</View>
-		{!Web.minimizedDrawer && <div className="p-5 pt-1">
+		{!Web.minimizedDrawer && <div className="flex flex-col ai-c p-5 pt-1">
 			<img className="h-auto w-15" alt="" src={require('src/assets/images/Laki-laki.svg')} />
 			<div className="pt-3">Superadmin</div>
 		</div>}

@@ -36,7 +36,12 @@ const Banner = () => {
 							const data = Array.isArray(files) ? files : [files]
 							uploadFile({ data, isMobile })
 						}}
-					><i className="ion-plus-circled f-10" /></FileUpload>
+					>
+						<div className="mt-3 mb-3 brd-1 p-1 pr-3 pl-3 bc-blue c-light ai-c flex flex-row">
+							<i className="mr-2 ion-plus-circled f-5" />
+							<div>Tambah</div>								
+						</div>
+					</FileUpload>
 				</div>
 				<Gallery
 					scrollable

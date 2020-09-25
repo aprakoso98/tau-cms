@@ -58,7 +58,7 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 				onBlur={e => setState({ content: e.target.innerHTML })}
 			/>
 		</View>
-		<Button className="as-fe" onClick={updateData}>Update data</Button>
+		<Button className="as-c" onClick={updateData}>Update data</Button>
 	</View>
 }
 

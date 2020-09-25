@@ -74,7 +74,7 @@ const S1 = ({ location = { state: {} }, match: { params } }) => {
 			return img
 		else if (img && img.length < 50)
 			return FILE_PATH + img
-		return require('src/assets/images/1-1.jpg')
+		return require('src/assets/images/article-thumb.png')
 	}
 	winState = state
 	return <>
