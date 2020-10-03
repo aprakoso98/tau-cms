@@ -43,7 +43,7 @@ export const joditConfig = {
 		'bold', 'italic', 'underline', 'eraser', '|',
 		'fontsize', 'brush', '|',
 		'ul', 'ol', 'align', '|',
-		'image', 'file', 'link', '|',
+		'image', 'file', 'video', 'link', '|',
 		'hr', '|',
 		'undo', 'redo', 'preview'
 	],

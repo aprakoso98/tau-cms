@@ -28,7 +28,7 @@
         "react/no-children-prop": 0,
         "react/no-mixed-operators": 0,
         "react/no-useless-escape": 0,
-        "react/no-mixed-operators": 0,
-        "react/no-extend-native": 0
+        "react/no-extend-native": 0,
+        "jsx-a11y/anchor-is-valid": 0
     }
 }
