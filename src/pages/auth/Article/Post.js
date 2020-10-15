@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import bbobHTML from '@bbob/html'
 import presetHtml from '@bbob/preset-html5'
 import { joditConfig, uploadImages } from 'src/utils/state';
+import moment from 'moment-timezone';
 
 let winArticle = {}
 
@@ -24,7 +25,10 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 	const setArticle = v => setState({ ...winArticle, ...v })
 	const onChange = ({ target: { id, value } }) => setArticle({ [id]: value })
 	const post = async () => {
-		let { foto, url = "", artikel = "" } = article
+		let { tgl, foto, url = "", artikel = "" } = article
+		if (tgl) {
+			tgl = moment(tgl).format('YYYY-MM-DD HH:mm:ss')
+		}
 		artikel = await uploadImages(artikel)
 		artikel = artikel.replacePath()
 		if (!foto) {
@@ -32,7 +36,7 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 		} else if (url === "") {
 			alert("Please change custom url")
 		} else {
-			const params = { ...article, artikel, url }
+			const params = { ...article, artikel, url, tgl }
 			if (urlEdit) {
 				const { data, status } = await editArticle(params)
 				alert(data)
@@ -40,7 +44,6 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			} else {
 				const { data, status } = await postArticle(params)
 				alert(data)
-				console.log(params)
 				if (status) {
 					setTimeout(() => setRender(true), 10)
 					setRender(false)
@@ -60,12 +63,19 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 			getDataEdit()
 			setTitle('Edit Artikel')
 		} else {
-			setState(Web.article)
+			setState({
+				...Web.article,
+				url: Web.article.url || "".uuid()
+			})
 			setTitle('Tambah Artikel')
 			return () => {
 				dispatch(actionsWeb({ article: winArticle }))
 			}
 		}
+	}
+	const tglValue = () => {
+		const tgl = moment.tz(article.tgl, 'Asia/Jakarta').format('YYYY-MM-DDTHH:mm:ss')
+		return article.tgl && tgl
 	}
 	useEffect(effect, [urlEdit])
 	winArticle = article
@@ -80,7 +90,10 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 				accept="image/*"
 				onChange={({ file: foto }) => setArticle({ foto })}
 			/>
-			<Input className="flex-1 mb-0 as-fe" placeholder="Judul Artikel" id="judul" onChange={onChange} value={article.judul} />
+			<View className="flex-1 as-fe">
+				<Input className="flex-1 mb-0" placeholder="Judul Artikel" id="judul" onChange={onChange} value={article.judul} />
+				<div className="mt-2 mb-2">Permalink : <a rel="noopener noreferrer" target="_blank" className="bb-1-link" href={"https://rev.tau.ac.id/" + article.url}>{"https://rev.tau.ac.id/" + article.url}</a></div>
+			</View>
 		</View>
 		<View direction="row" className="mb-1">
 			<Input placeholder="Kustom Url" onBlur={() => {
@@ -88,7 +101,8 @@ const PostArticle = ({ location: { state: urlEdit } = {} }) => {
 					const url = article.url.replace(/\W/g, "-")
 					setArticle({ url })
 				}
-			}} className="flex-1 mr-3" id="url" onChange={onChange} value={article.url} />
+			}} className="flex-1" id="url" onChange={onChange} value={article.url} />
+			<Input placeholder="Tanggal" type="datetime-local" id="tgl" className="flex-1 mr-3 ml-3" onChange={onChange} value={tglValue()} />
 			<Input placeholder="Pembuat" id="pembuat" className="flex-1" onChange={onChange} value={article.pembuat} />
 		</View>
 		<Input className="mb-1" placeholder="Deskripsi" id="deskripsi" onChange={onChange} value={article.deskripsi} />

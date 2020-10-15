@@ -85,6 +85,11 @@ export const getProgramStudiKategori = async params => {
 	return data
 }
 
+export const updateFileFolder = async params => {
+	const { data } = await axios.post(API, { action: 'UpdateFileFolder', ...params })
+	return data
+}
+
 export const updateFile = async params => {
 	const { data } = await axios.post(API, { action: 'UpdateFile', ...params })
 	return data

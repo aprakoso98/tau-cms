@@ -4,7 +4,7 @@ import isTyping from 'src/utils/isTyping';
 const Input = forwardRef(({
 	onChange = () => { },
 	className = "",
-	value = "",
+	value,
 	isTypingOn = true,
 	...props
 }, ref) => {
@@ -14,9 +14,10 @@ const Input = forwardRef(({
 		else onChange(e)
 	}
 	return <input
+		type="text"
+		title={props.placeholder || props.id}
 		{...props}
 		ref={ref}
-		type="text"
 		defaultValue={value}
 		className={`bc-light b-1 p-2 pr-5 pl-5 brd-1 ${className}`}
 		onChange={setValue}

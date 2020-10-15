@@ -28,7 +28,7 @@ button:focus, input:focus, textarea:focus {
 }
 
 * {
-  &:not(.fa) {
+  &:not(.fa):not([class^="ion-"]) {
     font-family: Bold; 
   }
   &:not(h1, h2, h3, h4, h5, h6) {

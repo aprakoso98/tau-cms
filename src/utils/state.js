@@ -1,9 +1,15 @@
 import { updateFile, FILE_PATH } from "src/utils/api"
 import toBase64 from "./toBase64"
 import { imageType } from "src/pages/auth/Files"
+import { useState } from "react"
 
 const stateObject = (val, set) => {
 	return value => set({ ...val, ...value })
+}
+
+export function useForceUpdate() {
+  let [value, setState] = useState(true);
+  return () => setState(!value);
 }
 
 export default stateObject
