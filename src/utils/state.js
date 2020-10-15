@@ -8,8 +8,8 @@ const stateObject = (val, set) => {
 }
 
 export function useForceUpdate() {
-  let [value, setState] = useState(true);
-  return () => setState(!value);
+	let [value, setState] = useState(true);
+	return () => setState(!value);
 }
 
 export default stateObject
@@ -60,7 +60,8 @@ export const joditConfig = {
 			const input = document.querySelector('.jodit-popup-container input[type="file"]')
 			const popupContent = document.querySelector('.jodit-popup-container .jodit-popup__content')
 			const files = await toBase64(input.files)
-			const { status, data: response } = await updateFile({ data: Array.isArray(files) ? files : [files] })
+			const folderPath = 'article/'
+			const { status, data: response } = await updateFile({ path: folderPath, data: Array.isArray(files) ? files : [files] })
 			if (status) {
 				let index = -1, o = 0
 				const { files: data, mod } = response
@@ -77,7 +78,7 @@ export const joditConfig = {
 				}, [])
 				for (let i = 0; i < resp.length; i++) {
 					const { name, file, isImage, format } = resp[i]
-					const fullPath = FILE_PATH + file
+					const fullPath = FILE_PATH + [folderPath, file].join('/')
 					if (isImage) {
 						this.jodit.selection.insertImage(fullPath, "", "")
 					} else {
