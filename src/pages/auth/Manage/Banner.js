@@ -89,6 +89,7 @@ const Banner = () => {
 						</FileUpload>
 					</View>
 				</div>
+				<View>*) Untuk format "Forward Link" sebagai contoh: /fasilitas maka akan di arahkan ke website tau bagian fasilitas. Apabila ingin mengakses website dari luar, harap gunakan full url. Contoh: https://google.com</View>
 				<DragSortableList
 					items={renderBanner(banner, isMobile)}
 					dropBackTransitionDuration={0.3}
