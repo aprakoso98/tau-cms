@@ -1,11 +1,11 @@
 import React from 'react';
 import fileToBase64 from 'src/utils/toBase64';
 
-const FileUpload = ({ style, toBase64, className, isImage, imgClass, src, onChange = () => { }, children, ...props }) => {
+const FileUpload = ({title, style, toBase64, className, isImage, imgClass, src, onChange = () => { }, children, ...props }) => {
 	const id = Math.randomInt(1000000, 9999999).toString()
 	const id2 = Math.randomInt(1000000, 9999999).toString()
 	return <>
-		<label style={{ cursor: 'pointer', ...style }} className={className} htmlFor={id + id2}>
+		<label title={title} style={{ cursor: 'pointer', ...style }} className={className} htmlFor={id + id2}>
 			{
 				children ? children :
 					isImage && <img className={imgClass} alt="" src={src} />

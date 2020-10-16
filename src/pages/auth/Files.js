@@ -12,7 +12,7 @@ import { updateFileFolder } from '../../utils/api';
 export const imageType = ["png", "jpg", "jpeg", "gif"]
 export const videoType = ["mp4", "mkv"]
 
-const Files = () => {
+const Files = ({ onlyPick, onPick }) => {
 	const [search, setSearch] = useState('')
 	const [files, _] = useState([])
 	const [deletedFiles, __] = useState([])
@@ -37,10 +37,10 @@ const Files = () => {
 	}
 	const [fileFolders, setFileFolders] = useState([])
 	const getData = async () => {
-		var { data, status } = await getFiles()
+		const { data, status } = await getFiles()
 		if (status) _(data)
-		var { data, status } = await getFiles({ getFolder: true })
-		if (status) setFileFolders(data)
+		const { data: folders, status: statusFolders } = await getFiles({ getFolder: true })
+		if (statusFolders) setFileFolders(folders)
 		setMoveDialog(false)
 	}
 	const [toast, setToast] = useState(false)
@@ -69,7 +69,7 @@ const Files = () => {
 		numColumns={4}
 		renderItem={({ item, i }) => {
 			const filePath = item.file && item.file.length > 50 ? item.file : FILE_PATH + [item.folder, item.file].join('/')
-			return <View flex className="m-1 w-1/4 relative">
+			return <View onClick={() => onPick && onPick(item)} flex className={`m-1 w-1/4 relative ${onlyPick ? 'pointer' : ''}`}>
 				<div className="h-30 o-h ta-c">
 					{
 						imageType.includes(item.format) ? <img
@@ -82,10 +82,10 @@ const Files = () => {
 					}
 				</div>
 				<View className="mt-3 ai-c" direction="row">
-					{item.folder && <View className="mr-2">{`${item.folder}/`}</View>}
-					<Input placeholder="Nama file" className="w-full" value={item.name} onChange={e => editFile(i, { ...item, changed: true, name: e.target.value })} />
+					{item.folder && <View className={onlyPick ? 'as-c' : 'mr-2'}>{`${item.folder}/${onlyPick ? item.name : ''}`}</View>}
+					{!onlyPick && <Input placeholder="Nama file" className="w-full" value={item.name} onChange={e => editFile(i, { ...item, changed: true, name: e.target.value })} />}
 				</View>
-				<div className="absolute flex bc-dark pl-2 pr-2" style={{ right: 0, top: 0 }}>
+				{!onlyPick && <div className="absolute flex bc-dark pl-2 pr-2" style={{ right: 0, top: 0 }}>
 					{item.id && <>
 						<ButtonOpacity onClick={() => {
 							setMoveDialog(true)
@@ -97,7 +97,7 @@ const Files = () => {
 						}} className="ml-2 mr-2"><i className="c-light f-5 ion-ios-copy-outline" /></ButtonOpacity>
 					</>}
 					<ButtonOpacity title="Delete" onClick={() => deleteFile(i)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
-				</div>
+				</div>}
 			</View>
 		}}
 	/>
@@ -125,19 +125,19 @@ const Files = () => {
 		</Modal>
 		{toast && <div style={{ zIndex: 99, bottom: 0, right: 0 }} className="bc-dark c-light p-1 pl-3 pr-3 m-2 brd-1 absolute">Copied</div>}
 		<View direction="row">
-			<FileUpload
+			{!onlyPick && <FileUpload
 				toBase64
 				multiple
-				className="as-c"
+				className="as-c mr-3"
 				onChange={imgs => {
 					imgs = Array.isArray(imgs) ? imgs : [imgs]
 					pushFiles(imgs)
 				}}
-			><i className="f-10 ion-plus-circled" /></FileUpload>
-			<Input onChange={e => setSearch(e.target.value)} value={search} className="mr-3 ml-3 as-c flex-1" placeholder="Cari File..." />
+			><i className="f-10 ion-plus-circled" /></FileUpload>}
+			<Input onChange={e => setSearch(e.target.value)} value={search} className="as-c flex-1" placeholder="Cari File..." />
 		</View>
 		{ViewGallery}
-		<Button className="as-fe" onClick={updateData}>Submit</Button>
+		{!onlyPick && <Button className="as-fe" onClick={updateData}>Submit</Button>}
 	</View>
 }
 

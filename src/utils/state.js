@@ -7,6 +7,11 @@ const stateObject = (val, set) => {
 	return value => set({ ...val, ...value })
 }
 
+export const useToggle = (init) => {
+	const [toggle, setToggle] = useState(init)
+	return [toggle, () => setToggle(!toggle)]
+}
+
 export function useForceUpdate() {
 	let [value, setState] = useState(true);
 	return () => setState(!value);

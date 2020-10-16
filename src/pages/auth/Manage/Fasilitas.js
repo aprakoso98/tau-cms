@@ -1,3 +1,4 @@
+import DragSortableList from 'react-drag-sortable'
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'src/components/Container';
 import { setTitle } from 'src/redux/actions/web';
@@ -6,7 +7,7 @@ import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
-import { removeData, getFacilities, insertFacilities, getManage, updateManage, FILE_PATH } from 'src/utils/api';
+import { removeData, getFacilities, insertFacilities, getManage, updateManage, FILE_PATH, changeOrder } from 'src/utils/api';
 
 const Fasilitas = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -56,6 +57,30 @@ const Fasilitas = () => {
 		}
 	}
 
+	const onSort = async (sortedList) => {
+		const idSortedList = sortedList.reduce((ret, { id, rank }) => {
+			ret[id] = rank
+			return ret
+		}, {})
+		await changeOrder({ target: 'fasilitas', order: idSortedList })
+	}
+	const renderBanner = (banners) => {
+		return banners.map(({ id, nama, foto }) => {
+			return {
+				id,
+				classes: ['w-1/4 p-1'],
+				content: <View className="relative">
+					<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
+						<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
+					</div>
+					<div className="o-h h-35">
+						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
+					</div>
+					{nama}
+				</View>
+			}
+		})
+	}
 	return <>
 		<Modal backDropClick={() => {
 			if (imgUpload.length > 0) {
@@ -100,16 +125,12 @@ const Fasilitas = () => {
 				}}>Tambah Fasilitas</Button>
 			</View>
 			<ScrollView>
-				<Gallery
-					numColumns={4}
-					data={fasilitas}
-					renderItem={({ item: { id, nama, foto } }) => <View className="p-2 relative">
-						<div style={{ zIndex: 2, top: 0, right: 0 }} className="bc-dark p-3 absolute">
-							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
-						</div>
-						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
-						{nama}
-					</View>}
+				<DragSortableList
+					items={renderBanner(fasilitas)}
+					dropBackTransitionDuration={0.3}
+					onSort={onSort}
+					type="grid"
+					placeholder={<div className="bc-grey h-full w-full p-5 ta-c ai-c jc-c">Drop here</div>}
 				/>
 			</ScrollView>
 		</View>

@@ -108,3 +108,23 @@ table {
 		}
 	}
 }
+.opacity {
+	&-1\/2 {
+		opacity: .5;
+	}
+}
+.draggable {
+	cursor: grab;
+	&:active {
+		cursor: grabbing;
+	}
+	.dragged {
+		opacity: .7;
+	}
+	&.placeholder {
+		opacity: .5;
+	}
+}
+.pointer {
+	cursor: pointer;
+}
