@@ -17,7 +17,7 @@ const Banner = () => {
 		setBannerMobile(bannerMobile)
 	}
 	const changeBannerData = async params => {
-		const { } = await updateBanner(params)
+		await updateBanner(params)
 		// alert(data)
 		getData()
 	}

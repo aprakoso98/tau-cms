@@ -2,7 +2,6 @@ import DragSortableList from 'react-drag-sortable'
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'src/components/Container';
 import { setTitle } from 'src/redux/actions/web';
-import Gallery from 'src/components/Gallery';
 import Modal from 'src/components/Modal';
 import FileUpload from 'src/components/FileUpload';
 import Button, { ButtonOpacity } from 'src/components/Button';
