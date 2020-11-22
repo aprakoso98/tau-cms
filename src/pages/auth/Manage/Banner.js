@@ -6,6 +6,7 @@ import FileUpload from 'src/components/FileUpload';
 import { View } from 'src/components/Container';
 import DragSortableList from 'react-drag-sortable'
 import { Input } from 'src/components/Input';
+import Image from 'src/components/Image';
 
 const Banner = () => {
 	const [bannerMobile, setBannerMobile] = useState([])
@@ -32,29 +33,27 @@ const Banner = () => {
 				id,
 				classes: ['w-1/4 p-1'],
 				content: <>
-					<div className="relative">
-						<div style={{ zIndex: 99, right: 0, top: 0 }} className="flex absolute bc-dark p-1 pr-3 pl-3">
-							{isForBanner === '0' && <ButtonOpacity title="Set for individual banner" onClick={() => changeBannerData({ id, isMobile })} className="mr-2">
-								<i className="ion-checkmark-round c-light" />
-							</ButtonOpacity>}
-							{id && <ButtonOpacity title="Hide/unhide banner" onClick={() => changeBannerData({ id, visible: visible ? '0' : '1' })} className="mr-2">
-								<i className={`${visible ? 'ion-eye' : 'ion-eye-disabled'} c-light`} />
-							</ButtonOpacity>}
-							<ButtonOpacity title="Delete banner" onClick={() => {
-								const confirm = window.confirm('Yakin hapus file ini?')
-								if (confirm) {
-									changeBannerData({ id, delete: true })
-								}
-							}}>
-								<i className="ion-trash-a c-light" />
-							</ButtonOpacity>
+					<div style={{ zIndex: 99, right: 0, top: 0 }} className="flex absolute bc-dark m-1 pr-3 pl-3">
+						{isForBanner === '0' && <ButtonOpacity title="Set for individual banner" onClick={() => changeBannerData({ id, isMobile })} className="mr-2">
+							<i className="ion-checkmark-round c-light" />
+						</ButtonOpacity>}
+						{id && <ButtonOpacity title="Hide/unhide banner" onClick={() => changeBannerData({ id, visible: visible ? '0' : '1' })} className="mr-2">
+							<i className={`${visible ? 'ion-eye' : 'ion-eye-disabled'} c-light`} />
+						</ButtonOpacity>}
+						<ButtonOpacity title="Delete banner" onClick={() => {
+							const confirm = window.confirm('Yakin hapus file ini?')
+							if (confirm) {
+								changeBannerData({ id, delete: true })
+							}
+						}}>
+							<i className="ion-trash-a c-light" />
+						</ButtonOpacity>
+					</div>
+					<div>
+						<div className={`${visible ? '' : 'opacity-1/2'} bc-grey-soft o-h h-35`}>
+							<Image canZoom className="w-auto h-auto" alt="" src={FILE_PATH + image} />
 						</div>
-						<div>
-							<div className={`${visible ? '' : 'opacity-1/2'} bc-grey-soft o-h h-35`}>
-								<img className="w-auto h-auto" alt="" src={FILE_PATH + image} />
-							</div>
-							<Input placeholder="Forward Link" className="w-full mt-2" onBlur={({ target: { value } }) => changeBannerData({ id, link: value })} value={link} />
-						</div>
+						<Input placeholder="Forward Link" className="w-full mt-2" onBlur={({ target: { value } }) => changeBannerData({ id, link: value })} value={link} />
 					</div>
 				</>
 			}

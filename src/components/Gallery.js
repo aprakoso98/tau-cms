@@ -12,7 +12,11 @@ const Gallery = ({
 }) => {
 	const generateData = data => {
 		let index = -1
-		data = data.reduce((arr, a, i) => {
+		return data.reduce((arr, a, i) => {
+			a = {
+				index: i,
+				item: a
+			}
 			if (i % numColumns === 0) {
 				index++
 				arr.push([a])
@@ -21,12 +25,6 @@ const Gallery = ({
 			}
 			return arr
 		}, [])
-		return data.map(r => {
-			if (r.length < numColumns) {
-				r = [...r, ...Array.generateEmpty(numColumns - r.length, true).map(() => "~")]
-			}
-			return r
-		})
 	}
 	const styleRow = (arr, i) => {
 		if (typeof rowStyle === 'function') {
@@ -36,7 +34,7 @@ const Gallery = ({
 	}
 	const render = (arr, i) => {
 		return <View flex direction="row" style={{ ...styleRow(arr, i) }}>
-			{arr.rMap((item, i) => {
+			{arr.rMap(({ item, index: i }) => {
 				const render = renderItem({ item, i, index: i })
 				if (item === '~')
 					return <View flex {...render.props} > </View>

@@ -9,10 +9,11 @@ import { Input, Textarea } from 'src/components/Input';
 import { getGaleri, insertGaleri, getManage, updateManage, FILE_PATH, removeData, changeOrder } from 'src/utils/api';
 import Files from '../Files';
 import { useToggle } from 'src/utils/state';
+import Image from 'src/components/Image';
 
 const GaleriKegiatan = () => {
 	const [imgUpload, setImgUpload] = useState([])
-	const [visible, setVisible] = useState(true)
+	const [visible, setVisible] = useState(false)
 	const [fasilitas, setFasilitas] = useState([])
 	const [deskripsi, setDeskripsi] = useState()
 	const updateDeskripsi = async () => {
@@ -44,7 +45,7 @@ const GaleriKegiatan = () => {
 								<iframe src={media} title="embed-show" /> :
 								is_video === '1' ? <video className="b-1 h-auto w-full" controls>
 									<source src={FILE_PATH + media} />
-								</video> : <img alt="" className="h-auto w-full" src={FILE_PATH + media} />
+								</video> : <Image canZoom alt="" className="h-auto w-full" src={FILE_PATH + media} />
 						}
 					</div>
 					{nama} - {deskripsi}
@@ -127,7 +128,7 @@ const GaleriKegiatan = () => {
 											<video className="b-1 h-35 w-auto" controls>
 												<source src={media} />
 											</video> :
-											<img alt="" className="b-1 h-35 w-auto" src={media} />
+											<Image alt="" className="b-1 h-35 w-auto" src={media} />
 									}
 								</div>
 								<View className="ml-3" flex>

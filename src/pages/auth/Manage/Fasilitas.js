@@ -7,6 +7,7 @@ import FileUpload from 'src/components/FileUpload';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
 import { removeData, getFacilities, insertFacilities, getManage, updateManage, FILE_PATH, changeOrder } from 'src/utils/api';
+import Image from 'src/components/Image';
 
 const Fasilitas = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -73,7 +74,7 @@ const Fasilitas = () => {
 						<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
 					</div>
 					<div className="o-h h-35">
-						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
+						<Image canZoom alt="" className="h-auto w-full" src={FILE_PATH + foto} />
 					</div>
 					{nama}
 				</View>
@@ -91,7 +92,7 @@ const Fasilitas = () => {
 				<ScrollView>
 					{
 						imgUpload.rMap(({ foto, nama }, i) => <View className="ai-fe mb-5" direction="row">
-							<img alt="" className="b-1 h-35 w-auto" src={foto} />
+							<Image alt="" className="b-1 h-35 w-auto" src={foto} />
 							<View className="ml-3" flex>
 								<Input className="flex-1" value={nama} onChange={e => {
 									let imgs = imgUpload.slice()

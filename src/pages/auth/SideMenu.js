@@ -4,6 +4,7 @@ import actionUi from 'src/redux/actions/ui';
 import { Link } from 'react-router-dom';
 import { Container, View, ScrollView } from 'src/components/Container';
 import HtmlParser from 'react-html-parser';
+import Image from 'src/components/Image';
 
 
 const SideMenu = () => {
@@ -39,10 +40,10 @@ const SideMenu = () => {
 
 	return <Container style={{ ...Web.minimizedDrawer && { width: 'auto' } }} className='bc-light w-1/4'>
 		<View direction="row" className="p-5">
-			<img className="h-full w-auto" alt="" src={Web.minimizedDrawer ? require('src/assets/images/favicon.png') : require('src/assets/images/logo-tau.png')} />
+			<Image className="h-full w-auto" alt="" src={Web.minimizedDrawer ? require('src/assets/images/favicon.png') : require('src/assets/images/logo-tau.png')} />
 		</View>
 		{!Web.minimizedDrawer && <div className="flex flex-col ai-c p-5 pt-1">
-			<img className="h-auto w-15" alt="" src={require('src/assets/images/Laki-laki.svg')} />
+			<Image className="h-auto w-15" alt="" src={require('src/assets/images/Laki-laki.svg')} />
 			<div className="pt-3">Superadmin</div>
 		</div>}
 		<ScrollView className="side-menu p-3">

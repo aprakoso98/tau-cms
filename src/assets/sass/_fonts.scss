@@ -1,4 +1,4 @@
-$fontList: "SFCartoonistHandSC-Italic.ttf", "SFProDisplay-BlackItalic.ttf", "SFProDisplay-BoldItalic.ttf", "SFProDisplay-HeavyItalic.ttf", "SFProDisplay-LightItalic.ttf", "SFProDisplay-MediumItalic.ttf", "SFProDisplay-RegularItalic.ttf", "SFProDisplay-Ultralight.ttf", "SFProText-Bold.ttf", "SFProText-Heavy.ttf", "SFProText-Light.ttf", "SFProText-Medium.ttf", "SFProText-Regular.ttf", "SFProText-SemiBold.ttf", "SFProText-SemiBoldItalic.ttf";
+$fontList: "Font-Helvetica.ttf", "SFCartoonistHandSC-Italic.ttf", "SFProDisplay-BlackItalic.ttf", "SFProDisplay-BoldItalic.ttf", "SFProDisplay-HeavyItalic.ttf", "SFProDisplay-LightItalic.ttf", "SFProDisplay-MediumItalic.ttf", "SFProDisplay-RegularItalic.ttf", "SFProDisplay-Ultralight.ttf", "SFProText-Bold.ttf", "SFProText-Heavy.ttf", "SFProText-Light.ttf", "SFProText-Medium.ttf", "SFProText-Regular.ttf", "SFProText-SemiBold.ttf", "SFProText-SemiBoldItalic.ttf";
 
 @each $font in $fontList {
   $family: split-str($font, "-");

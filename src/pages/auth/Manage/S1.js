@@ -142,7 +142,7 @@ const S1 = ({ location = { state: {} }, match: { params } }) => {
 						{opened && programs.rMap((program, index) => {
 							const { nama_prodi = '', id, id_program } = program
 							return <View direction="row" className="bb-1 ai-c mb-1">
-								{/* <img alt="" className="mr-3 brd-1 o-h w-30" src={FILE_PATH + program.foto_prodi} /> */}
+								{/* <Image alt="" className="mr-3 brd-1 o-h w-30" src={FILE_PATH + program.foto_prodi} /> */}
 								<div className="flex as-fs mr-3">{index + 1}.</div>
 								<View flex>
 									<div>{nama_prodi.ucwords()}</div>

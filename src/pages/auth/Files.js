@@ -8,9 +8,12 @@ import { getFiles, updateFile, FILE_PATH } from 'src/utils/api';
 import { setTitle } from 'src/redux/actions/web';
 import Modal from 'src/components/Modal';
 import { updateFileFolder } from '../../utils/api';
+import Image from 'src/components/Image';
 
 export const imageType = ["png", "jpg", "jpeg", "gif"]
 export const videoType = ["mp4", "mkv"]
+
+let timeoutToast;
 
 const Files = ({ onlyPick, onPick }) => {
 	const [search, setSearch] = useState('')
@@ -44,12 +47,19 @@ const Files = ({ onlyPick, onPick }) => {
 		setMoveDialog(false)
 	}
 	const [toast, setToast] = useState(false)
+	const [toastIndex, setToastIndex] = useState(null)
 	useEffect(() => {
 		setTitle('Daftar Files')
 		getData()
 	}, [])
 	useEffect(() => {
-		if (toast) setTimeout(() => setToast(false), 2000)
+		clearTimeout(timeoutToast)
+		if (toast) {
+			timeoutToast = setTimeout(() => {
+				setToastIndex(null)
+				setToast(false)
+			}, 2000)
+		}
 	}, [toast])
 	const [moveDialog, setMoveDialog] = useState(false)
 	const [showNewFolder, setShowNewFolder] = useState(false)
@@ -72,9 +82,10 @@ const Files = ({ onlyPick, onPick }) => {
 			return <View onClick={() => onPick && onPick(item)} flex className={`m-1 w-1/4 relative ${onlyPick ? 'pointer' : ''}`}>
 				<div className="h-30 o-h ta-c">
 					{
-						imageType.includes(item.format) ? <img
+						imageType.includes(item.format) ? <Image
+							canZoom
 							alt=""
-							className="w-auto h-auto"
+							className={`w-auto h-auto ${i === 1 ? 'active' : ''}`}
 							src={filePath}
 						/> : videoType.includes(item.format) ? <video className="w-auto h-auto" controls>
 							<source src={filePath} />
@@ -94,7 +105,8 @@ const Files = ({ onlyPick, onPick }) => {
 						<ButtonOpacity title="Copy path" onClick={() => {
 							filePath.copyToClipboard()
 							setToast(true)
-						}} className="ml-2 mr-2"><i className="c-light f-5 ion-ios-copy-outline" /></ButtonOpacity>
+							setToastIndex(i)
+						}} className="ml-2 mr-2"><i className={`${toast && i === toastIndex ? 'ion-checkmark-round' : 'ion-ios-copy-outline'} c-light f-5`} /></ButtonOpacity>
 					</>}
 					<ButtonOpacity title="Delete" onClick={() => deleteFile(i)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
 				</div>}

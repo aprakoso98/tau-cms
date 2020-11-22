@@ -7,6 +7,7 @@ import FileUpload from 'src/components/FileUpload';
 import Button, { ButtonOpacity } from 'src/components/Button';
 import { Input, Textarea } from 'src/components/Input';
 import { getStaff, insertStaff, getManage, updateManage, FILE_PATH, removeData } from 'src/utils/api';
+import Image from 'src/components/Image';
 
 const Staff = () => {
 	const [imgUpload, setImgUpload] = useState([])
@@ -67,7 +68,7 @@ const Staff = () => {
 				<ScrollView>
 					{
 						imgUpload.rMap(({ foto, nama, jabatan }, i) => <View className="ai-fe mb-5" direction="row">
-							<img alt="" className="b-1 h-35 w-auto" src={foto} />
+							<Image alt="" className="b-1 h-35 w-auto" src={foto} />
 							<View className="ml-3" flex>
 								<Input className="flex-1" value={nama} onChange={e => {
 									let imgs = imgUpload.slice()
@@ -110,10 +111,10 @@ const Staff = () => {
 					numColumns={4}
 					data={fasilitas}
 					renderItem={({ item: { id, nama, jabatan, foto } }) => <View className="p-2 relative">
-						<div style={{ zIndex: 1, top: 0, right: 0 }} className="bc-dark p-3 absolute">
+						<div style={{ zIndex: 1, top: 0, right: 0 }} className="bc-dark p-3 m-3 absolute">
 							<ButtonOpacity onClick={() => deleteData(id)}><i className="c-light f-5 ion-trash-a" /></ButtonOpacity>
 						</div>
-						<img alt="" className="h-auto w-full" src={FILE_PATH + foto} />
+						<Image canZoom alt="" className="h-auto w-full" src={FILE_PATH + foto} />
 						{nama} - {jabatan}
 					</View>}
 				/>

@@ -82,33 +82,33 @@ const Header = () => {
 
 						<div className="slimscroll" style={{ maxHeight: '230px' }}>
 							<a href="#" className="dropdown-item notify-item">
-								<div className="notify-icon"><img src="assets/images/users/avatar-2.jpg"
+								<div className="notify-icon"><Image src="assets/images/users/avatar-2.jpg"
 									className="img-fluid rounded-circle" alt="" /> </div>
 								<p className="notify-details">Cristina Pride</p>
 								<p className="text-muted font-13 mb-0 user-msg">Hi, How are you? What about our
 																	next meeting</p>
 							</a>
 							<a href="#" className="dropdown-item notify-item">
-								<div className="notify-icon"><img src="assets/images/users/avatar-3.jpg"
+								<div className="notify-icon"><Image src="assets/images/users/avatar-3.jpg"
 									className="img-fluid rounded-circle" alt="" /> </div>
 								<p className="notify-details">Sam Garret</p>
 								<p className="text-muted font-13 mb-0 user-msg">Yeah everything is fine</p>
 							</a>
 							<a href="#" className="dropdown-item notify-item">
-								<div className="notify-icon"><img src="assets/images/users/avatar-4.jpg"
+								<div className="notify-icon"><Image src="assets/images/users/avatar-4.jpg"
 									className="img-fluid rounded-circle" alt="" /> </div>
 								<p className="notify-details">Karen Robinson</p>
 								<p className="text-muted font-13 mb-0 user-msg">Wow that's great</p>
 							</a>
 							<a href="#" className="dropdown-item notify-item">
-								<div className="notify-icon"><img src="assets/images/users/avatar-5.jpg"
+								<div className="notify-icon"><Image src="assets/images/users/avatar-5.jpg"
 									className="img-fluid rounded-circle" alt="" /> </div>
 								<p className="notify-details">Sherry Marshall</p>
 								<p className="text-muted font-13 mb-0 user-msg">Hi, How are you? What about our
 																	next meeting</p>
 							</a>
 							<a href="#" className="dropdown-item notify-item">
-								<div className="notify-icon"><img src="assets/images/users/avatar-6.jpg"
+								<div className="notify-icon"><Image src="assets/images/users/avatar-6.jpg"
 									className="img-fluid rounded-circle" alt="" /> </div>
 								<p className="notify-details">Shawn Millard</p>
 								<p className="text-muted font-13 mb-0 user-msg">Yeah everything is fine</p>
@@ -125,7 +125,7 @@ const Header = () => {
 				<li className="dropdown notification-list">
 					<a className="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="false" aria-expanded="false">
-						<img src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle"></img>
+						<Image src="assets/images/users/avatar-1.jpg" alt="user" className="rounded-circle"></img>
 						<span className="ml-1">Maxine K <i className="mdi mdi-chevron-down"></i> </span>
 					</a>
 					<div className="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">

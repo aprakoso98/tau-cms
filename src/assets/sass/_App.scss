@@ -29,7 +29,7 @@ button:focus, input:focus, textarea:focus {
 
 * {
   &:not(.fa):not([class^="ion-"]) {
-    font-family: Bold; 
+    font-family: Helvetica; 
   }
   &:not(h1, h2, h3, h4, h5, h6) {
     font-size: #{$fontSize}rem;
@@ -42,36 +42,63 @@ button:focus, input:focus, textarea:focus {
   }
 }
 
-.jodit-wysiwyg, .preview-article {
+.jquery-preview-image {
+  transition: .5s;
+  z-index: -1;
+  opacity: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: $darkTransparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  &.visible {
+    z-index: 999;
+    opacity: 1;
+  }
+  &.potrait, &.square {
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+  &.landscape {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .img-wrapper {
+    width: 80%;
+    height: 80%;
+    text-align: -webkit-center;
+  }
+}
+
+.jodit-container, .jodit-dialog__content {
   b, strong {
-    font-family: Bold !important;
+    font-family: Helvetica !important;
+    font-weight: 500;
   }
   a {
     color: $link;
   }
   ul, ol {
     list-style: revert;
-    margin: revert;
-    padding: revert;
+    // margin: 1rem;
+    padding: 1rem;
   }
-  // $list: ul ol;
-  // @each $var in $list {
-  //   #{$var} {
-  //     margin-left: #{$fontSize * 1.5}rem;
-  //     &:not([style*="list-style-type"]) {
-  //       margin-left: 0;
-  //       counter-reset: number;
-  //       li {
-  //         display: flex;
-  //         counter-increment: number;
-  //         &:before {
-  //           content: if($var == ol, counter(number)".", "-");
-  //           margin-right: .5rem;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  * {
+    overflow-wrap: anywhere;
+  }
+  [style*="float: right"] {
+    margin: 1rem 0 1rem 1rem;
+  }
+  [style*="float: left"] {
+    margin: 1rem 1rem 1rem 0;
+  }
 }
 
 .o {
