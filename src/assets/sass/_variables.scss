@@ -21,7 +21,7 @@ $headings: $fontSize+(.25*6) $fontSize+(.25*5) $fontSize+(.25*4) $fontSize+(.25*
 	$h: nth($headings, $i);
 	h#{$i} {
 		font-size: #{$h}rem !important;
-		@extend .Bold;
+		font-weight: 300;
 	}
 }
 

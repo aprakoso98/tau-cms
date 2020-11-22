@@ -2,6 +2,15 @@ import React from "react";
 import Routes from "./routes";
 import useWindowSize from 'src/utils/windowSize'
 import Image from "./components/Image";
+import $ from 'jquery'
+import store from './redux'
+import actionsWeb from './redux/actions/web'
+
+$(() => {
+  setTimeout(() => {
+    store.dispatch(actionsWeb({ documentReady: true }))
+  }, 1500)
+})
 
 const App = () => {
   const [, , isMobile] = useWindowSize()

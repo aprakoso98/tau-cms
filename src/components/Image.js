@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css'
 import useLongPress from 'src/utils/useLongPress';
 import jquery from 'jquery'
 
 const Image = ({ onClick: onClickOverride = () => null, style, canZoom = false, src, ...rest }) => {
+	const Web = useSelector(state => state.Web)
 	const [isLandscape, setIsLandscape] = useState(false)
 	const showHide = (a) => {
 		const d = jquery('#root .jquery-preview-image')
@@ -29,11 +32,12 @@ const Image = ({ onClick: onClickOverride = () => null, style, canZoom = false, 
 		img.src = src
 		img.onload = () => setIsLandscape(img.naturalHeight < img.naturalWidth)
 	}, [src])
-	return <LazyLoadImage
+	return Web.documentReady ? <LazyLoadImage
+		effect="blur"
 		{...longPressEvent}
 		alt=""
 		src={src}
-		{...rest} />
+		{...rest} /> : null
 }
 
 export default Image

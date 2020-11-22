@@ -30,8 +30,8 @@ table {
 		th {
 			@extend .ta-c;
 			@extend .c-text;
-			@extend .\!Bold;
 			@extend .f-5;
+			font-weight: 300;
 		}
 	}
 	tbody{

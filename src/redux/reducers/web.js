@@ -1,6 +1,7 @@
 const initState = {
 	loggedIn: false,
 	minimizedDrawer: false,
+	documentReady: false,
 	title: 'CMS',
 	viewClass: '',
 	article: {
