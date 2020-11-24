@@ -2,14 +2,14 @@ import React from 'react';
 import fileToBase64 from 'src/utils/toBase64';
 import Image from './Image';
 
-const FileUpload = ({title, style, toBase64, className, isImage, imgClass, src, onChange = () => { }, children, ...props }) => {
+const FileUpload = ({ nativeImage, title, style, toBase64, className, isImage, imgClass, src, onChange = () => { }, children, ...props }) => {
 	const id = Math.randomInt(1000000, 9999999).toString()
 	const id2 = Math.randomInt(1000000, 9999999).toString()
 	return <>
 		<label title={title} style={{ cursor: 'pointer', ...style }} className={className} htmlFor={id + id2}>
 			{
 				children ? children :
-					isImage && <Image className={imgClass} alt="" src={src} />
+					isImage && <Image nativeImage={nativeImage} className={imgClass} alt="" src={src} />
 			}
 		</label>
 		<input style={{ display: 'none' }} onChange={async e => {

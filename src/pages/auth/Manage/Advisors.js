@@ -111,7 +111,7 @@ const Advisors = () => {
 				<Gallery
 					numColumns={4}
 					data={advisors}
-					renderItem={({ item: { id, nama_advisors, foto_advisors, hide } }) => <View className=" m-2">
+					renderItem={({ item: { id, nama_advisors, foto_advisors, hide } }) => <View className="relative m-2">
 						<Image canZoom style={{ opacity: hide === '1' ? .5 : 1 }} alt="" className="h-auto w-full" src={FILE_PATH + foto_advisors} />
 						<div>{nama_advisors}</div>
 						<div style={{ zIndex: 1, top: 0, right: 0 }} className="flex bc-dark p-2 absolute">

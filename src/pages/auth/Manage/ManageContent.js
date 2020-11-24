@@ -43,6 +43,7 @@ const ManageContent = ({ location: { state: param }, match: { params } }) => {
 	return <View flex>
 		<View flex className="mb-1">
 			{param.withImage && <FileUpload
+				nativeImage
 				isImage
 				toBase64
 				imgClass="b-1 w-auto h-full"

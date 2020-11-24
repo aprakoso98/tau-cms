@@ -5,7 +5,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 import useLongPress from 'src/utils/useLongPress';
 import jquery from 'jquery'
 
-const Image = ({ onClick: onClickOverride = () => null, style, canZoom = false, src, ...rest }) => {
+const Image = ({ nativeImage, onClick: onClickOverride = () => null, style, canZoom = false, src, ...rest }) => {
 	const Web = useSelector(state => state.Web)
 	const [isLandscape, setIsLandscape] = useState(false)
 	const showHide = (a) => {
@@ -32,6 +32,12 @@ const Image = ({ onClick: onClickOverride = () => null, style, canZoom = false, 
 		img.src = src
 		img.onload = () => setIsLandscape(img.naturalHeight < img.naturalWidth)
 	}, [src])
+	if (nativeImage)
+		return <img
+			{...longPressEvent}
+			alt=""
+			src={src}
+			{...rest} />
 	return Web.documentReady ? <LazyLoadImage
 		effect="blur"
 		{...longPressEvent}
