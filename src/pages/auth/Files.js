@@ -75,7 +75,10 @@ const Files = ({ onlyPick, onPick }) => {
 	const ViewGallery = <Gallery
 		className="mt-3 mb-1"
 		scrollable
-		data={files.sort(sort).filter(a => [a.folder.toLowerCase(), a.name.toLowerCase()].join('').includes(search.toLowerCase()))}
+		data={files.sort(sort).filter(a => {
+			a = a.folder ? a : { ...a, folder: '' }
+			return [a.folder.toLowerCase(), a.name.toLowerCase()].join('').includes(search.toLowerCase())
+		})}
 		numColumns={4}
 		renderItem={({ item, i }) => {
 			const filePath = item.file && item.file.length > 50 ? item.file : FILE_PATH + [item.folder, item.file].join('/')
