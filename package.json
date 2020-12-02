@@ -36,7 +36,7 @@
     "env:prod": "node scripts/set-environment.js release",
     "env:prodtau": "node scripts/set-environment.js release-tau",
     "env:dev": "node scripts/set-environment.js developement",
-    "start": "yarn env:dev && react-scripts start",
+    "start": "yarn env:prodtau && react-scripts start",
     "build": "yarn env:prodtau && GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
