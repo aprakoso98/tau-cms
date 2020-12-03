@@ -7,10 +7,12 @@ import { View } from 'src/components/Container';
 import DragSortableList from 'react-drag-sortable'
 import { Input } from 'src/components/Input';
 import Image from 'src/components/Image';
+import useWindowSize from 'src/utils/windowSize';
 
 const Banner = () => {
 	const [bannerMobile, setBannerMobile] = useState([])
 	const [bannerWeb, setBannerWeb] = useState([])
+	const [, height] = useWindowSize()
 	const getData = async () => {
 		const { data: bannerMobile } = await getBanner({ all: true, isMobile: true })
 		const { data: bannerWeb } = await getBanner({ all: true, isMobile: false })
@@ -66,7 +68,7 @@ const Banner = () => {
 		}, {})
 		await changeOrder({ target: 'banner', order: idSortedList })
 	}
-	return <>
+	return <View style={{ paddingRight: 10, height, overflowY: 'auto' }}>
 		{[bannerWeb, bannerMobile].rMap(banner => {
 			const isMobile = banner === bannerMobile ? true : false
 			return <>
@@ -98,7 +100,7 @@ const Banner = () => {
 				/>
 			</>
 		})}
-	</>
+	</View>
 }
 
 export default Banner

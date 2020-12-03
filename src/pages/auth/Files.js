@@ -25,19 +25,22 @@ const Files = ({ onlyPick, onPick }) => {
 		__([...deletedFiles, { id: imgs[i].id, deleted: true }])
 		imgs.splice(i, 1)
 		_(imgs)
+		setKeyDeleted(Math.random().toString())
 	}
 	const editFile = (i, img) => {
 		let imgs = files.slice()
 		imgs[i] = img
 		_(imgs)
 	}
+	const dataToUpdate = files.filter(a => a.changed || !a.id)
 	const updateData = async () => {
-		let data = files.filter(a => a.changed || !a.id)
+		let data = dataToUpdate
 		data = [...data, ...deletedFiles]
 		const { data: resp } = await updateFile({ data })
 		alert(resp.msg)
 		getData()
 	}
+	const [keyDeleted, setKeyDeleted] = useState(Math.random().toString())
 	const [fileFolders, setFileFolders] = useState([])
 	const getData = async () => {
 		const { data, status } = await getFiles()
@@ -97,7 +100,7 @@ const Files = ({ onlyPick, onPick }) => {
 				</div>
 				<View className="mt-3 ai-c" direction="row">
 					{item.folder && <View className={onlyPick ? 'as-c' : 'mr-2'}>{`${item.folder}/${onlyPick ? item.name : ''}`}</View>}
-					{!onlyPick && <Input placeholder="Nama file" className="w-full" value={item.name} onChange={e => editFile(i, { ...item, changed: true, name: e.target.value })} />}
+					{!onlyPick && <Input key={keyDeleted} placeholder="Nama file" className="w-full" value={item.name} onChange={e => editFile(i, { ...item, changed: true, name: e.target.value })} />}
 				</View>
 				{!onlyPick && <div className="absolute flex bc-dark pl-2 pr-2" style={{ right: 0, top: 0 }}>
 					{item.id && <>
@@ -116,7 +119,7 @@ const Files = ({ onlyPick, onPick }) => {
 			</View>
 		}}
 	/>
-	return <View flex>
+	return <View className="mb-5" flex>
 		<Modal wrapperClass="flex ai-c jc-c pl-50 pr-50" className="brd-2 p-5 bc-light" backDropClick={() => setMoveDialog(false)} visible={moveDialog}>
 			<View direction="row">
 				{showNewFolder && <Input placeholder="Folder Name" value={newFolder} onChange={({ target: { value } }) => setNewFolder(value)} />}
@@ -152,7 +155,7 @@ const Files = ({ onlyPick, onPick }) => {
 			<Input onChange={e => setSearch(e.target.value)} value={search} className="as-c flex-1" placeholder="Cari File..." />
 		</View>
 		{ViewGallery}
-		{!onlyPick && <Button className="as-fe" onClick={updateData}>Submit</Button>}
+		{!onlyPick && (dataToUpdate.length > 0 || deletedFiles.length > 0) && <Button className="as-fe" onClick={updateData}>Update Changes</Button>}
 	</View>
 }
 
