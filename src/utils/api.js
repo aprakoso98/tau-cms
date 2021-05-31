@@ -5,6 +5,11 @@ export { BASE_URL }
 export const API = BASE_URL + "/api.php"
 export const FILE_PATH = BASE_URL + "/files/"
 
+export const login = async params => {
+	const { data } = await axios.post(API, { action: 'Login', ...params })
+	return data
+}
+
 export const getManage = async params => {
 	const { data } = await axios.post(API, { action: 'GetManage', ...params })
 	return data
